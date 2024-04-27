@@ -3,6 +3,8 @@ import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { IonReactRouter } from '@ionic/react-router';
 import { Route } from 'react-router-dom';
+import "../styles/global.css"
+import "../styles/font/silka/stylesheet.css"
 
 import Tabs from './pages/Tabs';
 
@@ -20,7 +22,7 @@ window
 
 const AppShell = () => {
   return (
-    <IonApp>
+    <IonApp className='font-[Silka]'>
       <IonReactRouter>
         <IonRouterOutlet id="main">
           <Route path="/" render={() => <Tabs />} />
