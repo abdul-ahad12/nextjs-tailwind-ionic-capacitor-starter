@@ -3,7 +3,9 @@ import { useHistory } from 'react-router';
 import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
 import MyStore from '../../Authflow/store';
 import Authentication from '../../../ui/common/Authentication';
-
+import { baseURL } from '../../../../utils/definations/axios/url';
+import PhoneStore from './store';
+import { UserStore } from '../Onboarding/store';
 
 const SignupUser = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -15,34 +17,30 @@ const SignupUser = () => {
       {
         onSuccess: data => {
           console.log('Login successful', data);
-          MyStore.update(s => {
+          PhoneStore.update(s => {
             s.phoneNumber = phoneNumber;
           });
-
-          history.push('/otp');
-
-          // Handle success logic, e.g., store user data, redirect, etc.
+          UserStore.update(s => {
+            s.phoneNumber = phoneNumber;
+          });
+          history.push('/otpuser');
         },
         onError: error => {
           console.error('Login failed:', error);
-          // Handle error logic, e.g., show error message
         },
         onSettled: () => {
           console.log('Login mutation settled');
-          // Handle any cleanup or final actions
         },
       },
     );
 
   const handleLogin = () => {
-    history.push("/otpuser")
-    // const requestConfig = {
-    //   method: 'post',
-    //   url: `${baseURL}/auth/signup/mechanic/+91${phoneNumber}`,
-    //   // url: `/api/v1/auth/signup/mechanic/${phoneNumber}`,
-    // };
+    const requestConfig = {
+      method: 'post',
+      url: `${baseURL}/auth/signup/customer/+91${phoneNumber}`,
+    };
 
-    // mutate(requestConfig);
+    mutate(requestConfig);
   };
 
   return (

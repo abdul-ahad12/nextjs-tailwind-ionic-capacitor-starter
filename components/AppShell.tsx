@@ -24,7 +24,6 @@ import Reports from './pages/MechanicFlow/Reports/Reports';
 import OngoingReports from './pages/MechanicFlow/Reports/OngoingInspection';
 import ResendOtp from './pages/Authflow/ResendOtp';
 import WaitingScreen from './pages/MechanicFlow/waitingScreen';
-import Tabs from './pages/Tabs';
 import { ContactSeller } from './pages/User/BookingFlow/ContactSeller';
 import { WhichSeller } from './pages/User/BookingFlow/WhichService';
 import CreateAccount from './pages/User/Onboarding/CreateAccount';
@@ -47,7 +46,7 @@ import LandingUser from './pages/User/Authflow/Landing';
 import SignupUser from './pages/User/Authflow/Signup';
 import OTPUser from './pages/User/Authflow/OTP';
 import OTPLoginUser from './pages/User/Authflow/OtpLogin';
-import TabsUser from './pages/Tabs';
+import TabsUser from './pages/User/Tabs';
 
 setupIonicReact({});
 
@@ -101,7 +100,6 @@ const AppShell = () => {
             />
             <Route path="/reports" render={() => <Reports />} />
             <Route path="/ongoingreports" render={() => <OngoingReports />} />
-            <Route path="/app" render={() => <Tabs />} />
             <Route path="/waitingscreen" render={() => <WaitingScreen />} />
             <Route path="/createreport" render={() => <CreateReport />} />
             <Route path="/otplogin" render={() => <OTPLogin />} />

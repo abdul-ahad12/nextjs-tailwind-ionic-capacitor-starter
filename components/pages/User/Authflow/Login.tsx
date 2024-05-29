@@ -4,7 +4,7 @@ import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInst
 import MyStore from '../../Authflow/store';
 import Authentication from '../../../ui/common/Authentication';
 import { baseURL } from '../../../../utils/definations/axios/url';
-
+import PhoneStore from './store';
 
 const LoginUser = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -16,10 +16,10 @@ const LoginUser = () => {
       {
         onSuccess: (data: any) => {
           console.log('Login successful', data);
-          MyStore.update(s => {
+          PhoneStore.update(s => {
             s.phoneNumber = phoneNumber;
           });
-          history.push('/otplogin');
+          history.push('/otploginuser');
 
           // Handle success logic, e.g., store user data, redirect, etc.
         },
@@ -39,7 +39,7 @@ const LoginUser = () => {
       method: 'post',
       // url: 'https://dummyjson.com/products/add',
 
-      url: `${baseURL}/auth/signup/mechanic/+91${phoneNumber}`,
+      url: `${baseURL}/auth/login/+91${phoneNumber}`,
     };
 
     mutate(requestConfig);
@@ -53,9 +53,7 @@ const LoginUser = () => {
         setPhoneNumber={setPhoneNumber}
         phoneNumber={phoneNumber}
         login
-        onSubmit={() => {
-          history.push("/otploginuser")
-        }}
+        onSubmit={handleLogin}
         isPending={isPending}
         user
       />
