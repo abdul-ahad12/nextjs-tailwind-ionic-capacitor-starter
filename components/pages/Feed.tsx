@@ -17,9 +17,6 @@ import { useState } from 'react';
 import { notificationsOutline } from 'ionicons/icons';
 import { selectHomeItems } from '../../store/selectors';
 import Store from '../../store';
-import { Button } from '../ui/common/button';
-import { Text } from '../ui/common/text';
-import InputComponent from '../ui/common/inputComponent';
 
 type FeedCardProps = {
   title: string;
@@ -103,25 +100,9 @@ const Feed = () => {
           open={showNotifications}
           onDidDismiss={() => setShowNotifications(false)}
         />
-        <div className="flex flex-col gap-4 font-[Silka]">
-          <Button disabled>Hello</Button>
-          <Button color="primary">Hello</Button>
-
-          <Text typography="header">Testing</Text>
-          <Text typography="body" size="large">
-            Testing
-          </Text>
-          <Text typography="body" size="medium">
-            Testing
-          </Text>
-          <Text typography="body" size="small">
-            Testing
-          </Text>
-
-          <InputComponent text={'Phone Number'} />
-          <InputComponent text={'Phone Number'} />
-          <InputComponent text={'Phone Number'} error />
-        </div>
+        {homeItems.map((i, index) => (
+          <FeedCard {...i} key={index} />
+        ))}
       </IonContent>
     </IonPage>
   );

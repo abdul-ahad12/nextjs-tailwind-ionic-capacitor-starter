@@ -3,23 +3,28 @@ import React from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 
 export const text = tv({
-  base: '',
+  base: 'text-secomdary font-[Silka]',
   variants: {
     typography: {
-      header: 'font-[700] text-header',
-      body: 'text-medium',
+      header: 'font-[700] text-header ',
+      cardsheader: 'text-[16px] font-semibold',
+      body: 'text-[14px] text-[#A3A6AC] leading-[25px]',
+      basicService:
+        'bg-[#FFE5DD] text-[12px] w-fit px-2 py-1 rounded-md font-semibold',
+      premiumService:
+        'bg-[#D3EAB7] text-[12px] w-fit px-2 py-1 rounded-md font-semibold',
+      modalHeader: 'text-[17px] font-semibold text-secondary',
+      services: 'text-[11px] text-[#A3A6AC] ',
+      inspectionLarge: 'text-[31px] text-tertiary font-semibold ',
+      inspectionSmall: 'text-[25px] text-tertiary font-medium ',
+      // blackbody:"text-[12px] "
     },
-    size: {
-      large: 'text-large font-[600]',
-      medium: 'text-medium',
-      small: 'text-small',
+    error: {
+      true: 'text-error text-small',
     },
-    error:{
-        true:"text-error text-small"
-    }
- 
   },
   defaultVariants: {
+    // size: 'small',
     typography: 'body',
   },
 });

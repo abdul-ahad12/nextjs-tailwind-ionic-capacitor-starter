@@ -3,7 +3,7 @@ import React from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 
 export const input = tv({
-  base: 'rounded-primary w-full py-[15px] px-[20px] text-small',
+  base: 'rounded-primary w-full py-[15px] px-[20px] text-medium font-[Silka] ',
   variants: {
     state: {
       default:

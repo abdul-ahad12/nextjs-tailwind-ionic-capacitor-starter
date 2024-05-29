@@ -50,6 +50,7 @@ export default function RootLayout({
         src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"
         strategy="lazyOnload"
       />
+      <Script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCJPkIzo1R6BvJubkeEtmtr1jKK8o_lpM&libraries=places" />
     </html>
   );
 }
