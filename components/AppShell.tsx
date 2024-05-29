@@ -69,6 +69,7 @@ const AppShell = () => {
       <QueryClientProvider client={queryClient}>
         <IonReactRouter>
           <IonRouterOutlet id="main">
+          <Route path="/" render={() => <LandingUser />} />
             <Route path="/onboarding" render={() => <OnBoarding />} />
             <Route path="/docspage" render={() => <DocsPage />} />
             <Route path="/profilephoto" render={() => <ProfilePhoto />} />
@@ -132,7 +133,6 @@ const AppShell = () => {
             <Route path="/mechanicbooked" render={() => <MechanicBooked />} />
             <Route path="/loginuser" render={() => <LoginUser />} />
             <Route path="/signupuser" render={() => <SignupUser />} />
-            <Route path="/" render={() => <LandingUser />} />
             <Route path="/otpuser" render={() => <OTPUser />} />
             <Route path="/otploginuser" render={() => <OTPLoginUser />} />
             <Route path="/appuser" render={() => <TabsUser />} />
