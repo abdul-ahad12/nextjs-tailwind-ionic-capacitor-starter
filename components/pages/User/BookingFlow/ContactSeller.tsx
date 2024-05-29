@@ -4,6 +4,7 @@ import TitleDescription from '../../../ui/common/TitleDescription';
 import { FormProvider, useForm } from 'react-hook-form';
 import { DynamicFieldsGenerate } from '../../../ui/common/inputComponent/DynamicFieldsGenerate';
 import { useHistory } from 'react-router';
+import { BookingStore } from './store';
 
 export const ContactSeller = () => {
   const history = useHistory();
@@ -14,34 +15,42 @@ export const ContactSeller = () => {
   } = formMethods;
 
   const onSubmit = (data: any, error: any) => {
-    console.log(data);
+    BookingStore.update(s => {
+      s.seller={
+        ...s.seller,
+        name:data.name,
+        lastname:data.lastname,
+        email:data.email,
+        phoneNumber:data.phoneNumber
+      }
+    })
     history.push('/whichseller');
   };
 
   const fields = [
     {
-      fieldName: 'sellersfirstname',
+      fieldName: 'name',
       inputType: 'text',
       label: "First Name/Company Name",
       defaultValue: '',
       
     },
     {
-      fieldName: 'sellerslastname',
+      fieldName: 'lastname',
       inputType: 'text',
       label: "Last Name/Company Name",
       defaultValue: '',
       
     },
     {
-      fieldName: 'sellersemailaddress',
+      fieldName: 'email',
       inputType: 'text',
       label: "Email Address",
       defaultValue: '',
       
     },
     {
-      fieldName: 'sellersphonenumber',
+      fieldName: 'phoneNumber',
       inputType: 'text',
       label: "Phone Number",
       defaultValue: '',

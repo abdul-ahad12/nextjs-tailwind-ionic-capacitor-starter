@@ -4,9 +4,10 @@ import { FormProvider, useForm } from 'react-hook-form';
 import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
 import { DynamicFieldsGenerate } from '../../../ui/common/inputComponent/DynamicFieldsGenerate';
 import { useHistory } from 'react-router';
+import { BookingStore } from './store';
 
 const SelectDateTime = () => {
-  const history=useHistory()
+  const history = useHistory();
   const formMethods = useForm();
   const {
     handleSubmit,
@@ -14,8 +15,11 @@ const SelectDateTime = () => {
   } = formMethods;
 
   const onSubmit = (data: any, error: any) => {
-    console.log(data);
-      history.push('/payments');
+    BookingStore.update(s => {
+      s.date = data.selectdate;
+      s.time = data.selecttime;
+    });
+    history.push('/payments');
   };
 
   const fields = [

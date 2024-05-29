@@ -7,7 +7,8 @@ import Modal from '../../../ui/common/modals';
 import { DynamicFieldsGenerate } from '../../../ui/common/inputComponent/DynamicFieldsGenerate';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
-import LocationStore from './store';
+import { LocationStore } from './store';
+import { BookingStore } from '../BookingFlow/store';
 
 const SelectLocation: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
@@ -17,6 +18,8 @@ const SelectLocation: React.FC = () => {
   const modal = useRef(null);
   const [isOpen, setisOpen] = useState(false);
   const history = useHistory();
+
+  console.log(selectedPlace);
 
   useEffect(() => {
     if (!autocompleteService.current && window.google) {
@@ -83,13 +86,30 @@ const SelectLocation: React.FC = () => {
 
   const onSubmit = (data: any, error: any) => {
     console.log(data);
+    BookingStore.update(s => {
+      s.vehicle.vehicleAddress = {
+        ...s.vehicle.vehicleAddress,
+        lat: selectedPlace.geometry.location.lat(),
+        long: selectedPlace.geometry.location.lng(),
+        city: data.city,
+        landmark: data.landmark,
+        name: data.name,
+        street: data.street,
+        suburb: data.suburb,
+        zipcode: data.zipcode,
+      };
+    });
+
+
+    console.log(BookingStore.getRawState())
+
     setisOpen(false);
     history.push('/contactseller');
   };
 
   const fields = [
     {
-      fieldName: 'City',
+      fieldName: 'city',
       inputType: 'text',
       label: 'Enter City',
       defaultValue: '',
@@ -98,16 +118,16 @@ const SelectLocation: React.FC = () => {
       },
     },
     {
-      fieldName: 'Zipcode',
+      fieldName: 'zipcode',
       inputType: 'text',
-      label: 'Enter Zipcode',
+      label: 'PinCode',
       defaultValue: '',
       config: {
         required: 'Required',
       },
     },
     {
-      fieldName: 'House Name',
+      fieldName: 'name',
       inputType: 'text',
       label: 'Enter Your House Name',
       defaultValue: '',
@@ -116,18 +136,27 @@ const SelectLocation: React.FC = () => {
       },
     },
     {
-      fieldName: 'Landmark',
+      fieldName: 'landmark',
       inputType: 'text',
-      label: 'Enter Landmark',
+      label: 'Landmark',
       defaultValue: '',
       config: {
         required: 'Required',
       },
     },
     {
-      fieldName: 'Street',
+      fieldName: 'suburb',
       inputType: 'text',
-      label: 'Enter Street',
+      label: 'Suburb',
+      defaultValue: '',
+      config: {
+        required: 'Required',
+      },
+    },
+    {
+      fieldName: 'street',
+      inputType: 'text',
+      label: 'Street',
       defaultValue: '',
       config: {
         required: 'Required',

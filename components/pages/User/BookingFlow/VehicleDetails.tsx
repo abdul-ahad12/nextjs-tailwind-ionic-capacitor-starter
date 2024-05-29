@@ -4,6 +4,7 @@ import TitleDescription from '../../../ui/common/TitleDescription';
 import { FormProvider, useForm } from 'react-hook-form';
 import { DynamicFieldsGenerate } from '../../../ui/common/inputComponent/DynamicFieldsGenerate';
 import { useHistory } from 'react-router';
+import { BookingStore } from './store';
 
 const VehicleDetails = () => {
   const history = useHistory();
@@ -14,22 +15,30 @@ const VehicleDetails = () => {
   } = formMethods;
 
   const onSubmit = (data: any, error: any) => {
-    console.log(data);
-    history.push("/package")
+    BookingStore.update(s => {
+      s.vehicle = {
+        ...s.vehicle,
+        make: data.make,
+        model: data.model,
+        regNumber: data.regNumber,
+        year: data.year,
+      };
+    });
+    history.push('/package');
   };
 
   const fields = [
     {
-      fieldName: 'Make',
+      fieldName: 'make',
       inputType: 'text',
-      label: 'Enter Make',
+      label: 'Make',
       defaultValue: '',
       config: {
         required: 'Required',
       },
     },
     {
-      fieldName: 'Model',
+      fieldName: 'model',
       inputType: 'text',
       label: 'Enter Model',
       defaultValue: '',
@@ -38,7 +47,7 @@ const VehicleDetails = () => {
       },
     },
     {
-      fieldName: 'Year',
+      fieldName: 'year',
       inputType: 'text',
       label: 'Enter Year',
       defaultValue: '',
@@ -47,16 +56,15 @@ const VehicleDetails = () => {
       },
     },
     {
-      fieldName: 'RegNumber',
+      fieldName: 'regNumber',
       inputType: 'text',
-      label: 'Enter Registration Number',
+      label: 'Registration Number',
       defaultValue: '',
       config: {
         required: 'Required',
       },
-    }
+    },
   ];
-  
 
   return (
     <FormProvider {...formMethods}>
@@ -78,4 +86,4 @@ const VehicleDetails = () => {
   );
 };
 
-export default VehicleDetails
+export default VehicleDetails;

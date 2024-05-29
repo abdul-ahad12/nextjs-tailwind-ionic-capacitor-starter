@@ -1,9 +1,6 @@
 // store.js
 import { Store } from 'pullstate';
 
-const LocationStore = new Store({
-  selectedLocation: null,
-});
 
 const UserStore = new Store({
   firstName: '',
