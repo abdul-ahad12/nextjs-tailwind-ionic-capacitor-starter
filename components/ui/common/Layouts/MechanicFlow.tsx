@@ -9,7 +9,6 @@ import React from 'react';
 import { Button } from '../button';
 import { Text } from '../text';
 import { useHistory } from 'react-router';
-import { tabs } from '../../../pages/MechanicFlow/Home/TodaysInspection';
 
 interface IMechanicFlow {
   children: React.ReactNode;
@@ -20,7 +19,8 @@ interface IMechanicFlow {
   setActiveState?: (state: any) => void;
   activeState?: string;
   waitingScreen?: boolean;
-  approved?:boolean;
+  approved?: boolean;
+  tabs?: any;
 }
 
 const MechanicFlow: React.FC<IMechanicFlow> = ({
@@ -33,10 +33,11 @@ const MechanicFlow: React.FC<IMechanicFlow> = ({
   activeState,
   waitingScreen,
   approved,
+  tabs,
 }) => {
   const name = 'Ben Williams';
 
-  const history=useHistory()
+  const history = useHistory();
 
   const topBar = [
     {
@@ -62,9 +63,13 @@ const MechanicFlow: React.FC<IMechanicFlow> = ({
               <img src="/img/favicon.svg" className="w-[3rem]"></img>
               <div className="flex flex-col justify-center">
                 <Text className="text-secondary">Good Morning</Text>
-                <div onClick={()=>{
-                  history.push("/app/profile")
-                }}><Text className="text-tertiary font-semibold">{name}</Text></div>
+                <div
+                  onClick={() => {
+                    history.push('/app/profile');
+                  }}
+                >
+                  <Text className="text-tertiary font-semibold">{name}</Text>
+                </div>
               </div>
             </div>
             {!waitingScreen && (

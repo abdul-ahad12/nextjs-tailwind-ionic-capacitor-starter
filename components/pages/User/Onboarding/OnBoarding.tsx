@@ -1,8 +1,8 @@
 import React from 'react';
 import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
-import ImageCarousel from '../../Authflow/ImageCarousel';
 import HeightFullLayout from '../../../ui/common/Layouts/HeightFullLayout';
 import { useHistory } from 'react-router';
+import ImageCarousel from '../../../ui/common/Authentication/ImageCarousel';
 
 const OnBoardingUser = () => {
   const history = useHistory();

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
-import MyStore from '../../Authflow/store';
 import Authentication from '../../../ui/common/Authentication';
 import { baseURL } from '../../../../utils/definations/axios/url';
 import PhoneStore from './store';

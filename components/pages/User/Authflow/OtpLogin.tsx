@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { useStoreState } from 'pullstate';
-import MyStore from '../../Authflow/store';
 import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
 import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
 import TitleDescription from '../../../ui/common/TitleDescription';

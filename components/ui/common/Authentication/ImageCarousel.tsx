@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text } from '../../ui/common/text';
+import { Text } from '../text';
 
 interface IImageCarousel {
   slides: {

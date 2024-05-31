@@ -2,8 +2,8 @@ import React from 'react';
 import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
 import { useHistory } from 'react-router';
 import HeightFullLayout from '../../../ui/common/Layouts/HeightFullLayout';
-import ImageCarousel from '../../Authflow/ImageCarousel';
 import { Geolocation } from '@capacitor/geolocation';
+import ImageCarousel from '../../../ui/common/Authentication/ImageCarousel';
 
 const EnableLocation = () => {
   const history = useHistory();

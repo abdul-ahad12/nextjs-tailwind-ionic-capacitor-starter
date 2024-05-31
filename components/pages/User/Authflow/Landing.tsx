@@ -1,7 +1,7 @@
 import { IonContent, IonFooter, IonPage, IonRouterLink } from '@ionic/react';
 import React from 'react';
-import ImageCarousel from '../../Authflow/ImageCarousel';
 import { Button } from '../../../ui/common/button';
+import ImageCarousel from '../../../ui/common/Authentication/ImageCarousel';
 
 const LandingUser = () => {
   // const history = useHistory();

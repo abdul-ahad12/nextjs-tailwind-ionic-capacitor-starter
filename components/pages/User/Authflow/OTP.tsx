@@ -3,7 +3,6 @@ import { useHistory } from 'react-router';
 import { useStoreState } from 'pullstate';
 
 import { IonToast } from '@ionic/react';
-import MyStore from '../../Authflow/store';
 import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
 import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
 import TitleDescription from '../../../ui/common/TitleDescription';

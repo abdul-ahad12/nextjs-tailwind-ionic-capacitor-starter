@@ -11,7 +11,6 @@ import Activity from './Activity';
 import AllNotifications from '../MechanicFlow/Notifications/AllNotifications';
 import ProfileUser from './BookingFlow/ProfileUser';
 import AccountSetting from '../MechanicFlow/Profile/AccountSetting';
-import MyDocument from '../MechanicFlow/Profile/MyDocument';
 import Support from '../MechanicFlow/Profile/Support';
 import { Text } from '../../ui/common/text';
 
@@ -35,7 +34,7 @@ const TabsUser = () => {
     },
     {
       tab: 'tab3',
-      href: '/app/notifications',
+      href: '/appuser/notifications',
       title: 'Notifications',
       icon: '/img/tabs/notification.svg',
     },
@@ -62,7 +61,7 @@ const TabsUser = () => {
           exact={true}
         />
         <Route
-          path="/app/notifications"
+          path="/appuser/notifications"
           component={AllNotifications}
           exact={true}
         />
@@ -72,7 +71,6 @@ const TabsUser = () => {
           component={AccountSetting}
           exact={true}
         />
-        <Route path="/app/documents" component={MyDocument} exact={true} />
         <Route path="/app/support" component={Support} exact={true} />
         <Route
           path="/appuser"
