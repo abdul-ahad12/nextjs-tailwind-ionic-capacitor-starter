@@ -4,7 +4,9 @@ import { FormProvider, useForm } from 'react-hook-form';
 import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
 import { DynamicFieldsGenerate } from '../../../ui/common/inputComponent/DynamicFieldsGenerate';
 import { useHistory } from 'react-router';
-import { BookingStore } from './store';
+import { BookingResponseStore, BookingStore } from './store';
+import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
+import { baseURL } from '../../../../utils/definations/axios/url';
 
 const SelectDateTime = () => {
   const history = useHistory();
@@ -14,12 +16,49 @@ const SelectDateTime = () => {
     formState: { isSubmitting, errors },
   } = formMethods;
 
+  const { mutate, isPending, isError, error, isSuccess, data } =
+    useDynamicRequest(
+      {},
+      {
+        onSuccess: data => {
+          console.log("Booking Created:", data)
+          BookingResponseStore.update(s => {
+            s.id = data.data.bookingId
+          })
+          console.log(BookingResponseStore.getRawState())
+          history.push('/lookingformechanic');
+
+        },
+        onError: error => {
+          console.error('Booking failed:', error);
+          // Handle error logic, e.g., show error message
+        },
+        onSettled: () => {
+          console.log('Login mutation settled');
+          // Handle any cleanup or final actions
+        },
+      },
+    );
+
   const onSubmit = (data: any, error: any) => {
     BookingStore.update(s => {
-      s.date = data.selectdate;
-      s.time = data.selecttime;
+      // this should be set when the customer is logged in or created
+      s.customerId = "995e3ce2-fbd5-47be-85a7-3186c9951459"
+      // s.date = data.selectdate;
+      // s.time = data.selecttime;
     });
-    history.push('/payments');
+
+    console.log(BookingStore.getRawState())
+
+
+
+    const requestConfig = {
+      method: 'post',
+      url: `${baseURL}/booking`,
+      data: BookingStore.getRawState(),
+    };
+
+    mutate(requestConfig);
   };
 
   const fields = [

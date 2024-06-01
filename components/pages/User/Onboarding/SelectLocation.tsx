@@ -19,13 +19,13 @@ const SelectLocation: React.FC = () => {
   const [isOpen, setisOpen] = useState(false);
   const history = useHistory();
 
-  console.log(selectedPlace);
+  // console.log(selectedPlace);
 
   useEffect(() => {
     if (!autocompleteService.current && window.google) {
       autocompleteService.current =
         new window.google.maps.places.AutocompleteService();
-      console.log('Google Maps Autocomplete Service initialized');
+      // console.log('Google Maps Autocomplete Service initialized');
     }
   }, []);
 
@@ -59,16 +59,16 @@ const SelectLocation: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log('Input value changed: ', inputValue);
+    // console.log('Input value changed: ', inputValue);
     if (inputValue && autocompleteService.current) {
       autocompleteService.current.getPlacePredictions(
         { input: inputValue },
         (predictions: any, status: any) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-            console.log('Predictions: ', predictions);
+            // console.log('Predictions: ', predictions);
             setSuggestions(predictions);
           } else {
-            console.log('Error fetching predictions: ', status);
+            // console.log('Error fetching predictions: ', status);
             setSuggestions([]);
           }
         },

@@ -11,6 +11,7 @@ import { UserStore } from './store';
 import { Geolocation, Position } from '@capacitor/geolocation';
 import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
 import { baseURL } from '../../../../utils/definations/axios/url';
+import { CustomerGlobalStore } from '../GlobalStore';
 
 const CreateAccount = () => {
   const history = useHistory();
@@ -22,7 +23,18 @@ const CreateAccount = () => {
       {},
       {
         onSuccess: (data: any) => {
-          console.log('Login successful', data);
+          console.log('Customer Created:', data);
+          CustomerGlobalStore.update(s => {
+            s.customerId = data.customer.id,
+              s.email = data.email,
+              s.phoneNumber = data.phoneNumber,
+              s.lastName = data.lastName,
+              s.userId = data.id,
+              s.profilePic = data.customer.profilePic
+          })
+          console.log(CustomerGlobalStore.getRawState())
+          history.push('/onboardinguser1');
+
         },
         onError: (error: any) => {
           console.error('Login failed:', error);
@@ -126,10 +138,12 @@ const CreateAccount = () => {
   ];
 
   const onSubmit = (data: any) => {
+    const phoneNumber = UserStore.getRawState().phoneNumber
     UserStore.update(s => {
       s.firstName = data.firstName;
       s.lastName = data.lastName;
       s.email = data.email;
+      s.phoneNumber = "+91" + phoneNumber
       s.address = {
         ...s.address, // keep existing address fields
         lat: latlng?.coords.latitude || 0,
@@ -142,18 +156,17 @@ const CreateAccount = () => {
     });
 
     const payload = UserStore.getRawState();
+    console.log('payload', payload)
+    const requestConfig = {
+      method: 'post',
+      // url: 'https://dummyjson.com/products/add',
 
-    // const requestConfig = {
-    //   method: 'post',
-    //   // url: 'https://dummyjson.com/products/add',
+      url: `${baseURL}/auth/signup/customer`,
+      data: payload,
+    };
 
-    //   url: `${baseURL}/auth/signup/mechanic/+91${payload.phoneNumber}`,
-    //   data: payload,
-    // };
+    mutate(requestConfig);
 
-    // mutate(requestConfig);
-
-    history.push('/onboardinguser1');
   };
 
   return (

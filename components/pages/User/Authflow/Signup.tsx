@@ -15,7 +15,7 @@ const SignupUser = () => {
       {},
       {
         onSuccess: data => {
-          console.log('Login successful', data);
+          console.log('Signup Flow Initialized', data);
           PhoneStore.update(s => {
             s.phoneNumber = phoneNumber;
           });
@@ -33,7 +33,7 @@ const SignupUser = () => {
       },
     );
 
-  const handleLogin = () => {
+  const handleSignupIntiation = () => {
     const requestConfig = {
       method: 'post',
       url: `${baseURL}/auth/signup/customer/+91${phoneNumber}`,
@@ -46,7 +46,7 @@ const SignupUser = () => {
     <Authentication
       setPhoneNumber={setPhoneNumber}
       phoneNumber={phoneNumber}
-      onSubmit={handleLogin}
+      onSubmit={handleSignupIntiation}
       isPending={isPending}
       user
     />

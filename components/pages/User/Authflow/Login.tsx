@@ -4,6 +4,7 @@ import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInst
 import Authentication from '../../../ui/common/Authentication';
 import { baseURL } from '../../../../utils/definations/axios/url';
 import PhoneStore from './store';
+import { AxiosError } from 'axios';
 
 const LoginUser = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -22,8 +23,9 @@ const LoginUser = () => {
 
           // Handle success logic, e.g., store user data, redirect, etc.
         },
-        onError: (error: any) => {
+        onError: (error: AxiosError) => {
           console.error('Login failed:', error);
+          //  handle the case when the user exists send them to signup route. will add error.name = "USER_EXISTS"
           // Handle error logic, e.g., show error message
         },
         onSettled: () => {
@@ -44,7 +46,6 @@ const LoginUser = () => {
     mutate(requestConfig);
   };
 
-  console.log(isSuccess);
 
   return (
     <>

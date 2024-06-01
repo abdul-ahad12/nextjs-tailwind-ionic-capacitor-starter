@@ -22,12 +22,17 @@ const OTPUser = () => {
       {},
       {
         onSuccess: data => {
-          console.log('Login successful', data);
+          console.log('Otp Verified successful', data);
           history.push('/onboardinguser');
         },
         onError: error => {
-          console.error('Login failed:', error);
-          setIsOpen(true);
+          console.error('Otp Verification failed:', error);
+
+          if (error.message && error.message.includes("incorrect otp")) {
+            setIsOpen(true);
+          } else {
+            history.goBack()
+          }
         },
         onSettled: () => {
           console.log('Login mutation settled');
@@ -38,6 +43,8 @@ const OTPUser = () => {
   const handleResend = () => {
     history.push('/signupuser');
   };
+
+
 
   const handleOtp = async () => {
     // history.push("/onboardinguser")

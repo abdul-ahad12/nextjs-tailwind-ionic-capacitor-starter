@@ -17,20 +17,20 @@ const MapComponent: React.FC<IMapComponent> = ({
 
   useEffect(() => {
     const createMap = async () => {
-      console.log('Creating map...');
+      // console.log('Creating map...');
       if (mapRef.current) {
         const lat = lts
           ? lts
           : selectedPlace &&
-              selectedPlace.geometry &&
-              selectedPlace.geometry.location
+            selectedPlace.geometry &&
+            selectedPlace.geometry.location
             ? selectedPlace.geometry.location.lat()
             : 0;
         const lng = lngs
           ? lngs
           : selectedPlace &&
-              selectedPlace.geometry &&
-              selectedPlace.geometry.location
+            selectedPlace.geometry &&
+            selectedPlace.geometry.location
             ? selectedPlace.geometry.location.lng()
             : 0;
 
@@ -46,7 +46,7 @@ const MapComponent: React.FC<IMapComponent> = ({
           },
         });
 
-        console.log('Map created:', newMap);
+        // console.log('Map created:', newMap);
 
         if (selectedPlace) {
           // Add a marker to the map if a place is selected
@@ -60,13 +60,13 @@ const MapComponent: React.FC<IMapComponent> = ({
             title: 'Selected Location',
           });
 
-          console.log('Marker created:', markerRef.current);
+          // console.log('Marker created:', markerRef.current);
         }
       }
     };
 
     createMap();
-  }, [selectedPlace,lts]);
+  }, [selectedPlace, lts]);
 
   return (
     <div

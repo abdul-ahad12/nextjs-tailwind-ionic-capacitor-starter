@@ -1,15 +1,100 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SingleNotifications from '../../../ui/common/mechanic/resuable/SingleNotification';
 import { IonContent, IonPage } from '@ionic/react';
 import MapComponent from '../../../ui/common/GMaps/Maps';
 import Modal from '../../../ui/common/modals';
 import { useHistory } from 'react-router';
-import { BookingStore, LocationStore } from './store';
+import { BookingResponseStore, BookingStore, LocationStore } from './store';
+import { CustomerGlobalStore } from '../GlobalStore';
+import { io } from 'socket.io-client';
+import { baseURL } from '../../../../utils/definations/axios/url';
+import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
 
 const LookingForMechanic = () => {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [isOpen, setIsOpen] = useState(true);
   const history = useHistory();
+
+  const { mutate, isPending, isError, error, isSuccess, data } =
+    useDynamicRequest(
+      {},
+      {
+        onSuccess: (data: any) => {
+          console.log('Found Mechanics', data)
+          BookingResponseStore.update(s => {
+            s.mechanics = data
+          })
+          history.replace('/mechanicbooked')
+
+        },
+        onError: (error: any) => {
+          console.error('Login failed:', error)
+        },
+        onSettled: () => {
+          console.log('Login mutation settled');
+          // Handle any cleanup or final actions
+        },
+      },
+    );
+
+
+  // Ensure the global store has customerId. !IMPORTANT
+
+  const customerId = CustomerGlobalStore.getRawState().customerId
+  useEffect(() => {
+    if (!customerId) {
+      return // Do not proceed until customerId is defined
+    }
+
+    // Create a new socket connection
+    const socket = io('http://localhost:3002', {
+      query: { customerId },
+    })
+
+    socket.on('connect', () => {
+      console.log(`Connected to server as customer: ${customerId}`)
+      // Emit a join room event or similar to subscribe to updates for this customer
+      console.log(customerId)
+      socket.emit('joinRoom', { room: `customer-${customerId}` })
+    })
+
+    // Setup event listener for booking updates
+    socket.on('booking-update', (message) => {
+      console.log(message)
+      CustomerGlobalStore.update(s => {
+        s.bookingDetails = message
+      })
+      history.push('/mechanicbooked')
+      // setResponse(message)
+
+    })
+
+    // Cleanup function to run when the component unmounts or customerId changes
+    return () => {
+      socket.off('booking-update')
+      socket.disconnect()
+    }
+  }, [customerId, data])
+
+  const findMechs = () => {
+    const bookingDetails = BookingStore.getRawState()
+    const bookingResponse = BookingResponseStore.getRawState()
+    // const payload = {
+    //   latitude: bookingDetails.vehicle.vehicleAddress.lat,
+    //   longitude: bookingDetails.vehicle.vehicleAddress.long,
+    //   bookingId: bookingResponse.id
+    // }
+    // 17.393116,78.444869
+    const payload = { latitude: 17.3868117, longitude: 78.4538802, bookingId: '5e7d06ae-b434-43c3-b472-f3107b91a150' }
+    console.log('payload', payload)
+    const requestConfig = {
+      method: 'post',
+      url: `${baseURL}/booking/find-mechanics`,
+      data: payload,
+    };
+
+    mutate(requestConfig)
+  }
 
   // Ensure that BookingStore and LocationStore are correctly implemented and imported.
 
@@ -54,7 +139,7 @@ const LookingForMechanic = () => {
           searching
           onSubmit={() => {
             setIsOpen(false);
-            history.push('/appuser/selectlocation');
+            findMechs()
           }}
         >
           <div>

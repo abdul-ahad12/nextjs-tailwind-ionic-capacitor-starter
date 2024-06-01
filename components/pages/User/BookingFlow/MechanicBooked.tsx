@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SingleNotifications from '../../../ui/common/mechanic/resuable/SingleNotification';
 import { IonContent, IonPage } from '@ionic/react';
 import MapComponent from '../../../ui/common/GMaps/Maps';
 import Modal from '../../../ui/common/modals';
 import { useHistory } from 'react-router';
+import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
+import { BookingResponseStore } from './store';
+import { baseURL } from '../../../../utils/definations/axios/url';
+import useDynamicGetRequest from '../../../../utils/supportingFns/getCall';
 
 const MechanicBooked = () => {
   const [selectedPlace, setSelectedPlace] = useState<any>(null);
   const history = useHistory();
+
+  const { makeRequest, data, loading, error } = useDynamicGetRequest()
 
   const notificationData = [
     {
@@ -33,7 +39,42 @@ const MechanicBooked = () => {
       text: 'Total',
       name: '$ 123.6',
     },
-  ];
+  ]
+
+
+  useEffect(() => {
+    findMechs()
+  }, [])
+
+  useEffect(() => {
+    if (data) {
+      data.data.filter((s: any) => s.ownerId === BookingResponseStore.getRawState().id)
+
+    } else {
+      return
+    }
+  }, [data])
+
+  const findMechs = () => {
+    // const bookingDetails = BookingStore.getRawState()
+    // const bookingResponse = BookingResponseStore.getRawState()
+    // const payload = {
+    //   latitude: bookingDetails.vehicle.vehicleAddress.lat,
+    //   longitude: bookingDetails.vehicle.vehicleAddress.long,
+    //   bookingId: bookingResponse.id
+    // }
+    // 17.393116,78.444869
+    // const payload = { latitude: 17.3868117, longitude: 78.4538802, bookingId: '5e7d06ae-b434-43c3-b472-f3107b91a150' }
+    // console.log('payload', payload)
+    const requestConfig = {
+      method: 'get',
+      url: `${baseURL}/booking`,
+    };
+
+    makeRequest(requestConfig.url, requestConfig.method)
+  }
+
+
   return (
     <IonPage>
       <IonContent>
