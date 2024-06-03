@@ -8,12 +8,59 @@ import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInst
 import { BookingResponseStore } from './store';
 import { baseURL } from '../../../../utils/definations/axios/url';
 import useDynamicGetRequest from '../../../../utils/supportingFns/getCall';
+import { io } from 'socket.io-client';
+import { CustomerGlobalStore } from '../GlobalStore';
 
 const MechanicBooked = () => {
   const [selectedPlace, setSelectedPlace] = useState<any>(null);
+  const [mechanicStatus, setMechanicStatus] = useState(false)
   const history = useHistory();
 
   const { makeRequest, data, loading, error } = useDynamicGetRequest()
+
+
+  const customerData = JSON.parse(localStorage.getItem('customerdata'));
+
+  const customerId=customerData.customer.id
+
+  useEffect(() => {
+    if (!customerId) {
+      return // Do not proceed until customerId is defined
+    }
+
+    // Create a new socket connection
+    const socket = io('http://localhost:3002', {
+      query: { customerId },
+    })
+
+    socket.on('connect', () => {
+      console.log(`Connected to server as customer: ${customerId}`)
+      // Emit a join room event or similar to subscribe to updates for this customer
+      console.log(customerId)
+      socket.emit('joinRoom', { room: `customer-${customerId}` })
+    })
+
+    // Setup event listener for booking updates
+    socket.on('booking-update', (message) => {
+      console.log(message)
+      CustomerGlobalStore.update(s => {
+        s.bookingDetails = message
+      })
+      setMechanicStatus(true)
+      history.push('/mechdetails')
+      // setResponse(message)
+
+    })
+
+    // Cleanup function to run when the component unmounts or customerId changes
+    return () => {
+      socket.off('booking-update')
+      socket.disconnect()
+    }
+  }, [customerId, data])
+
+
+
 
   const notificationData = [
     {
@@ -42,37 +89,11 @@ const MechanicBooked = () => {
   ]
 
 
-  useEffect(() => {
-    findMechs()
-  }, [])
 
-  useEffect(() => {
-    if (data) {
-      data.data.filter((s: any) => s.ownerId === BookingResponseStore.getRawState().id)
 
-    } else {
-      return
-    }
-  }, [data])
 
-  const findMechs = () => {
-    // const bookingDetails = BookingStore.getRawState()
-    // const bookingResponse = BookingResponseStore.getRawState()
-    // const payload = {
-    //   latitude: bookingDetails.vehicle.vehicleAddress.lat,
-    //   longitude: bookingDetails.vehicle.vehicleAddress.long,
-    //   bookingId: bookingResponse.id
-    // }
-    // 17.393116,78.444869
-    // const payload = { latitude: 17.3868117, longitude: 78.4538802, bookingId: '5e7d06ae-b434-43c3-b472-f3107b91a150' }
-    // console.log('payload', payload)
-    const requestConfig = {
-      method: 'get',
-      url: `${baseURL}/booking`,
-    };
 
-    makeRequest(requestConfig.url, requestConfig.method)
-  }
+
 
 
   return (
@@ -81,11 +102,11 @@ const MechanicBooked = () => {
         <MapComponent selectedPlace={selectedPlace} />
         <Modal
           isOpen={true}
-          btnText="Done"
-          title="Mechanic Booked"
-          onSubmit={() => {
-            history.push('/appuser/selectlocation');
-          }}
+          // btnText="Done"
+          title="Looking For Mechanic"
+          // onSubmit={() => {
+          //   history.push('/appuser/selectlocation');
+          // }}
           placed
         >
           <div>

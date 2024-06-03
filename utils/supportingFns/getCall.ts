@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 const useDynamicGetRequest = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<any | null>(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 

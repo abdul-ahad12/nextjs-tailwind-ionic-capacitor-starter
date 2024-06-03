@@ -14,6 +14,8 @@ const LookingForMechanic = () => {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [isOpen, setIsOpen] = useState(true);
   const history = useHistory();
+  const customerData = JSON.parse(localStorage.getItem('customerdata'));
+
 
   const { mutate, isPending, isError, error, isSuccess, data } =
     useDynamicRequest(
@@ -37,10 +39,11 @@ const LookingForMechanic = () => {
       },
     );
 
+    const customerId=customerData.customer.id
+
 
   // Ensure the global store has customerId. !IMPORTANT
 
-  const customerId = CustomerGlobalStore.getRawState().customerId
   useEffect(() => {
     if (!customerId) {
       return // Do not proceed until customerId is defined
@@ -64,7 +67,7 @@ const LookingForMechanic = () => {
       CustomerGlobalStore.update(s => {
         s.bookingDetails = message
       })
-      history.push('/mechanicbooked')
+      // history.push('/mechanicbooked')
       // setResponse(message)
 
     })
@@ -85,7 +88,7 @@ const LookingForMechanic = () => {
     //   bookingId: bookingResponse.id
     // }
     // 17.393116,78.444869
-    const payload = { latitude: 17.3868117, longitude: 78.4538802, bookingId: '5e7d06ae-b434-43c3-b472-f3107b91a150' }
+    const payload = { latitude: bookingDetails.vehicle.vehicleAddress.lat, longitude: bookingDetails.vehicle.vehicleAddress.long, bookingId: bookingResponse.id }
     console.log('payload', payload)
     const requestConfig = {
       method: 'post',
@@ -134,8 +137,8 @@ const LookingForMechanic = () => {
         {/* Render the modal */}
         <Modal
           isOpen={isOpen}
-          btnText="Go Home"
-          title="Looking for your Mechanic"
+          btnText="Look for Mechanics"
+          title="Booking has been Created"
           searching
           onSubmit={() => {
             setIsOpen(false);

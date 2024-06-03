@@ -9,6 +9,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import { LocationStore } from './store';
 import { BookingStore } from '../BookingFlow/store';
+import { Text } from '../../../ui/common/text';
 
 const SelectLocation: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
@@ -100,8 +101,7 @@ const SelectLocation: React.FC = () => {
       };
     });
 
-
-    console.log(BookingStore.getRawState())
+    console.log(BookingStore.getRawState());
 
     setisOpen(false);
     history.push('/contactseller');
@@ -170,36 +170,41 @@ const SelectLocation: React.FC = () => {
       <IonContent>
         <MapComponent selectedPlace={selectedPlace} />
       </IonContent>
-      <IonFooter className="ion-padding">
-        <div className="p-[10px] flex flex-col justify-between">
-          <SearchComponent
-            inputValue={inputValue}
-            setInputValue={setInputValue}
-            suggestions={suggestions}
-            handleSelect={handleSelect}
-          />
-        </div>
-        <Button
-          id="open-modal"
-          onClick={() => {
-            setisOpen(true);
-          }}
-        >
-          Next
-        </Button>
-        <FormProvider {...formMethods}>
-          <Modal
-            isOpen={isOpen}
-            ref={modal}
-            title={'Location of Inspection'}
-            btnText={'Confirm And Proceed'}
-            trigger={'open-modal'}
-            onSubmit={handleSubmit(onSubmit)}
+      <div className="flex justify-center w-full absolute bottom-3">
+        <div className="w-[90%] bg-white px-2 pb-2 rounded-primary">
+          <div className="p-[10px] flex flex-col justify-between">
+            <Text typography="modalHeader" className="pb-2">
+              Where is your Vehicle?
+            </Text>
+            <SearchComponent
+              inputValue={inputValue}
+              setInputValue={setInputValue}
+              suggestions={suggestions}
+              handleSelect={handleSelect}
+            />
+          </div>
+          <Button
+            id="open-modal"
+            onClick={() => {
+              setisOpen(true);
+            }}
           >
-            <DynamicFieldsGenerate errors={errors} fields={fields} />
-          </Modal>
-        </FormProvider>
-      </IonFooter>
+            Next
+          </Button>
+          <FormProvider {...formMethods}>
+            <Modal
+              isOpen={isOpen}
+              ref={modal}
+              title={'Location of Inspection'}
+              btnText={'Confirm And Proceed'}
+              trigger={'open-modal'}
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <DynamicFieldsGenerate errors={errors} fields={fields} />
+            </Modal>
+          </FormProvider>
+        </div>
+      </div>
     </IonPage>
   );
 };

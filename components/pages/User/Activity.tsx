@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MechanicFlow from '../../ui/common/Layouts/MechanicFlow';
 import HeightFullLayout from '../../ui/common/Layouts/HeightFullLayout';
 import ImageWithText from '../../ui/common/mechanic/resuable/ImageWithText';
@@ -6,6 +6,8 @@ import { EmptyArray } from '../../ui/common/svgs/EmptyArray';
 import Inspection from '../../ui/common/mechanic/resuable/mechanicinspection/Inspection';
 import { Button } from '../../ui/common/button';
 import { useHistory } from 'react-router';
+import { baseURL } from '../../../utils/definations/axios/url';
+import useDynamicGetRequest from '../../../utils/supportingFns/getCall';
 
 export enum tabs {
   TODAYSINSPECTION = 'Ongoing Inspections',
@@ -28,86 +30,41 @@ interface InspectionDataItem {
 const Activity = () => {
   const [activeState, setActiveState] = useState(tabs.TODAYSINSPECTION);
   const history = useHistory();
+  const customerData = JSON.parse(localStorage.getItem('customerdata'));
 
-  console.log(activeState);
+  const { data, error, loading, makeRequest } = useDynamicGetRequest();
 
-  const inspectionData = [
-    {
-      typography: 'premiumService',
-      firstText: 'Basic Service',
-      name: 'John',
-      imageUrl: '/mechanic/inspection/inspection.png',
-      dateTime: '2024-05-13',
-      earningText: '100$',
-      carModalText: 'Toyota Camry',
-      description: '10-5-19/21 Masabtank Hyderabad',
-      orderId: '6789',
-    },
-    {
-      typography: 'basicService',
-      firstText: 'Basic Service',
-      name: 'Jane Doe',
-      imageUrl: '/mechanic/inspection/inspection.png',
-      dateTime: '2024-05-14',
-      earningText: '150$',
-      carModalText: 'Honda Civic',
-      description: '10-5-19/21 Masabtank Hyderabad',
-      orderId: '321',
-    },
-  ];
-  const inspectionData1: InspectionDataItem[] = [
-    // {
-    //   typography: 'basicService',
-    //   firstText: 'Basic Inspection',
-    //   name: 'John Doe',
-    //   imageUrl: '/mechanic/inspection/inspection.png',
-    //   dateTime: '2024-05-13',
-    //   earningText: '100$',
-    //   carModalText: 'Toyota Camry',
-    //   description: '10-5-19/21 Masabtank Hyderabad',
-    //   orderId: '1234',
-    // },
-    // {
-    //   typography: 'premiumService',
-    //   firstText: 'Basi Inspection',
-    //   name: 'Jane Doe',
-    //   imageUrl: '/mechanic/inspection/inspection.png',
-    //   dateTime: '2024-05-14',
-    //   earningText: '150$',
-    //   carModalText: 'Honda Civic',
-    //   description: '10-5-19/21 Masabtank Hyderabad',
-    //   orderId: '98654',
-    // },
-  ];
+  useEffect(() => {
+    makeRequest(`${baseURL}/booking`, 'GET');
+  }, []);
 
-  const inspectionData2 = [
-    {
-      typography: 'basicService',
-      firstText: 'First Inspection',
-      name: 'John Doe',
-      imageUrl: '/mechanic/inspection/inspection.png',
-      dateTime: '2024-05-13',
-      earningText: '100$',
-      carModalText: 'Toyota Camry',
-      description: '10-5-19/21 Masabtank Hyderabad',
-      orderId: '1234',
-    },
-    // {
-    //   typography: 'premiumService',
-    //   firstText: 'Second Inspection',
-    //   name: 'Jane Doe',
-    //   imageUrl: '/mechanic/inspection/inspection.png',
-    //   dateTime: '2024-05-14',
-    //   earningText: '150$',
-    //   carModalText: 'Honda Civic',
-    //   description: '10-5-19/21 Masabtank Hyderabad',
-    //   orderId: '98654',
-    // },
-  ];
+  let filteredBookings: any[] = [];
+  let filteredBookings1: any[] = [];
+
+
+
+  if (data && data.success && data.data) {
+    filteredBookings = data.data.filter(
+      (booking: any) =>
+        booking.mechanicId &&
+        !booking.Order[0].isFullfilled &&
+        booking.ownerId === customerData?.customer.id,
+    );
+  }
+
+  if (data && data.success && data.data) {
+    filteredBookings1 = data.data.filter(
+      (booking: any) =>
+        booking.mechanicId &&
+        booking.Order[0].isFullfilled &&
+        booking.ownerId === customerData?.customer.id,
+    );
+  }
 
   if (
-    activeState === tabs.SCHEDULEDINSPECTION &&
-    inspectionData1.length === 0
+    (activeState === tabs.TODAYSINSPECTION && filteredBookings.length === 0) ||
+    activeState === tabs.INSPECTIONREQUESTS ||
+    (activeState === tabs.SCHEDULEDINSPECTION && filteredBookings1.length === 0)
   ) {
     return (
       <MechanicFlow
@@ -118,10 +75,10 @@ const Activity = () => {
         <HeightFullLayout>
           <ImageWithText
             imageUrl={<EmptyArray />}
-            text="No Scheduled Inspections. Take a break or stay tuned. More bookings coming soon!"
+            text="Nothing for you now! Come Back Later"
           />
           <Button
-          className='mt-12'
+            className="mt-12"
             onClick={() => {
               history.replace('/appuser/selectlocation');
             }}
@@ -132,6 +89,7 @@ const Activity = () => {
       </MechanicFlow>
     );
   }
+console.log(filteredBookings1)
   return (
     <MechanicFlow
       setActiveState={setActiveState}
@@ -140,51 +98,35 @@ const Activity = () => {
     >
       <div className="gap-3 flex flex-col">
         {activeState === tabs.TODAYSINSPECTION &&
-          inspectionData.map((inspection, index) => (
+          filteredBookings.map((booking: any, index: number) => (
             <Inspection
               dropDown={true}
               key={index}
-              firstText={inspection.firstText}
-              name={inspection.name}
-              imageUrl={inspection.imageUrl}
-              dateTime={inspection.dateTime}
-              earningText={inspection.earningText}
-              carModalText={inspection.carModalText}
-              description={inspection.description}
-              orderId={inspection.orderId}
-            />
-          ))}
-        {activeState === tabs.SCHEDULEDINSPECTION &&
-          inspectionData1.map((inspection, index) => (
-            <Inspection
-              dropDown={true}
-              key={index}
-              typography={inspection.typography}
-              firstText={inspection.firstText}
-              name={inspection.name}
-              imageUrl={inspection.imageUrl}
-              dateTime={inspection.dateTime}
-              earningText={inspection.earningText}
-              carModalText={inspection.carModalText}
-              description={inspection.description}
-              orderId={inspection.orderId}
+              firstText={'Basic Service'} // Assuming package name is used for firstText
+              name={'Mechanic'} // Assuming owner's phone number is used for name
+              imageUrl={'/mechanic/inspection/inspection.png'} // Assuming mechanic's profile picture is used for imageUrl
+              dateTime={booking?.dateTimeOfBooking}
+              earningText={'$140'}
+              carModalText={booking?.vehicle.carType} // Assuming carType is used for carModalText
+              description={'address'} // Assuming street address is used for description
+              orderId={booking?.id}
             />
           ))}
 
-        {activeState === tabs.INSPECTIONREQUESTS &&
-          inspectionData2.map((inspection, index) => (
+        {activeState === tabs.SCHEDULEDINSPECTION &&
+          filteredBookings1.map((booking, index) => (
             <Inspection
               dropDown={true}
-              typography={inspection.typography}
               key={index}
-              firstText={inspection.firstText}
-              name={inspection.name}
-              dateTime={inspection.dateTime}
-              earningText={inspection.earningText}
-              carModalText={inspection.carModalText}
-              description={inspection.description}
-              orderId={inspection.orderId}
-            //   inspectionRequest={true}
+              firstText={'Basic Service'} // Assuming package name is used for firstText
+              name={'Mechanic'} // Assuming owner's phone number is used for name
+              imageUrl={'/mechanic/inspection/inspection.png'} // Assuming mechanic's profile picture is used for imageUrl
+              dateTime={booking?.dateTimeOfBooking}
+              earningText={'$140'}
+              carModalText={booking?.vehicle.carType} // Assuming carType is used for carModalText
+              description={'address'} // Assuming street address is used for description
+              orderId={booking?.id}
+              viewReport
             />
           ))}
       </div>

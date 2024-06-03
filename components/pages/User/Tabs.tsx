@@ -67,11 +67,11 @@ const TabsUser = () => {
         />
         <Route path="/appuser/profile" component={ProfileUser} exact={true} />
         <Route
-          path="/app/accountsetting"
+          path="/appuser/accountsetting"
           component={AccountSetting}
           exact={true}
         />
-        <Route path="/app/support" component={Support} exact={true} />
+        <Route path="/appuser/support" component={Support} exact={true} />
         <Route
           path="/appuser"
           render={() => <Redirect to="/appuser/selectlocation" />}

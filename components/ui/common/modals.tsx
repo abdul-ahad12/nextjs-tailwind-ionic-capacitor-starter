@@ -10,7 +10,7 @@ interface IModal {
   initialBreakpoint?: number;
   breakpoints?: number[];
   title: string;
-  btnText: string;
+  btnText?: string;
   children: React.ReactNode;
   onSubmit?: (state?:any) => any;
   isOpen?: boolean;
@@ -48,10 +48,13 @@ const Modal: React.FC<IModal> = ({
 
           {children}
         </div>
+        {btnText && (
+
         <IonFooter>
           {' '}
           <Button onClick={onSubmit}>{btnText}</Button>
         </IonFooter>
+        )}
       </div>
     </IonModal>
   );

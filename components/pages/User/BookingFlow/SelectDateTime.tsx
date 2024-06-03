@@ -11,6 +11,8 @@ import { baseURL } from '../../../../utils/definations/axios/url';
 const SelectDateTime = () => {
   const history = useHistory();
   const formMethods = useForm();
+  const customerData = JSON.parse(localStorage.getItem('customerdata'));
+
   const {
     handleSubmit,
     formState: { isSubmitting, errors },
@@ -21,13 +23,12 @@ const SelectDateTime = () => {
       {},
       {
         onSuccess: data => {
-          console.log("Booking Created:", data)
+          console.log('Booking Created:', data);
           BookingResponseStore.update(s => {
-            s.id = data.data.bookingId
-          })
-          console.log(BookingResponseStore.getRawState())
+            s.id = data.data.bookingid;
+          });
+          console.log(BookingResponseStore.getRawState());
           history.push('/lookingformechanic');
-
         },
         onError: error => {
           console.error('Booking failed:', error);
@@ -40,17 +41,18 @@ const SelectDateTime = () => {
       },
     );
 
+    console.log(customerData)
   const onSubmit = (data: any, error: any) => {
-    BookingStore.update(s => {
-      // this should be set when the customer is logged in or created
-      s.customerId = "995e3ce2-fbd5-47be-85a7-3186c9951459"
-      // s.date = data.selectdate;
-      // s.time = data.selecttime;
-    });
+    if (customerData) {
+      BookingStore.update(s => {
+        // this should be set when the customer is logged in or created
+        s.customerId = customerData.customer.id;
+        // s.date = data.selectdate;
+        // s.time = data.selecttime;
+      });
+    }
 
-    console.log(BookingStore.getRawState())
-
-
+    console.log(BookingStore.getRawState());
 
     const requestConfig = {
       method: 'post',

@@ -24,17 +24,9 @@ const CreateAccount = () => {
       {
         onSuccess: (data: any) => {
           console.log('Customer Created:', data);
-          CustomerGlobalStore.update(s => {
-            s.customerId = data.customer.id,
-              s.email = data.email,
-              s.phoneNumber = data.phoneNumber,
-              s.lastName = data.lastName,
-              s.userId = data.id,
-              s.profilePic = data.customer.profilePic
-          })
-          console.log(CustomerGlobalStore.getRawState())
+          localStorage.setItem('customerdata', JSON.stringify(data.data));
+          console.log(CustomerGlobalStore.getRawState());
           history.push('/onboardinguser1');
-
         },
         onError: (error: any) => {
           console.error('Login failed:', error);
@@ -138,12 +130,12 @@ const CreateAccount = () => {
   ];
 
   const onSubmit = (data: any) => {
-    const phoneNumber = UserStore.getRawState().phoneNumber
+    const phoneNumber = UserStore.getRawState().phoneNumber;
     UserStore.update(s => {
       s.firstName = data.firstName;
       s.lastName = data.lastName;
       s.email = data.email;
-      s.phoneNumber = "+91" + phoneNumber
+      s.phoneNumber = '+91' + phoneNumber;
       s.address = {
         ...s.address, // keep existing address fields
         lat: latlng?.coords.latitude || 0,
@@ -156,7 +148,7 @@ const CreateAccount = () => {
     });
 
     const payload = UserStore.getRawState();
-    console.log('payload', payload)
+    console.log('payload', payload);
     const requestConfig = {
       method: 'post',
       // url: 'https://dummyjson.com/products/add',
@@ -166,7 +158,6 @@ const CreateAccount = () => {
     };
 
     mutate(requestConfig);
-
   };
 
   return (

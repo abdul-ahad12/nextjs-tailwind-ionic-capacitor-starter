@@ -71,6 +71,8 @@ export async function generateStaticParams() {
     { all: ['otpuser'] },
     { all: ['otploginuser'] },
     { all: ['appuser'] },
+    { all: ['singlereport'] },
+    { all: ['mechdetails'] },
 
     // { all: ['app/todaysinspection'] },
 

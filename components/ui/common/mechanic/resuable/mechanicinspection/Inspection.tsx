@@ -4,6 +4,7 @@ import TitleDescription from '../../../TitleDescription';
 import { motion } from 'framer-motion';
 import { Button } from '../../../button';
 import { IonToast } from '@ionic/react';
+import { useHistory } from 'react-router';
 
 interface UserActivityProps {
   firstText: string;
@@ -38,10 +39,19 @@ const Inspection: React.FC<UserActivityProps> = ({
   onClick,
 }) => {
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const history = useHistory();
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
+
+  // Assuming booking.dateTimeOfBooking is a string representing a date/time
+
+  const date = new Date(dateTime);
+  const readableFormat = date.toLocaleString(); // Adjust the format as per your requirement
+  console.log(readableFormat); // This will log the date/time in a human-readable format
+
+
 
   return (
     <div className="flex flex-col gap-3">
@@ -56,7 +66,7 @@ const Inspection: React.FC<UserActivityProps> = ({
           >
             <Text className="text-secondary font-semibold">{firstText}</Text>
           </div>
-          <Text>Order ID: {orderId}</Text>
+          <Text>Order ID: {orderId?.slice(-4)}</Text>
         </div>
         <div className="flex gap-2 items-center">
           {imageUrl && (
@@ -74,7 +84,7 @@ const Inspection: React.FC<UserActivityProps> = ({
         <div className="flex flex-col justify-between w-full">
           <div className="flex justify-between">
             <div className="w-fit">
-              <Text typography="cardsheader">{dateTime}</Text>
+              <Text typography="cardsheader">{readableFormat}</Text>
               <Text>Date & Time</Text>
             </div>
             {dropDown && (
@@ -99,7 +109,13 @@ const Inspection: React.FC<UserActivityProps> = ({
           </div>
           <div className="w-fit">
             {viewReport && (
-              <Button color="secondary" className="focus:outline-none">
+              <Button
+                onClick={() => {
+                  history.push(`/singlereport?orderId=${orderId}`);
+                }}
+                color="secondary"
+                className="focus:outline-none"
+              >
                 View report
               </Button>
             )}
@@ -123,11 +139,11 @@ const Inspection: React.FC<UserActivityProps> = ({
           )}
         </div>
         <div className="w-fit">
-          {viewReport && (
+          {/* {viewReport && (
             <Button color="secondary" className="focus:outline-none">
               View report
             </Button>
-          )}
+          )} */}
         </div>
       </div>
       {acceptReport && (

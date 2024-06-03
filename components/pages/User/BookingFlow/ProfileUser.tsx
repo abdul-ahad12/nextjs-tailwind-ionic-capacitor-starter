@@ -146,7 +146,7 @@ const ProfileUser = () => {
       icon: <AccountSvg />, // Assuming you have an AddImageSvg component imported
       text: 'Account Settings',
       bgcolor: 'bg-white', // Example background color
-      href: '/app/accountsetting',
+      href: '/appuser/accountsetting',
     },
     // {
     //   icon: <DocumentSvg />, // Assuming you have an AddImageSvg component imported
@@ -158,7 +158,7 @@ const ProfileUser = () => {
       icon: <SupportSvg />, // Assuming you have an AddImageSvg component imported
       text: 'Support',
       bgcolor: 'bg-white', // Example background color
-      href: '/app/support',
+      href: '/appuser/support',
     },
     {
       icon: <PrivacyAndPolicy />, // Assuming you have an AddImageSvg component imported
