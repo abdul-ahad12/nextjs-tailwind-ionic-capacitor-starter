@@ -33,7 +33,7 @@ const SingleReport = () => {
 
   const report = data && data.data[0];
 
-  const handleDownload = (url) => {
+  const handleDownload = (url:string) => {
     // Create a temporary anchor element to trigger the download
     const link = document.createElement('a');
     link.href = url;
@@ -52,7 +52,7 @@ const SingleReport = () => {
             onClick={() => handleDownload(report.url)}
             className="flex items-center bg-blue-600 text-white rounded px-4 py-2"
           >
-            <DownloadOutline className="mr-2" />
+            <DownloadOutline />
             Download
           </IonButton>
         )}
@@ -123,7 +123,7 @@ const renderSection = (sectionData: any) => {
           <p className="mt-1"><span className="font-bold">Rating:</span> {item.rating}</p>
           <p className="mt-1"><span className="font-bold">Comments:</span> {item.comments}</p>
           {item.images &&
-            item.images.map((image, index) => (
+            item.images.map((image:string, index:number) => (
               <img
                 key={index}
                 src={image}
