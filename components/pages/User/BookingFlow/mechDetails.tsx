@@ -7,9 +7,12 @@ import { baseURL } from '../../../../utils/definations/axios/url';
 const MechDetails = () => {
   const history = useHistory();
   const { makeRequest, data, loading, error } = useDynamicGetRequest();
-  const customerData = JSON.parse(localStorage.getItem('customerdata'));
+  const customerDataString = localStorage.getItem('customerdata');
+  const customerData = customerDataString
+    ? JSON.parse(customerDataString)
+    : null;
   const customerId = customerData.customer.id;
-  const [mechanicDetails, setMechanicDetails] = useState(null);
+  const [mechanicDetails, setMechanicDetails] = useState<any | null>(null);
 
   useEffect(() => {
     findMechs();
@@ -27,7 +30,7 @@ const MechDetails = () => {
   useEffect(() => {
     if (data && data.data.length > 0) {
       const mechanic = data.data.find(
-        booking =>
+        (booking: any) =>
           booking.ownerId === customerId &&
           booking.mechanic &&
           booking.Order &&
@@ -52,13 +55,15 @@ const MechDetails = () => {
         {mechanicDetails ? (
           <div className="text-center">
             <img
-              src={mechanicDetails.profilePic || '/notifications/profile.svg'}
+              src={mechanicDetails?.profilePic || '/notifications/profile.svg'}
               alt="Mechanic Profile"
               className="w-40 h-40 rounded-full mx-auto mb-4"
             />
             <div className="mb-2">
               <p className="text-lg font-semibold">Phone Number:</p>
-              <p className="text-xl font-bold">{mechanicDetails.phoneNumber}</p>
+              <p className="text-xl font-bold">
+                {mechanicDetails?.phoneNumber}
+              </p>
             </div>
             <p className="text-gray-700">
               The mechanic has agreed to all the terms.

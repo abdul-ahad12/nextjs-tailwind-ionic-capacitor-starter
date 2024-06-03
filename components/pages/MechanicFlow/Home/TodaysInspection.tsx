@@ -128,45 +128,45 @@ const TodaysInspection = () => {
 
 export default TodaysInspection;
 
-const TodayBookings = ({ data }) => {
-  // Filter today's bookings
-  const todayBookings = data?.filter(booking => {
-    const bookingDate = new Date(booking.dateTimeOfBooking);
-    const today = new Date();
-    return (
-      bookingDate.getDate() === today.getDate() &&
-      bookingDate.getMonth() === today.getMonth() &&
-      bookingDate.getFullYear() === today.getFullYear()
-    );
-  });
+// const TodayBookings = ({ data }:any) => {
+//   // Filter today's bookings
+//   const todayBookings = data?.filter(booking => {
+//     const bookingDate = new Date(booking.dateTimeOfBooking);
+//     const today = new Date();
+//     return (
+//       bookingDate.getDate() === today.getDate() &&
+//       bookingDate.getMonth() === today.getMonth() &&
+//       bookingDate.getFullYear() === today.getFullYear()
+//     );
+//   });
 
-  return (
-    <>
-      {todayBookings?.map((booking, index:number) => (
-        <Inspection
-          dropDown={true}
-          key={index}
-          firstText={booking.package.name}
-          name={booking.owner.name}
-          imageUrl={booking.owner.profilePic}
-          dateTime={booking.dateTimeOfBooking}
-          earningText={booking.package.price}
-          carModalText={`${booking.vehicle.make} ${booking.vehicle.model}`}
-          description={booking.package.description}
-          orderId={booking.id}
-        />
-      ))}
-    </>
-  );
-};
+//   return (
+//     <>
+//       {todayBookings?.map((booking, index:number) => (
+//         <Inspection
+//           dropDown={true}
+//           key={index}
+//           firstText={booking.package.name}
+//           name={booking.owner.name}
+//           imageUrl={booking.owner.profilePic}
+//           dateTime={booking.dateTimeOfBooking}
+//           earningText={booking.package.price}
+//           carModalText={`${booking.vehicle.make} ${booking.vehicle.model}`}
+//           description={booking.package.description}
+//           orderId={booking.id}
+//         />
+//       ))}
+//     </>
+//   );
+// };
 
-const LoadingScreen = ({ text }) => {
-  return (
-    <div className="flex h-full py-[6rem] justify-center items-center">
-      <ImageWithText imageUrl={<EmptyArray />} text={text} />
-    </div>
-  );
-};
+// const LoadingScreen = ({ text }) => {
+//   return (
+//     <div className="flex h-full py-[6rem] justify-center items-center">
+//       <ImageWithText imageUrl={<EmptyArray />} text={text} />
+//     </div>
+//   );
+// };
 
 
 

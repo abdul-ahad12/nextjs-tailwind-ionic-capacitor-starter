@@ -30,7 +30,8 @@ interface InspectionDataItem {
 const Activity = () => {
   const [activeState, setActiveState] = useState(tabs.TODAYSINSPECTION);
   const history = useHistory();
-  const customerData = JSON.parse(localStorage.getItem('customerdata'));
+const customerDataString = localStorage.getItem('customerdata');
+const customerData = customerDataString ? JSON.parse(customerDataString) : null;
 
   const { data, error, loading, makeRequest } = useDynamicGetRequest();
 

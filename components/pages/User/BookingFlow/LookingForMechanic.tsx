@@ -14,7 +14,8 @@ const LookingForMechanic = () => {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [isOpen, setIsOpen] = useState(true);
   const history = useHistory();
-  const customerData = JSON.parse(localStorage.getItem('customerdata'));
+const customerDataString = localStorage.getItem('customerdata');
+const customerData = customerDataString ? JSON.parse(customerDataString) : null;
 
 
   const { mutate, isPending, isError, error, isSuccess, data } =

@@ -11,7 +11,8 @@ import { baseURL } from '../../../../utils/definations/axios/url';
 const SelectDateTime = () => {
   const history = useHistory();
   const formMethods = useForm();
-  const customerData = JSON.parse(localStorage.getItem('customerdata'));
+const customerDataString = localStorage.getItem('customerdata');
+const customerData = customerDataString ? JSON.parse(customerDataString) : null;
 
   const {
     handleSubmit,

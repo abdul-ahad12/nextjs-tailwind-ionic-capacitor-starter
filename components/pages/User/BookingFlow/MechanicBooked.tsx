@@ -19,7 +19,8 @@ const MechanicBooked = () => {
   const { makeRequest, data, loading, error } = useDynamicGetRequest()
 
 
-  const customerData = JSON.parse(localStorage.getItem('customerdata'));
+const customerDataString = localStorage.getItem('customerdata');
+const customerData = customerDataString ? JSON.parse(customerDataString) : null;
 
   const customerId=customerData.customer.id
 
