@@ -26,7 +26,7 @@ const customerData = customerDataString ? JSON.parse(customerDataString) : null;
         onSuccess: data => {
           console.log('Booking Created:', data);
           BookingResponseStore.update(s => {
-            s.id = data.data.bookingid;
+            s.id = data.data.bookingId;
           });
           console.log(BookingResponseStore.getRawState());
           history.push('/lookingformechanic');

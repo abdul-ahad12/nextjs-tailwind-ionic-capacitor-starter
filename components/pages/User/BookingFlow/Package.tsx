@@ -55,14 +55,14 @@ const Package = () => {
               isSelected={selectedPackage === 'Basic Service'}
               onSelect={() => handleSelectPackage('Basic Service')}
             />
-            <PackageOffer
+            {/* <PackageOffer
               title="Premium Service"
               services={servicesPackage2.data}
               price="$135"
               selectable
               isSelected={selectedPackage === 'Premium Service'}
               onSelect={() => handleSelectPackage('Premium Service')}
-            />
+            /> */}
           </div>
         </div>
       </div>

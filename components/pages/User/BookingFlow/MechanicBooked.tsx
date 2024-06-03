@@ -13,55 +13,52 @@ import { CustomerGlobalStore } from '../GlobalStore';
 
 const MechanicBooked = () => {
   const [selectedPlace, setSelectedPlace] = useState<any>(null);
-  const [mechanicStatus, setMechanicStatus] = useState(false)
+  const [isOpen, setIsOpen] = useState(true);
   const history = useHistory();
 
-  const { makeRequest, data, loading, error } = useDynamicGetRequest()
+  const { makeRequest, data, loading, error } = useDynamicGetRequest();
 
+  const customerDataString = localStorage.getItem('customerdata');
+  const customerData = customerDataString
+    ? JSON.parse(customerDataString)
+    : null;
 
-const customerDataString = localStorage.getItem('customerdata');
-const customerData = customerDataString ? JSON.parse(customerDataString) : null;
-
-  const customerId=customerData.customer.id
+  const customerId = customerData.customer.id;
 
   useEffect(() => {
     if (!customerId) {
-      return // Do not proceed until customerId is defined
+      return; // Do not proceed until customerId is defined
     }
 
     // Create a new socket connection
     const socket = io('http://localhost:3002', {
       query: { customerId },
-    })
+    });
 
     socket.on('connect', () => {
-      console.log(`Connected to server as customer: ${customerId}`)
+      console.log(`Connected to server as customer: ${customerId}`);
       // Emit a join room event or similar to subscribe to updates for this customer
-      console.log(customerId)
-      socket.emit('joinRoom', { room: `customer-${customerId}` })
-    })
+      console.log(customerId);
+      socket.emit('joinRoom', { room: `customer-${customerId}` });
+    });
 
     // Setup event listener for booking updates
-    socket.on('booking-update', (message) => {
-      console.log(message)
+    socket.on('booking-update', message => {
+      console.log(message);
       CustomerGlobalStore.update(s => {
-        s.bookingDetails = message
-      })
-      setMechanicStatus(true)
-      history.push('/mechdetails')
+        s.bookingDetails = message;
+      });
+      setIsOpen(false);
+      history.push('/mechdetails');
       // setResponse(message)
-
-    })
+    });
 
     // Cleanup function to run when the component unmounts or customerId changes
     return () => {
-      socket.off('booking-update')
-      socket.disconnect()
-    }
-  }, [customerId, data])
-
-
-
+      socket.off('booking-update');
+      socket.disconnect();
+    };
+  }, [customerId, data]);
 
   const notificationData = [
     {
@@ -87,28 +84,20 @@ const customerData = customerDataString ? JSON.parse(customerDataString) : null;
       text: 'Total',
       name: '$ 123.6',
     },
-  ]
-
-
-
-
-
-
-
-
+  ];
 
   return (
     <IonPage>
       <IonContent>
         <MapComponent selectedPlace={selectedPlace} />
         <Modal
-          isOpen={true}
+          isOpen={isOpen}
           // btnText="Done"
           title="Looking For Mechanic"
           // onSubmit={() => {
           //   history.push('/appuser/selectlocation');
           // }}
-          placed
+          // placed
         >
           <div>
             <div>

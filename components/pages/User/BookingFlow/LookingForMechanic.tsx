@@ -16,7 +16,10 @@ const LookingForMechanic = () => {
   const history = useHistory();
 const customerDataString = localStorage.getItem('customerdata');
 const customerData = customerDataString ? JSON.parse(customerDataString) : null;
+const bookingDetails = BookingStore.getRawState()
+const bookingResponse = BookingResponseStore.getRawState()
 
+console.log(bookingDetails,bookingResponse)
 
   const { mutate, isPending, isError, error, isSuccess, data } =
     useDynamicRequest(
@@ -81,8 +84,8 @@ const customerData = customerDataString ? JSON.parse(customerDataString) : null;
   }, [customerId, data])
 
   const findMechs = () => {
-    const bookingDetails = BookingStore.getRawState()
-    const bookingResponse = BookingResponseStore.getRawState()
+  
+
     // const payload = {
     //   latitude: bookingDetails.vehicle.vehicleAddress.lat,
     //   longitude: bookingDetails.vehicle.vehicleAddress.long,
@@ -142,8 +145,8 @@ const customerData = customerDataString ? JSON.parse(customerDataString) : null;
           title="Booking has been Created"
           searching
           onSubmit={() => {
-            setIsOpen(false);
             findMechs()
+            setIsOpen(false);
           }}
         >
           <div>

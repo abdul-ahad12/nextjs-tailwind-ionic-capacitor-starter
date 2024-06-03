@@ -21,15 +21,17 @@ const OTPLoginUser = () => {
       {
         onSuccess: data => {
           console.log('Login successful', data.data);
-          CustomerGlobalStore.update(s => {
-            s.customerId = data.data.customer.id,
-              s.email = data.data.email,
-              s.phoneNumber = data.data.phoneNumber,
-              s.lastName = data.data.lastName,
-              s.userId = data.data.id,
-              s.profilePic = data.data.customer.profilePic
-          })
-          console.log(CustomerGlobalStore.getRawState())
+          localStorage.setItem('customerdata', JSON.stringify(data.data));
+
+          // CustomerGlobalStore.update(s => {
+          //   s.customerId = data.data.customer.id,
+          //     s.email = data.data.email,
+          //     s.phoneNumber = data.data.phoneNumber,
+          //     s.lastName = data.data.lastName,
+          //     s.userId = data.data.id,
+          //     s.profilePic = data.data.customer.profilePic
+          // })
+          // console.log(CustomerGlobalStore.getRawState())
           history.push('/appuser/selectlocation');
 
           // Handle success logic, e.g., store user data, redirect, etc.
