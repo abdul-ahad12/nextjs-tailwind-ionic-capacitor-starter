@@ -36,7 +36,7 @@ const SignupUser = () => {
   const handleSignupIntiation = () => {
     const requestConfig = {
       method: 'post',
-      url: `${baseURL}/auth/signup/customer/+91${phoneNumber}`,
+      url: `${baseURL}/auth/signup/customer/+61${phoneNumber}`,
     };
 
     mutate(requestConfig);

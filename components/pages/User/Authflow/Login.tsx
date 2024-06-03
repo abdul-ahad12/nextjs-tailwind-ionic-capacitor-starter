@@ -40,7 +40,7 @@ const LoginUser = () => {
       method: 'post',
       // url: 'https://dummyjson.com/products/add',
 
-      url: `${baseURL}/auth/login/+91${phoneNumber}`,
+      url: `${baseURL}/auth/login/+61${phoneNumber}`,
     };
 
     mutate(requestConfig);

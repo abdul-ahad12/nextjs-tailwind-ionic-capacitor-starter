@@ -52,7 +52,7 @@ const OTPUser = () => {
       method: 'post',
       url: `${baseURL}/auth/signup/customer/verify`,
       data: {
-        phoneNumber: `+91${phoneNumber}`,
+        phoneNumber: `+61${phoneNumber}`,
         otp: otp.join(''), // Join the OTP array to form a string
       },
     };
