@@ -6,7 +6,7 @@ import Modal from '../../../ui/common/modals';
 import { useHistory } from 'react-router';
 import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
 import { BookingResponseStore } from './store';
-import { baseURL } from '../../../../utils/definations/axios/url';
+import { baseURL, socketURL } from '../../../../utils/definations/axios/url';
 import useDynamicGetRequest from '../../../../utils/supportingFns/getCall';
 import { io } from 'socket.io-client';
 import { CustomerGlobalStore } from '../GlobalStore';
@@ -31,7 +31,7 @@ const MechanicBooked = () => {
     }
 
     // Create a new socket connection
-    const socket = io('http://localhost:3002', {
+    const socket = io(socketURL, {
       query: { customerId },
     });
 

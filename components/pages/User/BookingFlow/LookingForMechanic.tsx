@@ -7,7 +7,7 @@ import { useHistory } from 'react-router';
 import { BookingResponseStore, BookingStore, LocationStore } from './store';
 import { CustomerGlobalStore } from '../GlobalStore';
 import { io } from 'socket.io-client';
-import { baseURL } from '../../../../utils/definations/axios/url';
+import { baseURL, socketURL } from '../../../../utils/definations/axios/url';
 import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
 
 const LookingForMechanic = () => {
@@ -54,7 +54,7 @@ console.log(bookingDetails,bookingResponse)
     }
 
     // Create a new socket connection
-    const socket = io('http://localhost:3002', {
+    const socket = io(socketURL, {
       query: { customerId },
     })
 

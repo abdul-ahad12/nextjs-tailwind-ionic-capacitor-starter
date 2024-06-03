@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000';
+const url = 'https://api.inspectly.com.au';
 const version = '/api/v1';
 export const baseURL = `${url}${version}`;
-export const socketURL = 'http://localhost:3002';
+export const socketURL = 'https://chat.inspectly.com.au';
