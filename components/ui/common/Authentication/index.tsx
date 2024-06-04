@@ -42,7 +42,7 @@ const Authentication: React.FC<IAuthentication> = ({
   };
 
   // Determine if the button should be disabled based on the length of the phone number
-  const disabled = phoneNumber.length < 10;
+  const disabled = phoneNumber.length < 12;
 
   return (
     <IonPage>
