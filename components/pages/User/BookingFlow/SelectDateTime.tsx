@@ -90,7 +90,7 @@ const customerData = customerDataString ? JSON.parse(customerDataString) : null;
       <BackAndButton
         back
         BtnText="Checkout"
-        title="Solt Section"
+        title="Select DateTime"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="w-full flex flex-col justify-center items-center">

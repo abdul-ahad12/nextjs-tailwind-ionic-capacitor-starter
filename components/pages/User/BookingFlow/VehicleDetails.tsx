@@ -71,13 +71,13 @@ const VehicleDetails = () => {
       <BackAndButton
         back
         BtnText="Next"
-        title="Seller Information"
+        title="Vehicle Information"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="w-full">
           <TitleDescription
-            heading="How do we contact the seller?"
-            description="Enter the vehicle owner’s details"
+            heading="Vehicle Information?"
+            description="Enter the vehicle details"
           />
           <DynamicFieldsGenerate fields={fields} errors={errors} />
         </div>

@@ -56,13 +56,13 @@ export const WhichSeller = () => {
       <BackAndButton
         back
         BtnText="Next"
-        title="Seller Information"
+        title="Service"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="w-full">
           <TitleDescription
-            heading="How do we contact the seller?"
-            description="Enter the vehicle owner’s details"
+            heading="Select a Service "
+            description="Select the service you want to have"
           />
           <DynamicFieldsGenerate fields={fields} errors={errors} />
         </div>
