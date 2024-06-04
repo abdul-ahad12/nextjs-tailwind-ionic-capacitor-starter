@@ -17,10 +17,10 @@ const SignupUser = () => {
         onSuccess: data => {
           console.log('Signup Flow Initialized', data);
           PhoneStore.update(s => {
-            s.phoneNumber = `+${phoneNumber}`;
+            s.phoneNumber = phoneNumber;
           });
           UserStore.update(s => {
-            s.phoneNumber = `+${phoneNumber}`;
+            s.phoneNumber = phoneNumber;
           });
           history.push('/otpuser');
         },
@@ -36,7 +36,7 @@ const SignupUser = () => {
   const handleSignupIntiation = () => {
     const requestConfig = {
       method: 'post',
-      url: `${baseURL}/auth/signup/customer/+${phoneNumber}`,
+      url: `${baseURL}/auth/signup/customer/+61${phoneNumber}`,
     };
 
     mutate(requestConfig);

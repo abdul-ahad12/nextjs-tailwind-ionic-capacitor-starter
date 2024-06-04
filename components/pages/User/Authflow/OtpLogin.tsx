@@ -55,7 +55,7 @@ const OTPLoginUser = () => {
       method: 'post',
       url: `${baseURL}/auth/login/verify`,
       data: {
-        phoneNumber: `+${phoneNumber}`,
+        phoneNumber: `+61${phoneNumber}`,
         otp: otp.join(''), // Join the OTP array to form a string
       },
     };
