@@ -135,7 +135,7 @@ const CreateAccount = () => {
       s.firstName = data.firstName;
       s.lastName = data.lastName;
       s.email = data.email;
-      s.phoneNumber = phoneNumber;
+      s.phoneNumber = `${+61}phoneNumber`;
       s.address = {
         ...s.address, // keep existing address fields
         lat: latlng?.coords.latitude || 0,
