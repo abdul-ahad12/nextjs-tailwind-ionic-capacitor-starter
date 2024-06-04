@@ -17,10 +17,10 @@ const SignupUser = () => {
         onSuccess: data => {
           console.log('Signup Flow Initialized', data);
           PhoneStore.update(s => {
-            s.phoneNumber = phoneNumber;
+            s.phoneNumber = `+${phoneNumber}`;
           });
           UserStore.update(s => {
-            s.phoneNumber = phoneNumber;
+            s.phoneNumber = `+${phoneNumber}`;
           });
           history.push('/otpuser');
         },
