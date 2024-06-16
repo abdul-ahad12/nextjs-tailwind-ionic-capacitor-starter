@@ -3,8 +3,15 @@ import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
 import { useHistory } from 'react-router';
 import useDynamicGetRequest from '../../../../utils/supportingFns/getCall';
 import { baseURL } from '../../../../utils/definations/axios/url';
+import { IonContent, IonPage } from '@ionic/react';
+import MapComponent from '../../../ui/common/GMaps/Maps';
+import Modal from '../../../ui/common/modals';
+import SingleNotifications from '../../../ui/common/mechanic/resuable/SingleNotification';
+import AccountComp from '../../../ui/common/mechanic/resuable/mechanicinspection/AccountComp';
 
 const MechDetails = () => {
+  const [selectedPlace, setSelectedPlace] = useState(null);
+  const [isOpen, setIsOpen] = useState(true);
   const history = useHistory();
   const { makeRequest, data, loading, error } = useDynamicGetRequest();
   const customerDataString = localStorage.getItem('customerdata');
@@ -13,19 +20,6 @@ const MechDetails = () => {
     : null;
   const customerId = customerData.customer.id;
   const [mechanicDetails, setMechanicDetails] = useState<any | null>(null);
-
-  useEffect(() => {
-    findMechs();
-  }, []);
-
-  const findMechs = () => {
-    const requestConfig = {
-      method: 'get',
-      url: `${baseURL}/booking`,
-    };
-
-    makeRequest(requestConfig.url, requestConfig.method);
-  };
 
   useEffect(() => {
     if (data && data.data.length > 0) {
@@ -43,37 +37,71 @@ const MechDetails = () => {
     }
   }, [data, customerId]);
 
+  const notificationData = [
+    {
+      imageUrl: '/user/location.png',
+      text: 'Inspection Address',
+      name: '2972 Westheimer Rd. Santa Ana, Illinois 85486',
+    },
+    {
+      imageUrl: '/user/calendar.svg',
+      text: 'Slot Selected',
+      name: '03:00 PM | 27th May 2024',
+    },
+    {
+      imageUrl: '/user/setting.svg',
+      text: 'Package',
+      name: 'Premium Service',
+    },
+    {
+      imageUrl: '/user/wallet.svg',
+      text: 'Total',
+      name: '$123.6',
+    },
+  ];
+
   return (
-    <div className="flex items-center justify-center h-screen">
-      <BackAndButton
-        title="Mechanic Details"
-        BtnText="Go to Dashboard"
-        onSubmit={() => {
-          history.push('/appuser/activity');
-        }}
-      >
-        {mechanicDetails ? (
-          <div className="text-center">
-            <img
-              src={mechanicDetails?.profilePic || '/notifications/profile.svg'}
-              alt="Mechanic Profile"
-              className="w-40 h-40 rounded-full mx-auto mb-4"
+    <IonPage>
+      <IonContent>
+        <MapComponent selectedPlace={selectedPlace} />
+        <Modal
+          isOpen={isOpen}
+          btnText="Go to Activity"
+          title="Mechanic Booked"
+          searching
+          placed
+          onSubmit={() => {
+            history.push('/appuser/activity');
+            setIsOpen(false);
+          }}
+        >
+          <div className="flex  flex-col w-full justify-center ">
+            {/* {mechanicDetails ? ( */}
+            <AccountComp
+              direction={'flex '}
+              imageUrl="/notifications/profile.svg"
+              name="Ben Williams"
+              rating={'Rating | 200+ services '}
+              items={'items-start'}
+              motorspecialist={'AC Motor'}
             />
-            <div className="mb-2">
-              <p className="text-lg font-semibold">Phone Number:</p>
-              <p className="text-xl font-bold">
-                {mechanicDetails?.phoneNumber}
-              </p>
-            </div>
-            <p className="text-gray-700">
-              The mechanic has agreed to all the terms.
-            </p>
+            {notificationData.map((notification, index) => (
+              <div key={index} className="border-t py-1">
+                <SingleNotifications
+                  direction="font-medium"
+                  imageUrl={notification.imageUrl}
+                  text={notification.text}
+                  name={notification.name}
+                />
+              </div>
+            ))}
+            {/* ) : (
+              <p>No mechanic found matching the criteria.</p>
+            )} */}
           </div>
-        ) : (
-          <p>No mechanic found matching the criteria.</p>
-        )}
-      </BackAndButton>
-    </div>
+        </Modal>
+      </IonContent>
+    </IonPage>
   );
 };
 

@@ -21,6 +21,7 @@ interface UserActivityProps {
   inspectionRequest?: boolean;
   acceptReport?: boolean;
   onClick?: () => any;
+  showDetails?: boolean;
 }
 
 const Inspection: React.FC<UserActivityProps> = ({
@@ -37,6 +38,7 @@ const Inspection: React.FC<UserActivityProps> = ({
   inspectionRequest,
   acceptReport,
   onClick,
+  showDetails,
 }) => {
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const history = useHistory();
@@ -50,8 +52,6 @@ const Inspection: React.FC<UserActivityProps> = ({
   const date = new Date(dateTime);
   const readableFormat = date.toLocaleString(); // Adjust the format as per your requirement
   console.log(readableFormat); // This will log the date/time in a human-readable format
-
-
 
   return (
     <div className="flex flex-col gap-3">
@@ -89,6 +89,31 @@ const Inspection: React.FC<UserActivityProps> = ({
             </div>
             {dropDown && (
               <button onClick={toggleDropdown} className="focus:outline-none">
+                <svg
+                  className={`w-6 h-6 fill-current text-gray-600 transform transition-transform ${
+                    showDropdown ? 'rotate-180' : ''
+                  }`}
+                  width="19"
+                  height="20"
+                  viewBox="0 0 19 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.50044 14.0005C8.94628 14.0005 8.39211 13.7755 7.97253 13.3339L2.81086 7.90052C2.58128 7.65885 2.58128 7.25885 2.81086 7.01719C3.04044 6.77552 3.42044 6.77552 3.65003 7.01719L8.81169 12.4505C9.19169 12.8505 9.80919 12.8505 10.1892 12.4505L15.3509 7.01719C15.5804 6.77552 15.9604 6.77552 16.19 7.01719C16.4196 7.25885 16.4196 7.65885 16.19 7.90052L11.0284 13.3339C10.6088 13.7755 10.0546 14.0005 9.50044 14.0005Z"
+                    fill="#292D32"
+                  />
+                </svg>
+              </button>
+            )}
+            {showDetails && (
+              <button
+                onClick={()=>{
+
+                  history.push(`/singleactivity?orderId=${orderId}`)
+                }}
+                className="focus:outline-none -rotate-90"
+              >
                 <svg
                   className={`w-6 h-6 fill-current text-gray-600 transform transition-transform ${
                     showDropdown ? 'rotate-180' : ''

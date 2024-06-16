@@ -1,22 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
 import TitleDescription from '../../../ui/common/TitleDescription';
 import { Text } from '../../../ui/common/text';
-import InputComponent from '../../../ui/common/inputComponent';
-import SearchComponent from '../../../ui/common/GMaps/Search';
 import { useHistory } from 'react-router';
 import { FormProvider, useForm } from 'react-hook-form';
 import { DynamicFieldsGenerate } from '../../../ui/common/inputComponent/DynamicFieldsGenerate';
 import { UserStore } from './store';
 import { Geolocation, Position } from '@capacitor/geolocation';
 import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
-import { baseURL } from '../../../../utils/definations/axios/url';
+import { baseURL, phoneCode } from '../../../../utils/definations/axios/url';
 import { CustomerGlobalStore } from '../GlobalStore';
 
 const CreateAccount = () => {
   const history = useHistory();
-  const [showReferralInput, setShowReferralInput] = useState(false);
-  const [latlng, setlatlng] = useState<Position | null>();
+  const [latlng, setlatlng] = useState<Position | null>(null);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const { mutate, isPending, isError, error, isSuccess, data } =
     useDynamicRequest(
@@ -53,8 +51,15 @@ const CreateAccount = () => {
     printCurrentPosition();
   }, []);
 
-  const [inputValue, setInputValue] = useState('');
-  const autocompleteService = useRef<any>(null);
+  useEffect(() => {
+    const subscription = formMethods.watch(values => {
+      const requiredFieldsFilled = fields.every(field => {
+        return field.config.required ? values[field.fieldName] : true;
+      });
+      setIsFormValid(requiredFieldsFilled && Object.keys(errors).length === 0);
+    });
+    return () => subscription.unsubscribe();
+  }, [formMethods, errors]);
 
   const fields = [
     {
@@ -126,6 +131,12 @@ const CreateAccount = () => {
       config: {
         required: 'Required',
       },
+      validation: {
+        pattern: {
+          value: /^\d{4}$/,
+          message: 'Pin Code must be a 4-digit number',
+        },
+      },
     },
   ];
 
@@ -135,7 +146,7 @@ const CreateAccount = () => {
       s.firstName = data.firstName;
       s.lastName = data.lastName;
       s.email = data.email;
-      s.phoneNumber = `+61${phoneNumber}`;
+      s.phoneNumber = `${phoneCode}${phoneNumber}`;
       s.address = {
         ...s.address, // keep existing address fields
         lat: latlng?.coords.latitude || 0,
@@ -151,8 +162,6 @@ const CreateAccount = () => {
     console.log('payload', payload);
     const requestConfig = {
       method: 'post',
-      // url: 'https://dummyjson.com/products/add',
-
       url: `${baseURL}/auth/signup/customer`,
       data: payload,
     };
@@ -162,12 +171,16 @@ const CreateAccount = () => {
 
   return (
     <FormProvider {...formMethods}>
-      <BackAndButton onSubmit={handleSubmit(onSubmit)} BtnText={'Create'}>
+      <BackAndButton
+        onSubmit={handleSubmit(onSubmit)}
+        BtnText={'Create'}
+        disabled={!isFormValid || isSubmitting}
+      >
         <div className="h-full flex flex-col items-center justify-between">
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col w-full">
             <TitleDescription
               heading="Create Account"
-              description="Enter the complete address of where the vehicle is located "
+              description="Enter All Your Personal Details Correctly  "
             />
             <div className="w-full flex flex-col gap-5">
               <DynamicFieldsGenerate fields={fields} errors={errors} />

@@ -3,6 +3,7 @@ import TitleDescription from '../../../ui/common/TitleDescription';
 import PackageOffer from '../../../ui/common/user/PackageOffer';
 import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
 import { useHistory } from 'react-router';
+import Tabs from '../../../ui/common/Layouts/TabsBooking';
 
 const Package = () => {
   const [selectedPackage, setSelectedPackage] = useState(null);
@@ -41,6 +42,8 @@ const Package = () => {
       }}
     >
       <div className="w-full">
+      <Tabs activeTab={3} />
+
         <div className="flex flex-col items-center text-center gap-4">
           <TitleDescription
             heading="Select the package that suits your requirement"

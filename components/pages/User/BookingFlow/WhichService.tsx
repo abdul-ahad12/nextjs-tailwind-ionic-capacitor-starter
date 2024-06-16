@@ -4,6 +4,7 @@ import TitleDescription from '../../../ui/common/TitleDescription';
 import { FormProvider, useForm } from 'react-hook-form';
 import { DynamicFieldsGenerate } from '../../../ui/common/inputComponent/DynamicFieldsGenerate';
 import { useHistory } from 'react-router';
+import Tabs from '../../../ui/common/Layouts/TabsBooking';
 
 export const WhichSeller = () => {
   const history = useHistory();
@@ -60,6 +61,8 @@ export const WhichSeller = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="w-full">
+        <Tabs activeTab={1} />
+
           <TitleDescription
             heading="Select a Service "
             description="Select the service you want to have"

@@ -26,7 +26,7 @@ const ImageCarousel: React.FC<IImageCarousel> = ({ slides }) => {
   };
 
   return (
-    <div className="relative text-center">
+    <div className="relative text-center w-full">
       <div className="overflow-hidden ">
         <div
           className="flex transition-transform duration-500 ease-in-out py-11 transform"

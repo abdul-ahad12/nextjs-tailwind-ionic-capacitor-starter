@@ -73,6 +73,7 @@ export async function generateStaticParams() {
     { all: ['appuser'] },
     { all: ['singlereport'] },
     { all: ['mechdetails'] },
+    { all: ['singleactivity'] },
 
     // { all: ['app/todaysinspection'] },
 

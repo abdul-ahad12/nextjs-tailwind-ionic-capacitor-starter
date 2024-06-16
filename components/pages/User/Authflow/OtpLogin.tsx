@@ -5,7 +5,7 @@ import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInst
 import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
 import TitleDescription from '../../../ui/common/TitleDescription';
 import OTPInput from '../../../ui/common/Authentication/OtpInputs';
-import { baseURL } from '../../../../utils/definations/axios/url';
+import { baseURL, phoneCode } from '../../../../utils/definations/axios/url';
 import PhoneStore from './store';
 import { CustomerGlobalStore } from '../GlobalStore';
 
@@ -55,7 +55,7 @@ const OTPLoginUser = () => {
       method: 'post',
       url: `${baseURL}/auth/login/verify`,
       data: {
-        phoneNumber: `+61${phoneNumber}`,
+        phoneNumber: `${phoneCode}${phoneNumber}`,
         otp: otp.join(''), // Join the OTP array to form a string
       },
     };

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
 import Authentication from '../../../ui/common/Authentication';
-import { baseURL } from '../../../../utils/definations/axios/url';
+import { baseURL, phoneCode } from '../../../../utils/definations/axios/url';
 import PhoneStore from './store';
 import { UserStore } from '../Onboarding/store';
 
@@ -36,7 +36,7 @@ const SignupUser = () => {
   const handleSignupIntiation = () => {
     const requestConfig = {
       method: 'post',
-      url: `${baseURL}/auth/signup/customer/+61${phoneNumber}`,
+      url: `${baseURL}/auth/signup/customer/${phoneCode}${phoneNumber}`,
     };
 
     mutate(requestConfig);

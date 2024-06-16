@@ -112,17 +112,17 @@ console.log(bookingDetails,bookingResponse)
       name: '2972 Westheimer Rd. Santa Ana, Illinois 85486',
     },
     {
-      imageUrl: '/user/location.png',
+      imageUrl: '/user/calendar.svg',
       text: 'Slot Selected',
       name: '03:00 PM | 27th May 2024',
     },
     {
-      imageUrl: '/user/location.png',
+      imageUrl: '/user/setting.svg',
       text: 'Package',
       name: 'Premium Service',
     },
     {
-      imageUrl: '/user/location.png',
+      imageUrl: '/user/wallet.svg',
       text: 'Total',
       name: '$123.6',
     },

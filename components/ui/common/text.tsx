@@ -3,7 +3,7 @@ import React from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 
 export const text = tv({
-  base: 'text-secomdary font-[Silka]',
+  base: 'text-black font-[Silka]',
   variants: {
     typography: {
       header: 'font-[700] text-header ',

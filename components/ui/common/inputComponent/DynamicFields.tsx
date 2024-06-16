@@ -1,5 +1,4 @@
 import { useFormContext } from 'react-hook-form';
-import { DynamicFieldData } from '../../../../utils/definations/types/DynamicControlField';
 import { Text } from '../text';
 
 export const DynamicControl = ({
@@ -15,6 +14,23 @@ export const DynamicControl = ({
   const { register } = useFormContext();
 
   const validationConfig = { ...config, ...validation };
+
+  // Function to get today's date in the format yyyy-mm-dd
+  const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  // Function to get current time in the format hh:mm
+  const getCurrentTime = () => {
+    const today = new Date();
+    const hour = String(today.getHours()).padStart(2, '0');
+    const minute = String(today.getMinutes()).padStart(2, '0');
+    return `${hour}:${minute}`;
+  };
 
   switch (inputType) {
     case 'text':
@@ -103,6 +119,7 @@ export const DynamicControl = ({
               type="date"
               {...register(fieldName, config)}
               defaultValue={defaultValue}
+              min={getTodayDate()} // Set minimum value to today's date
               placeholder={`Enter your ${label}`}
             />
           </div>
@@ -119,12 +136,12 @@ export const DynamicControl = ({
               type="time"
               {...register(fieldName, config)}
               defaultValue={defaultValue}
+              min={getCurrentTime()} // Set minimum value to current time
               placeholder={`Enter your ${label}`}
             />
           </div>
         </div>
       );
-
     default:
       return <input type="text" />;
   }

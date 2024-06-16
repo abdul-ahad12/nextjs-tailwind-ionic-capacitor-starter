@@ -7,6 +7,7 @@ import { useHistory } from 'react-router';
 import { BookingResponseStore, BookingStore } from './store';
 import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
 import { baseURL } from '../../../../utils/definations/axios/url';
+import Tabs from '../../../ui/common/Layouts/TabsBooking';
 
 const SelectDateTime = () => {
   const history = useHistory();
@@ -94,6 +95,8 @@ const customerData = customerDataString ? JSON.parse(customerDataString) : null;
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="w-full flex flex-col justify-center items-center">
+        <Tabs activeTab={4} />
+
           <div className=" w-[80%] text-center">
             <TitleDescription
               heading="Select Time and Date"

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
 import Authentication from '../../../ui/common/Authentication';
-import { baseURL } from '../../../../utils/definations/axios/url';
+import { baseURL, phoneCode } from '../../../../utils/definations/axios/url';
 import PhoneStore from './store';
 import { AxiosError } from 'axios';
 
@@ -40,7 +40,7 @@ const LoginUser = () => {
       method: 'post',
       // url: 'https://dummyjson.com/products/add',
 
-      url: `${baseURL}/auth/login/+61${phoneNumber}`,
+      url: `${baseURL}/auth/login/${phoneCode}${phoneNumber}`,
     };
 
     mutate(requestConfig);

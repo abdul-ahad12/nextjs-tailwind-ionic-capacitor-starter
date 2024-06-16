@@ -5,13 +5,14 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { DynamicFieldsGenerate } from '../../../ui/common/inputComponent/DynamicFieldsGenerate';
 import { useHistory } from 'react-router';
 import { BookingStore } from './store';
+import { australianCarData } from '../../../../utils/mockData/carMakes';
 
 const VehicleDetails = () => {
   const history = useHistory();
   const formMethods = useForm();
   const {
     handleSubmit,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting, errors, isValid },
   } = formMethods;
 
   const onSubmit = (data: any, error: any) => {
@@ -27,12 +28,22 @@ const VehicleDetails = () => {
     history.push('/package');
   };
 
+  const currentYear = new Date().getFullYear();
+  const years = Array.from(
+    { length: currentYear - 1989 },
+    (_, index) => currentYear - index,
+  );
+
   const fields = [
     {
       fieldName: 'make',
-      inputType: 'text',
+      inputType: 'select',
       label: 'Make',
       defaultValue: '',
+      options: australianCarData.map((make: any) => ({
+        value: make.make,
+        label: make.make,
+      })),
       config: {
         required: 'Required',
       },
@@ -48,9 +59,13 @@ const VehicleDetails = () => {
     },
     {
       fieldName: 'year',
-      inputType: 'text',
-      label: 'Enter Year',
+      inputType: 'select',
+      label: 'Select Year',
       defaultValue: '',
+      options: years.map(year => ({
+        value: year,
+        label: year.toString(),
+      })),
       config: {
         required: 'Required',
       },
@@ -73,6 +88,7 @@ const VehicleDetails = () => {
         BtnText="Next"
         title="Vehicle Information"
         onSubmit={handleSubmit(onSubmit)}
+        disabled={!isValid || isSubmitting}
       >
         <div className="w-full">
           <TitleDescription

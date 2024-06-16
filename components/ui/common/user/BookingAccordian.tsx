@@ -10,21 +10,25 @@ interface AccordionProps {
     heading: string;
     details: { description: string; price: string }[];
   }[];
+  edit?: boolean;
 }
 
 const BookingAccordion: React.FC<AccordionProps> = ({
   title,
   bookingdetails,
+  edit,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <div className="border border-gray-300 rounded ">
       <div
-        className="flex items-center justify-between cursor-pointer border-b p-2"
+        className="flex items-center justify-between cursor-pointer border-b px-2 py-3"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <h2 className="text-lg font-semibold">{title}</h2>
+        <Text typography="body" className="text-black font-semibold">
+          {title}
+        </Text>
         <motion.div
           className="transition-all"
           animate={{ rotate: isOpen ? 180 : 0 }}
@@ -34,22 +38,23 @@ const BookingAccordion: React.FC<AccordionProps> = ({
       </div>
       {isOpen && (
         <motion.div
-          className="p-4"
+          className="px-4"
           initial={{ height: 0 }}
           animate={{ height: 'auto' }}
           exit={{ height: 0 }} // Animate height to 0 when closing
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.1 }}
         >
           {bookingdetails.map((item, index) => (
-            <div key={index} className="border-b border-gray-300 py-5">
-              <div className="flex justify-between items-center">
+            <div key={index} className="border-b border-gray-300 ">
+              <div className="flex justify-between items-center pt-3">
                 <Text
-                  typography="cardsheader"
-                  className="text-lg font-semibold"
+                 typography="body" className="text-black font-semibold"
                 >
                   {item.heading}
                 </Text>
-                <Button className="w-fit bg-white text-blue-600">Edit</Button>
+                {edit && (
+                  <Button className="w-fit bg-white text-blue-600">Edit</Button>
+                )}
               </div>
               {item.details.map((detail, i) => (
                 <div key={i} className="flex justify-between">

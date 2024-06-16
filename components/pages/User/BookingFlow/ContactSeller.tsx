@@ -5,6 +5,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { DynamicFieldsGenerate } from '../../../ui/common/inputComponent/DynamicFieldsGenerate';
 import { useHistory } from 'react-router';
 import { BookingStore } from './store';
+import Tabs from '../../../ui/common/Layouts/TabsBooking';
 
 export const ContactSeller = () => {
   const history = useHistory();
@@ -16,14 +17,14 @@ export const ContactSeller = () => {
 
   const onSubmit = (data: any, error: any) => {
     BookingStore.update(s => {
-      s.seller={
+      s.seller = {
         ...s.seller,
-        name:data.name,
-        lastname:data.lastname,
-        email:data.email,
-        phoneNumber:data.phoneNumber
-      }
-    })
+        name: data.name,
+        lastname: data.lastname,
+        email: data.email,
+        phoneNumber: data.phoneNumber,
+      };
+    });
     history.push('/whichseller');
   };
 
@@ -31,30 +32,38 @@ export const ContactSeller = () => {
     {
       fieldName: 'name',
       inputType: 'text',
-      label: "First Name/Company Name",
+      label: 'First Name/Company Name',
       defaultValue: '',
-      
     },
     {
       fieldName: 'lastname',
       inputType: 'text',
-      label: "Last Name/Company Name",
+      label: 'Last Name/Company Name',
       defaultValue: '',
-      
     },
     {
       fieldName: 'email',
       inputType: 'text',
-      label: "Email Address",
+      label: 'Email Address',
       defaultValue: '',
-      
+      config: {
+        pattern: {
+          value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+          message: 'Invalid email address',
+        },
+      },
     },
     {
       fieldName: 'phoneNumber',
       inputType: 'text',
-      label: "Phone Number",
+      label: 'Phone Number',
       defaultValue: '',
-    
+      config: {
+        pattern: {
+          value: /^[0-9]{10}$/,
+          message: 'Invalid phone number',
+        },
+      },
     },
   ];
 
@@ -67,6 +76,7 @@ export const ContactSeller = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="w-full">
+          <Tabs activeTab={0} />
           <TitleDescription
             heading="How do we contact the seller?"
             description="Enter the vehicle owner’s details"

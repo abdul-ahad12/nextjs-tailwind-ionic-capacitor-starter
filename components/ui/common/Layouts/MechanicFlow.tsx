@@ -3,6 +3,7 @@ import {
   IonFooter,
   IonHeader,
   IonPage,
+  IonTitle,
   IonToolbar,
 } from '@ionic/react';
 import React from 'react';
@@ -58,20 +59,8 @@ const MechanicFlow: React.FC<IMechanicFlow> = ({
     <IonPage>
       <IonHeader id="header" collapse="fade">
         <IonToolbar>
-          <div className={`shadow-xl px-5 pt-5 ${waitingScreen && 'pb-5'}`}>
-            <div className="flex gap-2">
-              <img src="/img/favicon.svg" className="w-[3rem]"></img>
-              <div className="flex flex-col justify-center">
-                <Text className="text-secondary">Good Morning</Text>
-                <div
-                  onClick={() => {
-                    history.push('/app/profile');
-                  }}
-                >
-                  <Text className="text-tertiary font-semibold">{name}</Text>
-                </div>
-              </div>
-            </div>
+        <IonTitle className="text-center font-[Silka] w-full flex items-center justify-center  font-semibold mt-[-2rem]">Activity</IonTitle>
+          <div className={`shadow-xl px-5 pt-12 ${waitingScreen && 'pb-5 '}`}>
             {!waitingScreen && (
               <div className="grid grid-cols-3 gap-3 pt-8">
                 {topBar.map(data => {

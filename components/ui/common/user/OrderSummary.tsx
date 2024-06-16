@@ -12,7 +12,7 @@ interface OrderSummaryProps {
 
 const OrderSummary: React.FC<OrderSummaryProps> = ({ items }) => {
   return (
-    <div className="flex flex-col gap-3 p-2">
+    <div className="flex flex-col gap-3 py-2">
       <Text typography="body" className="text-black font-semibold">
         Order Summary
       </Text>

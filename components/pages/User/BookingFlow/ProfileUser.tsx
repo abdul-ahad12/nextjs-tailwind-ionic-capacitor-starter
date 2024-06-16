@@ -131,17 +131,22 @@ import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
 import AccountSvg from '../../../ui/common/svgs/AccountSvg';
 import SupportSvg from '../../../ui/common/svgs/SupportSvg';
 import PrivacyAndPolicy from '../../../ui/common/svgs/PrivacyAndPolicy';
+import { IonContent, IonHeader, IonPage } from '@ionic/react';
+import { Text } from '../../../ui/common/text';
 
 const ProfileUser = () => {
   const history = useHistory();
+
+  const customerDataString = localStorage.getItem('customerdata');
+  const customerData = customerDataString
+    ? JSON.parse(customerDataString)
+    : null;
 
   const borderTextNumberData = [
     { text: 'Todays Inspections ', number: 20, borderColor: 'black' },
     { text: 'Todays Earnings', number: 10, borderColor: 'green-500' },
     // Add more objects as needed
   ];
-
-  
 
   const iconTextButtonData = [
     {
@@ -171,50 +176,64 @@ const ProfileUser = () => {
     // Add more objects as needed
   ];
   return (
-    <BackAndButton back title="Profile">
-      <div className="flex flex-col gap-6">
-        <AccountComp
-          direction={'bg-notifications'}
-          imageUrl="/notifications/profile.svg"
-          name="Ben Williams"
-          rating={'Rating'}
-        />
-       
-        <div className="flex flex-col gap-5 mt-5">
-          {/* Map the iconTextButtonData array and render IconTextButton component */}
-          {iconTextButtonData.map((item, index) => (
-            <div
-              key={index}
-              className="w-full"
-              onClick={() => {
-                history.push(item.href);
-              }}
-            >
-              <IconTextButton
+    // <BackAndButton back title="Profile">
+    <IonPage>
+      <IonHeader className="shadow-none">
+        <div className="h-[12rem] bg-[#f4f4f5] flex items-center px-[5%] justify-between">
+          <Text className="text-black font-semibold text-[1.5rem]">
+            Hello, {customerData?.firstName}
+          </Text>
+          <img className="w-[9rem] mt-4" src="/user/userProfile.svg" />
+        </div>
+      </IonHeader>
+      <IonContent className="ion-padding">
+        <div className="flex flex-col gap-6">
+          <AccountComp
+            direction={'border border-[#D9D9D9] rounded-lg'}
+            imageUrl="/notifications/profile.svg"
+            name={`${customerData?.firstName} ${customerData?.firstName}`}
+            rating={'Rating'}
+            user
+            phoneNumber={customerData.customer.phoneNumber}
+          />
+
+          <div className="flex flex-col gap-5 mt-5">
+            {/* Map the iconTextButtonData array and render IconTextButton component */}
+            {iconTextButtonData.map((item, index) => (
+              <div
                 key={index}
-                svgcomp={<RightArrowSvg />}
-                icon={item.icon}
-                text={item.text}
-                bgcolor={item.bgcolor}
-              />
-            </div>
-          ))}
+                className="w-full"
+                onClick={() => {
+                  history.push(item.href);
+                }}
+              >
+                <IconTextButton
+                  key={index}
+                  svgcomp={<RightArrowSvg />}
+                  icon={item.icon}
+                  text={item.text}
+                  bgcolor={item.bgcolor}
+                />
+              </div>
+            ))}
+          </div>
+          <div className="w-fit">
+            <Button
+              onClick={() => {
+                localStorage.clear();
+                history.replace('/');
+              }}
+              className="text-red-500 w-full items-start"
+              color="secondary"
+            >
+              {'('}&#x2192; <span className="ml-3">Log Out</span>
+            </Button>
+          </div>
         </div>
-        <div className="w-fit">
-          <Button
-            onClick={() => {
-              history.replace('/user');
-            }}
-            className="text-red-500 w-full items-start"
-            color="secondary"
-          >
-            {'('}&#x2192; <span className="ml-3">Log Out</span>
-          </Button>
-        </div>
-      </div>
-    </BackAndButton>
+      </IonContent>
+    </IonPage>
+    // </BackAndButton>
   );
 };
 
 export default ProfileUser;
-

@@ -33,6 +33,7 @@ import OTPLoginUser from './pages/User/Authflow/OtpLogin';
 import TabsUser from './pages/User/Tabs';
 import SingleReport from './pages/User/Report';
 import MechDetails from './pages/User/BookingFlow/mechDetails';
+import SingleBookingDetails from './pages/User/Activity/SingleBookingDetails';
 
 setupIonicReact({});
 
@@ -100,6 +101,7 @@ const AppShell = () => {
             <Route path="/appuser" render={() => <TabsUser />} />
             <Route path="/singlereport" render={() => <SingleReport />} />
             <Route path="/mechdetails" render={() => <MechDetails />} />
+            <Route path="/singleactivity" render={() => <SingleBookingDetails />} />
           </IonRouterOutlet>
         </IonReactRouter>
       </QueryClientProvider>

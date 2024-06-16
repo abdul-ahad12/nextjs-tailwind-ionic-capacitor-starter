@@ -8,7 +8,7 @@ import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
 import TitleDescription from '../../../ui/common/TitleDescription';
 import OTPInput from '../../../ui/common/Authentication/OtpInputs';
 import PhoneStore from './store';
-import { baseURL } from '../../../../utils/definations/axios/url';
+import { baseURL, phoneCode } from '../../../../utils/definations/axios/url';
 
 const OTPUser = () => {
   const history = useHistory();
@@ -52,7 +52,7 @@ const OTPUser = () => {
       method: 'post',
       url: `${baseURL}/auth/signup/customer/verify`,
       data: {
-        phoneNumber: `+61${phoneNumber}`,
+        phoneNumber: `${phoneCode}${phoneNumber}`,
         otp: otp.join(''), // Join the OTP array to form a string
       },
     };

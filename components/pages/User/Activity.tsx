@@ -8,6 +8,8 @@ import { Button } from '../../ui/common/button';
 import { useHistory } from 'react-router';
 import { baseURL } from '../../../utils/definations/axios/url';
 import useDynamicGetRequest from '../../../utils/supportingFns/getCall';
+import ActivityLoading from '../../ui/common/svgs/ActivityLoading';
+import { InspectionsStore } from './GlobalStore';
 
 export enum tabs {
   TODAYSINSPECTION = 'Ongoing Inspections',
@@ -30,8 +32,10 @@ interface InspectionDataItem {
 const Activity = () => {
   const [activeState, setActiveState] = useState(tabs.TODAYSINSPECTION);
   const history = useHistory();
-const customerDataString = localStorage.getItem('customerdata');
-const customerData = customerDataString ? JSON.parse(customerDataString) : null;
+  const customerDataString = localStorage.getItem('customerdata');
+  const customerData = customerDataString
+    ? JSON.parse(customerDataString)
+    : null;
 
   const { data, error, loading, makeRequest } = useDynamicGetRequest();
 
@@ -42,8 +46,6 @@ const customerData = customerDataString ? JSON.parse(customerDataString) : null;
   let filteredBookings: any[] = [];
   let filteredBookings1: any[] = [];
 
-
-
   if (data && data.success && data.data) {
     filteredBookings = data.data.filter(
       (booking: any) =>
@@ -51,6 +53,9 @@ const customerData = customerDataString ? JSON.parse(customerDataString) : null;
         !booking.Order[0].isFullfilled &&
         booking.ownerId === customerData?.customer.id,
     );
+    InspectionsStore.update(s => {
+      s.bookings = filteredBookings1;
+    });
   }
 
   if (data && data.success && data.data) {
@@ -60,6 +65,10 @@ const customerData = customerDataString ? JSON.parse(customerDataString) : null;
         booking.Order[0].isFullfilled &&
         booking.ownerId === customerData?.customer.id,
     );
+
+    InspectionsStore.update(s => {
+      s.bookings = filteredBookings1;
+    });
   }
 
   if (
@@ -75,7 +84,7 @@ const customerData = customerDataString ? JSON.parse(customerDataString) : null;
       >
         <HeightFullLayout>
           <ImageWithText
-            imageUrl={<EmptyArray />}
+            imageUrl={<ActivityLoading />}
             text="Nothing for you now! Come Back Later"
           />
           <Button
@@ -90,7 +99,7 @@ const customerData = customerDataString ? JSON.parse(customerDataString) : null;
       </MechanicFlow>
     );
   }
-console.log(filteredBookings1)
+  console.log(filteredBookings1);
   return (
     <MechanicFlow
       setActiveState={setActiveState}
@@ -101,7 +110,7 @@ console.log(filteredBookings1)
         {activeState === tabs.TODAYSINSPECTION &&
           filteredBookings.map((booking: any, index: number) => (
             <Inspection
-              dropDown={true}
+              showDetails={true}
               key={index}
               firstText={'Basic Service'} // Assuming package name is used for firstText
               name={'Mechanic'} // Assuming owner's phone number is used for name
@@ -117,7 +126,7 @@ console.log(filteredBookings1)
         {activeState === tabs.SCHEDULEDINSPECTION &&
           filteredBookings1.map((booking, index) => (
             <Inspection
-              dropDown={true}
+              showDetails={true}
               key={index}
               firstText={'Basic Service'} // Assuming package name is used for firstText
               name={'Mechanic'} // Assuming owner's phone number is used for name
@@ -127,7 +136,6 @@ console.log(filteredBookings1)
               carModalText={booking?.vehicle.carType} // Assuming carType is used for carModalText
               description={'address'} // Assuming street address is used for description
               orderId={booking?.id}
-              viewReport
             />
           ))}
       </div>
