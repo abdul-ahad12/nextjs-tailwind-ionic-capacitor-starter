@@ -129,7 +129,7 @@ const SingleReport = () => {
               </div>
             </IonRow>
           </div>
-          <IonAccordionGroup>
+          <IonAccordionGroup className="flex flex-col gap-7">
             {[
               {
                 value: 'engineAndPeripherals',
@@ -177,8 +177,10 @@ const SingleReport = () => {
                     {section.label}
                   </Text>
                 </IonItem>
-                <div className="bg-black" slot="content">
-                  <IonList>{renderSection(section.content)}</IonList>
+                <div className=" px-4 " slot="content">
+                  <IonList className=" w-full flex flex-col gap-2">
+                    {renderSection(section.content)}
+                  </IonList>
                 </div>
               </IonAccordion>
             ))}
@@ -186,7 +188,9 @@ const SingleReport = () => {
           <div>
             <IonItem className="my-4">
               <IonLabel>
-                <Text className="text-md font-semibold text-black">Additional Comments</Text>
+                <Text className="text-md font-semibold text-black">
+                  Additional Comments
+                </Text>
                 <p className="mt-2">{report.additionalComments}</p>
               </IonLabel>
             </IonItem>
@@ -221,7 +225,7 @@ const renderSection = (sectionData: any) => {
       {Object.keys(sectionData).map(key => {
         const item = sectionData[key];
         return (
-          <div key={key} className="my-2 flex flex-col gap-1">
+          <div key={key} className="p-2 rounded-primary flex flex-col gap-1 bg-[#F1F1F1]">
             <Text className="text-lg font-semibold text-tertiary capitalize">
               {key.replace(/([A-Z])/g, ' $1')}
             </Text>

@@ -36,7 +36,7 @@ const TabsUser = () => {
       tab: 'tab3',
       href: '/appuser/notifications',
       title: 'Notifications',
-      icon: '/img/tabs/notification.svg',
+      icon: '/notifications/bell.svg',
     },
     {
       tab: 'tab4',

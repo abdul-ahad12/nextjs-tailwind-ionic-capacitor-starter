@@ -122,10 +122,37 @@ const SelectLocation: React.FC = () => {
   };
 
   const fields = [
+
+    {
+      fieldName: 'street',
+      inputType: 'text',
+      label: 'Street',
+      defaultValue: selectedPlace
+        ? selectedPlace.address_components.find((component: any) =>
+            component.types.includes('route'),
+          )?.long_name || ''
+        : '',
+      config: {
+        required: 'Required',
+      },
+    },
+    {
+      fieldName: 'suburb',
+      inputType: 'text',
+      label: 'Suburb',
+      defaultValue: selectedPlace
+        ? selectedPlace.address_components.find((component: any) =>
+            component.types.includes('locality'),
+          )?.long_name || ''
+        : '',
+      config: {
+        required: 'Required',
+      },
+    },
     {
       fieldName: 'city',
       inputType: 'text',
-      label: 'Enter City',
+      label: 'Enter State',
       defaultValue: selectedPlace
         ? selectedPlace.address_components.find((component: any) =>
             component.types.includes('locality'),
@@ -166,32 +193,8 @@ const SelectLocation: React.FC = () => {
         required: 'Required',
       },
     },
-    {
-      fieldName: 'suburb',
-      inputType: 'text',
-      label: 'Suburb',
-      defaultValue: selectedPlace
-        ? selectedPlace.address_components.find((component: any) =>
-            component.types.includes('locality'),
-          )?.long_name || ''
-        : '',
-      config: {
-        required: 'Required',
-      },
-    },
-    {
-      fieldName: 'street',
-      inputType: 'text',
-      label: 'Street',
-      defaultValue: selectedPlace
-        ? selectedPlace.address_components.find((component: any) =>
-            component.types.includes('route'),
-          )?.long_name || ''
-        : '',
-      config: {
-        required: 'Required',
-      },
-    },
+    
+    
   ];
   const notificationData = [
     {
