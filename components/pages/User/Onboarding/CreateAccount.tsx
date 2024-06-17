@@ -13,6 +13,20 @@ import { CustomerGlobalStore } from '../GlobalStore';
 import { addNotification } from '../../../../utils/supportingFns/notifications';
 import SearchComponent from '../../../ui/common/GMaps/Search';
 
+const extractAddressComponent = (
+  addressComponents: google.maps.GeocoderAddressComponent[] | undefined,
+  type: string,
+) => {
+  if (addressComponents) {
+    for (let component of addressComponents) {
+      if (component.types.includes(type)) {
+        return component.long_name;
+      }
+    }
+  }
+  return '';
+};
+
 const CreateAccount = () => {
   const history = useHistory();
   const [latlng, setlatlng] = useState<Position | null>(null);
@@ -178,7 +192,7 @@ const CreateAccount = () => {
         inputType: 'text',
         label: 'Street',
         defaultValue: selectedPlace
-          ? extractAddressComponent(selectedPlace.address_components, 'route')
+          ? extractAddressComponent(selectedPlace?.address_components, 'route')
           : '',
         config: {
           required: 'Required',
@@ -190,7 +204,7 @@ const CreateAccount = () => {
         label: 'Suburb',
         defaultValue: selectedPlace
           ? extractAddressComponent(
-              selectedPlace.address_components,
+              selectedPlace?.address_components,
               'sublocality_level_1',
             )
           : '',
@@ -204,7 +218,7 @@ const CreateAccount = () => {
         label: 'State',
         defaultValue: selectedPlace
           ? extractAddressComponent(
-              selectedPlace.address_components,
+              selectedPlace?.address_components,
               'administrative_area_level_1',
             )
           : '',
@@ -231,20 +245,6 @@ const CreateAccount = () => {
     [selectedPlace, postalCode],
   );
 
-  const extractAddressComponent = (
-    addressComponents: google.maps.GeocoderAddressComponent[] | undefined,
-    type: string,
-  ) => {
-    if (addressComponents) {
-      for (let component of addressComponents) {
-        if (component.types.includes(type)) {
-          return component.long_name;
-        }
-      }
-    }
-    return '';
-  };
-
   const extractPostalCode = (
     addressComponents: google.maps.GeocoderAddressComponent[] | undefined,
   ) => {
@@ -268,6 +268,7 @@ const CreateAccount = () => {
         city: data.city,
       };
     });
+    
 
     const payload = UserStore.getRawState();
     console.log('payload', payload);
@@ -307,12 +308,12 @@ const CreateAccount = () => {
               <DynamicFieldsGenerate fields={fields} errors={errors} />
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             <input type="checkbox" />
             <Text className="text-secondary">
               Allow Inspectly to send updates on +21674894
             </Text>
-          </div>
+          </div> */}
         </div>
       </BackAndButton>
     </FormProvider>
