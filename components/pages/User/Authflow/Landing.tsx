@@ -10,7 +10,7 @@ const LandingUser = () => {
     <IonPage>
       <IonContent className="ion-padding">
         <div className="h-full flex flex-col justify-center items-center">
-          <img src="/img/layout/logo.png" />
+          <img src="/logo.jpg" />
 
           <ImageCarousel
             slides={[
