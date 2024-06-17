@@ -10,6 +10,7 @@ import { Geolocation, Position } from '@capacitor/geolocation';
 import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
 import { baseURL, phoneCode } from '../../../../utils/definations/axios/url';
 import { CustomerGlobalStore } from '../GlobalStore';
+import { addNotification } from '../../../../utils/supportingFns/notifications';
 
 const CreateAccount = () => {
   const history = useHistory();
@@ -23,6 +24,8 @@ const CreateAccount = () => {
         onSuccess: (data: any) => {
           console.log('Customer Created:', data);
           localStorage.setItem('customerdata', JSON.stringify(data.data));
+          addNotification("You Created Your Account")
+
           console.log(CustomerGlobalStore.getRawState());
           history.push('/onboardinguser1');
         },

@@ -8,6 +8,7 @@ import OTPInput from '../../../ui/common/Authentication/OtpInputs';
 import { baseURL, phoneCode } from '../../../../utils/definations/axios/url';
 import PhoneStore from './store';
 import { CustomerGlobalStore } from '../GlobalStore';
+import { addNotification } from '../../../../utils/supportingFns/notifications';
 
 const OTPLoginUser = () => {
   const history = useHistory();
@@ -22,6 +23,7 @@ const OTPLoginUser = () => {
         onSuccess: data => {
           console.log('Login successful', data.data);
           localStorage.setItem('customerdata', JSON.stringify(data.data));
+          addNotification("You Logged In")
 
           // CustomerGlobalStore.update(s => {
           //   s.customerId = data.data.customer.id,
