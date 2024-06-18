@@ -77,8 +77,8 @@ const OTPLoginUser = () => {
     >
       <div className="h-full flex flex-col justify-center">
         <TitleDescription
-          heading="Enter OTP"
-          description="An OTP has been sent to: +61 1234567"
+          heading="Enter Code"
+          description="An Code has been sent"
         />
         <div className="py-6">
           <OTPInput
