@@ -76,7 +76,7 @@ const OTPUser = () => {
       <div className="h-full flex flex-col justify-center">
         <TitleDescription
           heading="Enter Code"
-          description="An Code has been sent to: +61 1234567"
+          description={`A Code has been sent to: ${phoneNumber}`}
         />
         <div className="py-6">
           <OTPInput
