@@ -65,7 +65,7 @@ const Authentication: React.FC<IAuthentication> = ({
               login
                 ? "Let's log you in"
                 : resend
-                  ? 'Resend OTP'
+                  ? 'Resend Code'
                   : 'Create an account'
             }
             description={

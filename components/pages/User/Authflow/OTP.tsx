@@ -69,7 +69,7 @@ const OTPUser = () => {
     >
       <IonToast
         isOpen={isOpen}
-        message="Incorrect OTP"
+        message="Incorrect Code"
         onDidDismiss={() => setIsOpen(false)}
         duration={5000}
       ></IonToast>

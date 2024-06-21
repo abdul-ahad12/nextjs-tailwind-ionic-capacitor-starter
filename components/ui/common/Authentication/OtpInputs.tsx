@@ -76,7 +76,7 @@ const OTPInput: React.FC<IOTPInput> = ({
         ))}
       </div>
       <div onClick={handleResend}>
-        <Text>Resend OTP</Text>
+        <Text>Resend Code</Text>
       </div>
     </div>
   );
