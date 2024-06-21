@@ -125,7 +125,12 @@ const CreateAccount = () => {
     console.log('Input value changed: ', inputValue);
     if (inputValue && autocompleteService.current) {
       autocompleteService.current.getPlacePredictions(
-        { input: inputValue },
+        {
+          input: inputValue,
+          componentRestrictions: {
+            country: 'AU',
+          },
+        },
         (predictions: any[], status: any) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
             console.log('Predictions: ', predictions);
@@ -268,7 +273,6 @@ const CreateAccount = () => {
         city: data.city,
       };
     });
-    
 
     const payload = UserStore.getRawState();
     console.log('payload', payload);
