@@ -51,7 +51,7 @@ const VehicleDetails = () => {
     {
       fieldName: 'model',
       inputType: 'text',
-      label: 'Enter Model',
+      label: 'Model',
       defaultValue: '',
       config: {
         required: 'Required',

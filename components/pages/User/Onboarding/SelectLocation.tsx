@@ -152,7 +152,7 @@ const SelectLocation: React.FC = () => {
     {
       fieldName: 'city',
       inputType: 'text',
-      label: 'Enter State',
+      label: 'State',
       defaultValue: selectedPlace
         ? selectedPlace.address_components.find((component: any) =>
             component.types.includes('locality'),
@@ -178,7 +178,7 @@ const SelectLocation: React.FC = () => {
     {
       fieldName: 'name',
       inputType: 'text',
-      label: 'Enter Your House Name',
+      label: 'House Name',
       defaultValue: '',
       config: {
         required: 'Required',
