@@ -42,12 +42,12 @@ const Package = () => {
       }}
     >
       <div className="w-full">
-      <Tabs activeTab={3} />
+        <Tabs activeTab={3} />
 
         <div className="flex flex-col items-center text-center gap-4">
           <TitleDescription
             heading="Select the package that suits your requirement"
-            description="We offer highly detailed reports with various features included"
+            description="Currently, we offer a single package designed to meet your needs, but stay tuned – more exciting options are coming soon!"
           />
           <div className="flex justify-center gap-4">
             <PackageOffer

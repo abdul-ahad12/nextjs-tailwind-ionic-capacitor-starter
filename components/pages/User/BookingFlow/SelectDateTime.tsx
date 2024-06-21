@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TitleDescription from '../../../ui/common/TitleDescription';
 import { FormProvider, useForm } from 'react-hook-form';
 import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
@@ -8,12 +8,16 @@ import { BookingResponseStore, BookingStore } from './store';
 import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
 import { baseURL } from '../../../../utils/definations/axios/url';
 import Tabs from '../../../ui/common/Layouts/TabsBooking';
+import { Text } from '../../../ui/common/text';
+import RadioBtn from '../../../ui/common/radioBtn';
 
 const SelectDateTime = () => {
   const history = useHistory();
   const formMethods = useForm();
-const customerDataString = localStorage.getItem('customerdata');
-const customerData = customerDataString ? JSON.parse(customerDataString) : null;
+  const customerDataString = localStorage.getItem('customerdata');
+  const customerData = customerDataString
+    ? JSON.parse(customerDataString)
+    : null;
 
   const {
     handleSubmit,
@@ -43,7 +47,7 @@ const customerData = customerDataString ? JSON.parse(customerDataString) : null;
       },
     );
 
-    console.log(customerData)
+  console.log(customerData);
   const onSubmit = (data: any, error: any) => {
     if (customerData) {
       BookingStore.update(s => {
@@ -86,6 +90,20 @@ const customerData = customerDataString ? JSON.parse(customerDataString) : null;
       },
     },
   ];
+
+  // State for radio buttons
+  const [selectedOption1, setSelectedOption1] = useState(false);
+  const [selectedOption2, setSelectedOption2] = useState(false);
+
+  // Handlers for radio buttons
+  const handleOption1Change = () => {
+    setSelectedOption1(prevState => !prevState);
+  };
+
+  const handleOption2Change = () => {
+    setSelectedOption2(prevState => !prevState);
+  };
+
   return (
     <FormProvider {...formMethods}>
       <BackAndButton
@@ -95,9 +113,9 @@ const customerData = customerDataString ? JSON.parse(customerDataString) : null;
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="w-full flex flex-col justify-center items-center">
-        <Tabs activeTab={4} />
+          <Tabs activeTab={4} />
 
-          <div className=" w-[80%] text-center">
+          <div className="w-[80%] text-center">
             <TitleDescription
               heading="Select Time and Date"
               description="Select the preferred slot to proceed 
@@ -105,6 +123,22 @@ const customerData = customerDataString ? JSON.parse(customerDataString) : null;
             />
           </div>
           <DynamicFieldsGenerate fields={fields} errors={errors} />
+          <Text className="self-start font-semibold text-black">AddOns</Text>
+          
+          <div className='flex flex-col gap-4 w-full my-4'>{/* Radio button 1 */}
+          <RadioBtn
+            label="PPSR - $20"
+            checked={selectedOption1}
+            onChange={handleOption1Change}
+            modal={true}
+          />
+          {/* Radio button 2 */}
+          <RadioBtn
+            label="Negotitate On Your Behalf - $99 "
+            checked={selectedOption2}
+            onChange={handleOption2Change}
+            modal={true}
+          /></div>
         </div>
       </BackAndButton>
     </FormProvider>
