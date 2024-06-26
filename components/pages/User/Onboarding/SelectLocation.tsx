@@ -175,24 +175,24 @@ const SelectLocation: React.FC = () => {
         required: 'Required',
       },
     },
-    {
-      fieldName: 'name',
-      inputType: 'text',
-      label: 'House Name',
-      defaultValue: '',
-      config: {
-        required: 'Required',
-      },
-    },
-    {
-      fieldName: 'landmark',
-      inputType: 'text',
-      label: 'Landmark',
-      defaultValue: '',
-      config: {
-        required: 'Required',
-      },
-    },
+    // {
+    //   fieldName: 'name',
+    //   inputType: 'text',
+    //   label: 'House Name',
+    //   defaultValue: '',
+    //   config: {
+    //     required: 'Required',
+    //   },
+    // },
+    // {
+    //   fieldName: 'landmark',
+    //   inputType: 'text',
+    //   label: 'Landmark',
+    //   defaultValue: '',
+    //   config: {
+    //     required: 'Required',
+    //   },
+    // },
     
     
   ];

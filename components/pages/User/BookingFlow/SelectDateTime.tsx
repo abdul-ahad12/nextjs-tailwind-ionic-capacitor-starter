@@ -52,7 +52,7 @@ const SelectDateTime = () => {
     if (customerData) {
       BookingStore.update(s => {
         // this should be set when the customer is logged in or created
-        s.customerId = customerData.customer.id;
+        s.customerId = customerData?.customer.id;
         // s.date = data.selectdate;
         // s.time = data.selecttime;
       });

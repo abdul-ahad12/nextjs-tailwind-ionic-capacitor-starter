@@ -23,7 +23,7 @@ const MechanicBooked = () => {
     ? JSON.parse(customerDataString)
     : null;
 
-  const customerId = customerData.customer.id;
+  const customerId = customerData?.customer.id;
 
   useEffect(() => {
     if (!customerId) {

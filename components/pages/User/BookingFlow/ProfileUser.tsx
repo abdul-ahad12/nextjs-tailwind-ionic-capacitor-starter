@@ -194,7 +194,7 @@ const ProfileUser = () => {
             name={`${customerData?.firstName} ${customerData?.firstName}`}
             rating={'Rating'}
             user
-            phoneNumber={customerData.customer.phoneNumber}
+            phoneNumber={customerData?.customer.phoneNumber}
           />
 
           <div className="flex flex-col gap-5 mt-5">
@@ -221,7 +221,7 @@ const ProfileUser = () => {
             <Button
               onClick={() => {
                 localStorage.clear();
-                history.replace('/');
+                history.replace('/landing');
               }}
               className="text-red-500 w-full items-start"
               color="secondary"

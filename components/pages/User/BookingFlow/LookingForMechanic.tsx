@@ -43,7 +43,7 @@ console.log(bookingDetails,bookingResponse)
       },
     );
 
-    const customerId=customerData.customer.id
+    const customerId=customerData?.customer.id
 
 
   // Ensure the global store has customerId. !IMPORTANT

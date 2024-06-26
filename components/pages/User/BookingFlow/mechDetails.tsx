@@ -18,7 +18,7 @@ const MechDetails = () => {
   const customerData = customerDataString
     ? JSON.parse(customerDataString)
     : null;
-  const customerId = customerData.customer.id;
+  const customerId = customerData?.customer.id;
   const [mechanicDetails, setMechanicDetails] = useState<any | null>(null);
 
   useEffect(() => {

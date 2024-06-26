@@ -114,7 +114,7 @@ const Authentication: React.FC<IAuthentication> = ({
                       ? '/signupuser'
                       : '/signup'
                     : user
-                      ? '/signupuser'
+                      ? '/loginuser'
                       : '/login',
                 );
               }}
