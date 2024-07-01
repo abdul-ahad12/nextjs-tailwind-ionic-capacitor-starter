@@ -1,8 +1,6 @@
 import { BackAndButton } from '@components/ui';
+import { AccountComp, BorderTextNumber, IconTextButton } from '@components/ui/common';
 import { Button } from '@components/ui/common/button';
-import AccountComp from '@components/ui/common/mechanicinspection/AccountComp';
-import BorderTextNumber from '@components/ui/common/mechanicinspection/resuable/BorderTextNumber';
-import IconTextButton from '@components/ui/common/mechanicinspection/resuable/IconTextButton';
 import { RightArrowSvg } from '@components/ui/common/svgs';
 import { DocumentSvg } from '@components/ui/common/svgs/DocumentSvg';
 import { baseURL } from '@utils/definations/axios/url';
