@@ -27,6 +27,7 @@ import SingleNotifications from './Activity/resuable/SingleNotification';
 // Input Field Generator
 
 import {DynamicFieldsGenerate} from "../common/InputComponent/DynamicFieldGenerate"
+import InputComponent from "../common/InputComponent"
 
 
 export {
@@ -48,5 +49,6 @@ export {
   ImageWithText,
   Inspection,
   SingleNotifications,
-  DynamicFieldsGenerate
+  DynamicFieldsGenerate,
+  InputComponent
 };

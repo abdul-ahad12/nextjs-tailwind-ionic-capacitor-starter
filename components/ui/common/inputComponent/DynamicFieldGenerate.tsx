@@ -1,4 +1,4 @@
-import { ErrorMessage } from '@hookform/error-message';
+// import { ErrorMessage } from '@hookform/error-message';
 import { DynamicControl } from './DynamicFields';
 import { Text } from '../text';
 
@@ -48,9 +48,9 @@ export const DynamicFieldsGenerate = ({
                     />
                   </svg>
                 )} */}
-                <Text className="text-red-600">
-                  <ErrorMessage errors={errors} name={d.fieldName} />
-                </Text>
+                {/* <Text className="text-red-600"> */}
+                  {/* <ErrorMessage errors={errors} name={d.fieldName} /> */}
+                {/* </Text> */}
               </div>
             </div>
           </div>
