@@ -4,7 +4,7 @@ import OrderSummary from '../../../ui/common/user/OrderSummary';
 import BookingAccordion from '../../../ui/common/user/BookingAccordian';
 import { useHistory, useLocation } from 'react-router';
 import { InspectionsStore } from '../GlobalStore';
-import { Inspection } from '@components/ui/common';
+import { Inspection } from '../../../ui/common';
 
 const SingleBookingDetails = () => {
   const history = useHistory();

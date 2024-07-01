@@ -1,13 +1,13 @@
-import { AccountComp, IconTextButton } from '@components/ui/common';
-import { Button } from '@components/ui/common/button';
-import { RightArrowSvg } from '@components/ui/common/svgs';
-import AccountSvg from '@components/ui/common/svgs/AccountSvg';
-import PrivacyAndPolicy from '@components/ui/common/svgs/PrivacyAndPolicy';
-import SupportSvg from '@components/ui/common/svgs/SupportSvg';
-import { Text } from '@components/ui/common/text';
 import { IonContent, IonHeader, IonPage } from '@ionic/react';
 import React from 'react';
 import { useHistory } from 'react-router';
+import AccountSvg from '../../../ui/common/svgs/AccountSvg';
+import SupportSvg from '../../../ui/common/svgs/SupportSvg';
+import PrivacyAndPolicy from '../../../ui/common/svgs/PrivacyAndPolicy';
+import { Text } from '../../../ui/common/text';
+import { AccountComp, IconTextButton } from '../../../ui/common';
+import { RightArrowSvg } from '../../../ui/common/svgs';
+import { Button } from '../../../ui/common/button';
 
 
 const ProfileUser = () => {
