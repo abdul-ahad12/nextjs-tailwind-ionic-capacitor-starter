@@ -8,11 +8,12 @@ import {
   IonPage,
   IonRouterLink,
   IonTitle,
+  IonToast,
   IonToolbar,
 } from '@ionic/react';
 import TitleDescription from '../TitleDescription';
 import { Button } from '../button';
-import InputComponent from '../inputComponent';
+import InputComponent from '../InputComponent';
 import { Text } from '../text';
 import { useHistory } from 'react-router';
 
@@ -37,6 +38,8 @@ const Authentication: React.FC<IAuthentication> = ({
 }) => {
   const history = useHistory();
 
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleSubmit = () => {
     // history.push('/otp');
   };
@@ -59,6 +62,7 @@ const Authentication: React.FC<IAuthentication> = ({
       </IonHeader>
 
       <IonContent className="ion-padding" fullscreen>
+       
         <div className="h-full flex justify-center flex-col">
           <TitleDescription
             heading={

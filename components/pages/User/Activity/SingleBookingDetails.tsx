@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
-import Inspection from '../../../ui/common/mechanic/resuable/mechanicinspection/Inspection';
 import OrderSummary from '../../../ui/common/user/OrderSummary';
 import BookingAccordion from '../../../ui/common/user/BookingAccordian';
 import { useHistory, useLocation } from 'react-router';
 import { InspectionsStore } from '../GlobalStore';
+import { Inspection } from '@components/ui/common';
 
 const SingleBookingDetails = () => {
   const history = useHistory();

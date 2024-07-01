@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import SingleNotifications from '../../../ui/common/mechanic/resuable/SingleNotification';
-import HeightFullLayout from '../../../ui/common/Layouts/HeightFullLayout';
-import ImageWithText from '../../../ui/common/mechanic/resuable/ImageWithText';
-import EmptyNotifications from '../../../ui/common/svgs/EmptyNotifications';
-import { Text } from '../../../ui/common/text';
-import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
+import HeightFullLayout from '../../../../ui/common/Layouts/HeightFullLayout';
+import { Text } from '../../../../ui/common/text';
+import BackAndButton from '../../../../ui/common/Layouts/BackAndButton';
 import {
   Notification,
   getNotifications,
-} from '../../../../utils/supportingFns/notifications';
-
-// interface Notification {
-//   imageUrl: string;
-//   text: string;
-//   name: string;
-// }
+} from '../../../../../utils/supportingFns/notifications';
+import { ImageWithText, SingleNotifications } from '@components/ui/common';
 
 const AllNotifications: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);

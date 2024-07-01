@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import TitleDescription from '../../../ui/common/TitleDescription';
 import { FormProvider, useForm } from 'react-hook-form';
 import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
-import { DynamicFieldsGenerate } from '../../../ui/common/inputComponent/DynamicFieldsGenerate';
+import { DynamicFieldsGenerate } from '../../../ui/common/InputComponent/DynamicFieldsGenerate';
 import { useHistory } from 'react-router';
 import { BookingResponseStore, BookingStore } from './store';
 import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
@@ -108,7 +108,7 @@ const SelectDateTime = () => {
     <FormProvider {...formMethods}>
       <BackAndButton
         back
-        BtnText="Checkout"
+        BtnText={isPending ? '...Loading' : 'Checkout'}
         title="Select DateTime"
         onSubmit={handleSubmit(onSubmit)}
       >
@@ -124,21 +124,23 @@ const SelectDateTime = () => {
           </div>
           <DynamicFieldsGenerate fields={fields} errors={errors} />
           <Text className="self-start font-semibold text-black">AddOns</Text>
-          
-          <div className='flex flex-col gap-4 w-full my-4'>{/* Radio button 1 */}
-          <RadioBtn
-            label="PPSR - $20"
-            checked={selectedOption1}
-            onChange={handleOption1Change}
-            modal={true}
-          />
-          {/* Radio button 2 */}
-          <RadioBtn
-            label="Negotitate On Your Behalf - $99 "
-            checked={selectedOption2}
-            onChange={handleOption2Change}
-            modal={true}
-          /></div>
+
+          <div className="flex flex-col gap-4 w-full my-4">
+            {/* Radio button 1 */}
+            <RadioBtn
+              label="PPSR - $20"
+              checked={selectedOption1}
+              onChange={handleOption1Change}
+              modal={true}
+            />
+            {/* Radio button 2 */}
+            <RadioBtn
+              label="Negotitate On Your Behalf - $99 "
+              checked={selectedOption2}
+              onChange={handleOption2Change}
+              modal={true}
+            />
+          </div>
         </div>
       </BackAndButton>
     </FormProvider>

@@ -9,6 +9,8 @@ import { baseURL, phoneCode } from '../../../../utils/definations/axios/url';
 import PhoneStore from './store';
 import { CustomerGlobalStore } from '../GlobalStore';
 import { addNotification } from '../../../../utils/supportingFns/notifications';
+import { IonToast } from '@ionic/react';
+import { ErrorResponse } from './Login';
 
 const OTPLoginUser = () => {
   const history = useHistory();
@@ -75,6 +77,11 @@ const OTPLoginUser = () => {
       BtnText={'Verify'}
       disabled={disabled}
     >
+       <IonToast
+        isOpen={isError}
+        message={(error?.response?.data as ErrorResponse)?.message}
+        duration={5000}
+      ></IonToast>
       <div className="h-full flex flex-col justify-center">
         <TitleDescription
           heading="Enter Code"

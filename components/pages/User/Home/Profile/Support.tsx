@@ -1,22 +1,12 @@
 import React from 'react';
-import SingleNotifications from '../../../ui/common/mechanic/resuable/SingleNotification';
 import {
-  IonContent,
-  IonHeader,
-  IonPage,
   IonRouterLink,
-  IonToolbar,
 } from '@ionic/react';
-import { Text } from '../../../ui/common/text';
-import IconTextButton from '../../../ui/common/mechanic/resuable/IconTextButton';
-import { RightArrowSvg } from '../../../ui/common/svgs';
-import { DocumentSvg } from '../../../ui/common/svgs/DocumentSvg';
-import { Phone } from '../../../ui/common/svgs/Phone';
-import { Email } from '../../../ui/common/svgs/Email';
-import { Filter } from '../../../ui/common/svgs/Filter';
-import ImageWithText from '../../../ui/common/mechanic/resuable/ImageWithText';
-import { Button } from '../../../ui/common/button';
-import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
+import { Text } from '../../../../ui/common/text';
+import { Phone } from '../../../../ui/common/svgs/Phone';
+import { Email } from '../../../../ui/common/svgs/Email';
+import BackAndButton from '../../../../ui/common/Layouts/BackAndButton';
+import { IconTextButton } from '@components/ui/common';
 const Support = () => {
   const iconTextButtonData = [
     {

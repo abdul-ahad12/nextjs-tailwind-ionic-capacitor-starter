@@ -1,31 +1,21 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
-import TitleDescription from '../../../ui/common/TitleDescription';
-import { Text } from '../../../ui/common/text';
+import BackAndButton from '@components/ui/common/Layouts/BackAndButton';
+import TitleDescription from '@components/ui/common/TitleDescription';
+import { Text } from '@components/ui/common/text';
 import { useHistory } from 'react-router';
 import { FormProvider, useForm } from 'react-hook-form';
-import { DynamicFieldsGenerate } from '../../../ui/common/inputComponent/DynamicFieldsGenerate';
-import { UserStore } from './store';
+import { DynamicFieldsGenerate } from '@components/ui/common/InputComponent/DynamicFieldsGenerate';
 import { Geolocation, Position } from '@capacitor/geolocation';
-import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
-import { baseURL, phoneCode } from '../../../../utils/definations/axios/url';
+import { useDynamicRequest } from '@utils/definations/axios/axiosInstance';
+import { baseURL, phoneCode } from '@utils/definations/axios/url';
+import { addNotification } from '@utils/supportingFns/notifications';
+import SearchComponent from '@components/ui/common/GMaps/Search';
+import {
+  extractAddressComponent,
+  getPlaceDetails,
+} from '@utils/supportingFns/searchLocation';
+import { UserStore } from './store';
 import { CustomerGlobalStore } from '../GlobalStore';
-import { addNotification } from '../../../../utils/supportingFns/notifications';
-import SearchComponent from '../../../ui/common/GMaps/Search';
-
-const extractAddressComponent = (
-  addressComponents: google.maps.GeocoderAddressComponent[] | undefined,
-  type: string,
-) => {
-  if (addressComponents) {
-    for (let component of addressComponents) {
-      if (component.types.includes(type)) {
-        return component.long_name;
-      }
-    }
-  }
-  return '';
-};
 
 const CreateAccount = () => {
   const history = useHistory();
@@ -85,41 +75,10 @@ const CreateAccount = () => {
 
   const handleSelect = (place: any) => {
     setInputValue(place.description);
-    setSuggestions([]); // Close the suggestions by setting an empty array
-    // Fetch place details using the place_id
-    getPlaceDetails(place.place_id);
+    setSuggestions([]);
+    getPlaceDetails(place.place_id, setSelectedPlace, setPostalCode, reset);
   };
-
-  const getPlaceDetails = (placeId: string) => {
-    const service = new window.google.maps.places.PlacesService(
-      document.createElement('div'),
-    );
-    service.getDetails({ placeId: placeId }, (place: any, status: any) => {
-      if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-        setSelectedPlace(place);
-        const postalCode = extractPostalCode(place?.address_components);
-        if (postalCode) {
-          setPostalCode(postalCode);
-        }
-        // Update form values with place details
-        reset({
-          city: extractAddressComponent(
-            place.address_components,
-            'administrative_area_level_1',
-          ),
-          suburb: extractAddressComponent(
-            place.address_components,
-            'sublocality_level_1',
-          ),
-          street: extractAddressComponent(place.address_components, 'route'),
-          zipcode: postalCode || '',
-        });
-      } else {
-        console.error('Error fetching place details:', status);
-        setSelectedPlace(null); // Set selectedPlace to null if details fetching fails
-      }
-    });
-  };
+  
 
   useEffect(() => {
     console.log('Input value changed: ', inputValue);
@@ -250,12 +209,6 @@ const CreateAccount = () => {
     [selectedPlace, postalCode],
   );
 
-  const extractPostalCode = (
-    addressComponents: google.maps.GeocoderAddressComponent[] | undefined,
-  ) => {
-    return extractAddressComponent(addressComponents, 'postal_code');
-  };
-
   const onSubmit = (data: any) => {
     const phoneNumber = UserStore.getRawState().phoneNumber;
     UserStore.update(s => {
@@ -289,7 +242,7 @@ const CreateAccount = () => {
     <FormProvider {...formMethods}>
       <BackAndButton
         onSubmit={handleSubmit(onSubmit)}
-        BtnText={'Create'}
+        BtnText={isPending ? '...Loading' : 'Create'}
         disabled={!isFormValid || isSubmitting}
       >
         <div className="h-full flex flex-col items-center justify-between">
@@ -298,9 +251,13 @@ const CreateAccount = () => {
               heading="Create Account"
               description="Enter All Your Personal Details Correctly"
             />
+            <DynamicFieldsGenerate
+              fields={fields.slice(0, 3)}
+              errors={errors}
+            />
             <Text className="text-[#1A202F]">
-              Enter your address (Make sure to provide an accurate location)
-            </Text>
+              Enter your Residential Address
+            </Text>{' '}
             <SearchComponent
               inputValue={inputValue}
               setInputValue={setInputValue}
@@ -309,15 +266,9 @@ const CreateAccount = () => {
               top
             />
             <div className="w-full flex flex-col gap-5 mt-[-1.7rem]">
-              <DynamicFieldsGenerate fields={fields} errors={errors} />
+              <DynamicFieldsGenerate fields={fields.slice(3)} errors={errors} />
             </div>
           </div>
-          {/* <div className="flex items-center gap-2">
-            <input type="checkbox" />
-            <Text className="text-secondary">
-              Allow Inspectly to send updates on +21674894
-            </Text>
-          </div> */}
         </div>
       </BackAndButton>
     </FormProvider>

@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import MechanicFlow from '../../ui/common/Layouts/MechanicFlow';
+import CustomerActivityHeader from '../../ui/common/Layouts/CustomerActivityHeader';
 import HeightFullLayout from '../../ui/common/Layouts/HeightFullLayout';
-import ImageWithText from '../../ui/common/mechanic/resuable/ImageWithText';
-import { EmptyArray } from '../../ui/common/svgs/EmptyArray';
-import Inspection from '../../ui/common/mechanic/resuable/mechanicinspection/Inspection';
 import { Button } from '../../ui/common/button';
 import { useHistory } from 'react-router';
 import { baseURL } from '../../../utils/definations/axios/url';
 import useDynamicGetRequest from '../../../utils/supportingFns/getCall';
 import ActivityLoading from '../../ui/common/svgs/ActivityLoading';
 import { InspectionsStore } from './GlobalStore';
+import { ImageWithText, Inspection } from '@components/ui/common';
 
 export enum tabs {
   TODAYSINSPECTION = 'Ongoing Inspections',
@@ -31,6 +29,8 @@ interface InspectionDataItem {
 
 const Activity = () => {
   const [activeState, setActiveState] = useState(tabs.TODAYSINSPECTION);
+  const [refresh, setrefresh] = useState(false);
+
   const history = useHistory();
   const customerDataString = localStorage.getItem('customerdata');
   const customerData = customerDataString
@@ -41,7 +41,7 @@ const Activity = () => {
 
   useEffect(() => {
     makeRequest(`${baseURL}/booking`, 'GET');
-  }, []);
+  }, [refresh]);
 
   let filteredBookings: any[] = [];
   let filteredBookings1: any[] = [];
@@ -77,10 +77,15 @@ const Activity = () => {
     (activeState === tabs.SCHEDULEDINSPECTION && filteredBookings1.length === 0)
   ) {
     return (
-      <MechanicFlow
+      <CustomerActivityHeader
         setActiveState={setActiveState}
         activeState={activeState}
         tabs={tabs}
+        refresh
+        onRefresh={() => {
+          console.log("in here")
+          setrefresh(!refresh);
+        }}
       >
         <HeightFullLayout>
           <ImageWithText
@@ -96,15 +101,20 @@ const Activity = () => {
             Book Now
           </Button>
         </HeightFullLayout>
-      </MechanicFlow>
+      </CustomerActivityHeader>
     );
   }
   console.log(filteredBookings1);
   return (
-    <MechanicFlow
+    <CustomerActivityHeader
       setActiveState={setActiveState}
       activeState={activeState}
       tabs={tabs}
+      refresh
+      onRefresh={() => {
+        console.log("in here")
+        setrefresh(!refresh);
+      }}
     >
       <div className="gap-3 flex flex-col">
         {activeState === tabs.TODAYSINSPECTION &&
@@ -139,7 +149,7 @@ const Activity = () => {
             />
           ))}
       </div>
-    </MechanicFlow>
+    </CustomerActivityHeader>
   );
 };
 

@@ -5,6 +5,8 @@ import Authentication from '../../../ui/common/Authentication';
 import { baseURL, phoneCode } from '../../../../utils/definations/axios/url';
 import PhoneStore from './store';
 import { UserStore } from '../Onboarding/store';
+import { IonToast } from '@ionic/react';
+import { ErrorResponse } from './Login';
 
 const SignupUser = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -43,13 +45,20 @@ const SignupUser = () => {
   };
 
   return (
-    <Authentication
-      setPhoneNumber={setPhoneNumber}
-      phoneNumber={phoneNumber}
-      onSubmit={handleSignupIntiation}
-      isPending={isPending}
-      user
-    />
+    <>
+      <IonToast
+        isOpen={isError}
+        message={(error?.response?.data as ErrorResponse)?.message}
+        duration={5000}
+      ></IonToast>
+      <Authentication
+        setPhoneNumber={setPhoneNumber}
+        phoneNumber={phoneNumber}
+        onSubmit={handleSignupIntiation}
+        isPending={isPending}
+        user
+      />
+    </>
   );
 };
 

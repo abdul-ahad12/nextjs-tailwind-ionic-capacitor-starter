@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Text } from '../../../text';
-import TitleDescription from '../../../TitleDescription';
+import { Text } from '../text';
+import TitleDescription from '../TitleDescription';
 import { motion } from 'framer-motion';
-import { Button } from '../../../button';
+import { Button } from '../button';
 import { IonToast } from '@ionic/react';
 import { useHistory } from 'react-router';
 

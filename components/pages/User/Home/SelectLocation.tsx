@@ -4,20 +4,22 @@ import SearchComponent from '../../../ui/common/GMaps/Search';
 import { Button } from '../../../ui/common/button';
 import MapComponent from '../../../ui/common/GMaps/Maps';
 import Modal from '../../../ui/common/modals';
-import { DynamicFieldsGenerate } from '../../../ui/common/inputComponent/DynamicFieldsGenerate';
+import { DynamicFieldsGenerate } from '../../../ui/common/InputComponent/DynamicFieldsGenerate';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
-import { LocationStore } from './store';
+import { LocationStore } from '../Onboarding/store';
 import { BookingStore } from '../BookingFlow/store';
 import { Text } from '../../../ui/common/text';
-import AccountComp from '../../../ui/common/mechanic/resuable/mechanicinspection/AccountComp';
-import SingleNotifications from '../../../ui/common/mechanic/resuable/SingleNotification';
-import useDynamicGetRequest from '../../../../utils/supportingFns/getCall';
-import { baseURL } from '../../../../utils/definations/axios/url';
+import { AllBookingStore } from './store';
+import { AccountComp, SingleNotifications } from '@components/ui/common';
+import { socketURL } from '@utils/definations/axios/url';
+import { CustomerGlobalStore } from '../GlobalStore';
+import { io } from 'socket.io-client';
 
 const SelectLocation: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [bookingStatusModal, setBookingStatusModal] = useState(false);
+  const [lookForMechanicModal, setLookForMechStatusModal] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState<any | null>(null); // Update type here
   const autocompleteService = useRef<any>(null);
@@ -26,13 +28,10 @@ const SelectLocation: React.FC = () => {
   const history = useHistory();
   const [bookingStatus, setbookingStatus] = useState(true);
 
-  console.log(selectedPlace);
-
   useEffect(() => {
     if (!autocompleteService.current && window.google) {
       autocompleteService.current =
         new window.google.maps.places.AutocompleteService();
-      // console.log('Google Maps Autocomplete Service initialized');
     }
   }, []);
 
@@ -66,7 +65,6 @@ const SelectLocation: React.FC = () => {
   };
 
   useEffect(() => {
-    // console.log('Input value changed: ', inputValue);
     if (inputValue && autocompleteService.current) {
       autocompleteService.current.getPlacePredictions(
         {
@@ -77,10 +75,8 @@ const SelectLocation: React.FC = () => {
         },
         (predictions: any, status: any) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-            // console.log('Predictions: ', predictions);
             setSuggestions(predictions);
           } else {
-            // console.log('Error fetching predictions: ', status);
             setSuggestions([]);
           }
         },
@@ -100,7 +96,6 @@ const SelectLocation: React.FC = () => {
   };
 
   const onSubmit = (data: any, error: any) => {
-    console.log(data);
     BookingStore.update(s => {
       s.vehicle.vehicleAddress = {
         ...s.vehicle.vehicleAddress,
@@ -115,14 +110,11 @@ const SelectLocation: React.FC = () => {
       };
     });
 
-    console.log(BookingStore.getRawState());
-
     setisOpen(false);
     history.push('/contactseller');
   };
 
   const fields = [
-
     {
       fieldName: 'street',
       inputType: 'text',
@@ -193,8 +185,6 @@ const SelectLocation: React.FC = () => {
     //     required: 'Required',
     //   },
     // },
-    
-    
   ];
   const notificationData = [
     {
@@ -218,24 +208,60 @@ const SelectLocation: React.FC = () => {
       name: '$123.6',
     },
   ];
+  
+
+
+  
 
   const customerDataString = localStorage.getItem('customerdata');
   const customerData = customerDataString
     ? JSON.parse(customerDataString)
     : null;
 
-    console.log(customerData)
+    const customerId = customerData?.customer.id;
 
-  const { data, error, loading, makeRequest } = useDynamicGetRequest();
+    useEffect(() => {
+      if (!customerId) {
+        return; // Do not proceed until customerId is defined
+      }
+  
+      // Create a new socket connection
+      const socket = io(socketURL, {
+        query: { customerId },
+      });
+  
+      socket.on('connect', () => {
+        console.log(`Connected to server as customer: ${customerId}`);
+        // Emit a join room event or similar to subscribe to updates for this customer
+        console.log(customerId);
+        socket.emit('joinRoom', { room: `customer-${customerId}` });
+      });
+  
+      // Setup event listener for booking updates
+      socket.on('booking-update', message => {
+        console.log(message);
+        CustomerGlobalStore.update(s => {
+          s.bookingDetails = message;
+        });
+        setLookForMechStatusModal(false);
+        history.push('/mechdetails');
+        // setResponse(message)
+      });
+  
+      // Cleanup function to run when the component unmounts or customerId changes
+      return () => {
+        socket.off('booking-update');
+        socket.disconnect();
+      };
+    }, [customerId]);
+  
 
-  useEffect(() => {
-    makeRequest(`${baseURL}/booking`, 'GET');
-  }, []);
+  const { data } = AllBookingStore.getRawState();
 
-  let filteredBookings: any[] = [];
+  let mechanicBooked: any[] = [];
 
   if (data && data.success && data.data) {
-    filteredBookings = data.data.filter(
+    mechanicBooked = data.data.filter(
       (booking: any) =>
         booking.mechanicId &&
         !booking.Order[0].isFullfilled &&
@@ -243,7 +269,16 @@ const SelectLocation: React.FC = () => {
     );
   }
 
-  console.log(filteredBookings);
+  let lookingForMechanic: any[] = [];
+  if (data && data.success && data.data) {
+    lookingForMechanic = data.data.filter(
+      (booking: any) =>
+        !booking.Order[0].isFullfilled &&
+        booking.ownerId === customerData?.customer.id,
+    );
+  }
+
+  console.log(lookingForMechanic);
 
   return (
     <IonPage>
@@ -257,10 +292,9 @@ const SelectLocation: React.FC = () => {
           Hello, {customerData?.firstName}
         </Text>
       </div>
-      {filteredBookings.length != 0 ? (
+      {mechanicBooked.length != 0 ? (
         <div
           onClick={() => {
-            console.log('in here');
             setBookingStatusModal(true);
           }}
         >
@@ -271,6 +305,21 @@ const SelectLocation: React.FC = () => {
             rating={'Rating | 200+ services '}
             items={'items-start'}
             motorspecialist={'AC Motor'}
+            modalOpen
+          />{' '}
+        </div>
+      ) : lookingForMechanic.length != 0 ? (
+        <div
+          onClick={() => {
+            setLookForMechStatusModal(true);
+          }}
+        >
+          <AccountComp
+            direction={'flex '}
+            imageUrl="/notifications/profile.svg"
+            name="Still Looking for A Mechanic"
+            items={'items-keft'}
+            motorspecialist={'Hold Tight'}
             modalOpen
           />{' '}
         </div>
@@ -299,10 +348,8 @@ const SelectLocation: React.FC = () => {
             <FormProvider {...formMethods}>
               <Modal
                 isOpen={isOpen}
-                ref={modal}
                 title={'Location of Inspection'}
                 btnText={'Confirm And Proceed'}
-                trigger={'open-modal'}
                 onSubmit={handleSubmit(onSubmit)}
                 disabled={!isModalFormValid()}
               >
@@ -346,6 +393,32 @@ const SelectLocation: React.FC = () => {
           {/* ) : (
               <p>No mechanic found matching the criteria.</p>
             )} */}
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={lookForMechanicModal}
+        title="Looking For Mechanic"
+        btnText="Close"
+        searching
+        onSubmit={() => {
+          setLookForMechStatusModal(false);
+        }}
+      >
+        <div>
+          <div>
+            {notificationData?.map((notification, index) => (
+              <div key={index} className="border-t py-1">
+                <SingleNotifications
+                  direction="font-medium"
+                  key={index}
+                  imageUrl={notification.imageUrl}
+                  text={notification.text}
+                  name={notification.name}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </Modal>
     </IonPage>

@@ -9,6 +9,7 @@ import TitleDescription from '../../../ui/common/TitleDescription';
 import OTPInput from '../../../ui/common/Authentication/OtpInputs';
 import PhoneStore from './store';
 import { baseURL, phoneCode } from '../../../../utils/definations/axios/url';
+import { ErrorResponse } from './Login';
 
 const OTPUser = () => {
   const history = useHistory();
@@ -28,10 +29,10 @@ const OTPUser = () => {
         onError: error => {
           console.error('Otp Verification failed:', error);
 
-          if (error.message && error.message.includes("incorrect otp")) {
+          if (error.message && error.message.includes('incorrect otp')) {
             setIsOpen(true);
           } else {
-            history.goBack()
+            history.goBack();
           }
         },
         onSettled: () => {
@@ -43,8 +44,6 @@ const OTPUser = () => {
   const handleResend = () => {
     history.push('/signupuser');
   };
-
-
 
   const handleOtp = async () => {
     // history.push("/onboardinguser")
@@ -68,9 +67,8 @@ const OTPUser = () => {
       disabled={disabled}
     >
       <IonToast
-        isOpen={isOpen}
-        message="Incorrect Code"
-        onDidDismiss={() => setIsOpen(false)}
+        isOpen={isError}
+        message={(error?.response?.data as ErrorResponse)?.message}
         duration={5000}
       ></IonToast>
       <div className="h-full flex flex-col justify-center">

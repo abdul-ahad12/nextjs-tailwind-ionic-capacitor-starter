@@ -5,6 +5,11 @@ import Authentication from '../../../ui/common/Authentication';
 import { baseURL, phoneCode } from '../../../../utils/definations/axios/url';
 import PhoneStore from './store';
 import { AxiosError } from 'axios';
+import { IonToast } from '@ionic/react';
+
+export type ErrorResponse = {
+  message: string;
+};
 
 const LoginUser = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -21,12 +26,9 @@ const LoginUser = () => {
           });
           history.push('/otploginuser');
 
-          // Handle success logic, e.g., store user data, redirect, etc.
         },
         onError: (error: AxiosError) => {
           console.error('Login failed:', error);
-          //  handle the case when the user exists send them to signup route. will add error.name = "USER_EXISTS"
-          // Handle error logic, e.g., show error message
         },
         onSettled: () => {
           console.log('Login mutation settled');
@@ -38,17 +40,19 @@ const LoginUser = () => {
   const handleLogin = () => {
     const requestConfig = {
       method: 'post',
-      // url: 'https://dummyjson.com/products/add',
-
       url: `${baseURL}/auth/login/${phoneCode}${phoneNumber}`,
     };
 
     mutate(requestConfig);
   };
 
-
   return (
     <>
+      <IonToast
+        isOpen={isError}
+        message={(error?.response?.data as ErrorResponse)?.message}
+        duration={5000}
+      ></IonToast>
       <Authentication
         setPhoneNumber={setPhoneNumber}
         phoneNumber={phoneNumber}

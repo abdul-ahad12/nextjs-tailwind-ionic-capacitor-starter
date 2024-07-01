@@ -53,6 +53,7 @@ const SingleReport = () => {
       title="Report"
       BtnText="Download Report"
       onSubmit={() => handleDownload(report.url)}
+      disabled
     >
       <Text className="text-tertiary font-semibold text-[1.5rem]">
         Inspection Report

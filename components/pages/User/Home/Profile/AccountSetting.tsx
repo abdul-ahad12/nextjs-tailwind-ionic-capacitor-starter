@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
-import { RightArrowSvg } from '../../../ui/common/svgs';
-
-import { IonContent, IonHeader, IonPage } from '@ionic/react';
-
-import IconTextButton from '../../../ui/common/mechanic/resuable/IconTextButton';
-import { DocumentSvg } from '../../../ui/common/svgs/DocumentSvg';
-import AccountComp from '../../../ui/common/mechanic/resuable/mechanicinspection/AccountComp';
-import { Button } from '../../../ui/common/button';
-import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
-import { Phone } from '../../../ui/common/svgs/Phone';
-import LocationSvg from '../../../ui/common/svgs/LocationSvg';
-import Modal from '../../../ui/common/modals';
-import { DynamicFieldsGenerate } from '../../../ui/common/inputComponent/DynamicFieldsGenerate';
+import { RightArrowSvg } from '../../../../ui/common/svgs';
+import { DocumentSvg } from '../../../../ui/common/svgs/DocumentSvg';
+import { Button } from '../../../../ui/common/button';
+import BackAndButton from '../../../../ui/common/Layouts/BackAndButton';
+import { Phone } from '../../../../ui/common/svgs/Phone';
+import LocationSvg from '../../../../ui/common/svgs/LocationSvg';
+import Modal from '../../../../ui/common/modals';
+import { DynamicFieldsGenerate } from '../../../../ui/common/InputComponent/DynamicFieldsGenerate';
 import { FormProvider, useForm } from 'react-hook-form';
+import { AccountComp, IconTextButton } from '@components/ui/common';
 
 const AccountSetting = () => {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from '../../../text';
+import { Text } from '../text';
 
 const AccountComp = ({
   direction,
@@ -10,7 +10,7 @@ const AccountComp = ({
   motorspecialist,
   user,
   modalOpen,
-  phoneNumber
+  phoneNumber,
 }: any) => {
   return (
     <div
@@ -26,7 +26,7 @@ const AccountComp = ({
           <Text>{phoneNumber}</Text>
         ) : (
           <Text className=" text-[15px] text-[#1A202FCC]">
-            <span className="text-black">&#9733;</span> {rating}
+            {rating && <span className="text-black">&#9733;{rating}</span>}
           </Text>
         )}
       </div>

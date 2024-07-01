@@ -1,14 +1,15 @@
+import { BackAndButton } from '@components/ui';
+import { Button } from '@components/ui/common/button';
+import AccountComp from '@components/ui/common/mechanicinspection/AccountComp';
+import BorderTextNumber from '@components/ui/common/mechanicinspection/resuable/BorderTextNumber';
+import IconTextButton from '@components/ui/common/mechanicinspection/resuable/IconTextButton';
+import { RightArrowSvg } from '@components/ui/common/svgs';
+import { DocumentSvg } from '@components/ui/common/svgs/DocumentSvg';
+import { baseURL } from '@utils/definations/axios/url';
+import useDynamicGetRequest from '@utils/supportingFns/getCall';
 import React, { useEffect } from 'react';
-import { RightArrowSvg } from '../../../ui/common/svgs';
-import BorderTextNumber from '../../../ui/common/mechanic/resuable/BorderTextNumber';
-import IconTextButton from '../../../ui/common/mechanic/resuable/IconTextButton';
-import { DocumentSvg } from '../../../ui/common/svgs/DocumentSvg';
-import AccountComp from '../../../ui/common/mechanic/resuable/mechanicinspection/AccountComp';
-import { Button } from '../../../ui/common/button';
 import { useHistory } from 'react-router';
-import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
-import useDynamicGetRequest from '../../../../utils/supportingFns/getCall';
-import { baseURL } from '../../../../utils/definations/axios/url';
+
 
 const UserProfile = () => {
   const history = useHistory();
