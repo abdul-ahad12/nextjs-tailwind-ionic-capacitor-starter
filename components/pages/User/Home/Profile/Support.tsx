@@ -6,7 +6,7 @@ import { Text } from '../../../../ui/common/text';
 import { Phone } from '../../../../ui/common/svgs/Phone';
 import { Email } from '../../../../ui/common/svgs/Email';
 import BackAndButton from '../../../../ui/common/Layouts/BackAndButton';
-import { IconTextButton } from '@components/ui/common';
+import { IconTextButton } from '../../../../ui/common';
 const Support = () => {
   const iconTextButtonData = [
     {
