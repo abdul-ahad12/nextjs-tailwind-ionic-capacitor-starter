@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 import { BookingStore } from './store';
 import { BackAndButton, Tabs } from '@components/ui';
 import TitleDescription from '@components/ui/common/TitleDescription';
-import { DynamicFieldsGenerate } from '@components/ui/common/InputComponent/DynamicFieldsGenerate';
+import  DynamicFieldsGenerate  from '@components/ui/common/InputComponent/DynamicFieldsGenerate';
 
 export const ContactSeller = () => {
   const history = useHistory();
