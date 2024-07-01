@@ -1,11 +1,10 @@
 import React from 'react';
-import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
-import TitleDescription from '../../../ui/common/TitleDescription';
 import { FormProvider, useForm } from 'react-hook-form';
-import { DynamicFieldsGenerate } from '../../../ui/common/InputComponent/DynamicFieldsGenerate';
 import { useHistory } from 'react-router';
 import { BookingStore } from './store';
-import Tabs from '../../../ui/common/Layouts/TabsBooking';
+import { BackAndButton, Tabs } from '@components/ui';
+import TitleDescription from '@components/ui/common/TitleDescription';
+import { DynamicFieldsGenerate } from '@components/ui/common/InputComponent/DynamicFieldsGenerate';
 
 export const ContactSeller = () => {
   const history = useHistory();
