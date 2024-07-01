@@ -7,8 +7,7 @@ import { Phone } from '../../../../ui/common/svgs/Phone';
 import LocationSvg from '../../../../ui/common/svgs/LocationSvg';
 import Modal from '../../../../ui/common/modals';
 import { FormProvider, useForm } from 'react-hook-form';
-import { AccountComp, IconTextButton } from '../../../../ui/common';
-import { DynamicFieldsGenerate } from '../../../../ui/common/InputComponent/DynamicFieldGenerate';
+import { AccountComp, DynamicFieldsGenerate, IconTextButton } from '../../../../ui/common';
 
 const AccountSetting = () => {
   const [isOpen, setIsOpen] = useState(false);

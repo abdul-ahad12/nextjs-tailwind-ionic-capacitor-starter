@@ -4,7 +4,7 @@ import TitleDescription from '../../../ui/common/TitleDescription';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import Tabs from '../../../ui/common/Layouts/TabsBooking';
-import { DynamicFieldsGenerate } from '../../../ui/common/InputComponent/DynamicFieldGenerate';
+import { DynamicFieldsGenerate } from '../../../ui/common';
 
 export const WhichSeller = () => {
   const history = useHistory();

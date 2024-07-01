@@ -4,7 +4,6 @@ import SearchComponent from '../../../ui/common/GMaps/Search';
 import { Button } from '../../../ui/common/button';
 import MapComponent from '../../../ui/common/GMaps/Maps';
 import Modal from '../../../ui/common/modals';
-import { DynamicFieldsGenerate } from '../../../ui/common/InputComponent/DynamicFieldsGenerate';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import { LocationStore } from '../Onboarding/store';
@@ -14,7 +13,7 @@ import { AllBookingStore } from './store';
 import { CustomerGlobalStore } from '../GlobalStore';
 import { io } from 'socket.io-client';
 import { socketURL } from '../../../../utils/definations/axios/url';
-import { AccountComp, SingleNotifications } from '../../../ui/common';
+import { AccountComp, DynamicFieldsGenerate, SingleNotifications } from '../../../ui/common';
 
 const SelectLocation: React.FC = () => {
   const [inputValue, setInputValue] = useState('');

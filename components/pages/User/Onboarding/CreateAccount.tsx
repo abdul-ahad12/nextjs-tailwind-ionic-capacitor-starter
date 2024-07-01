@@ -8,10 +8,10 @@ import { extractAddressComponent, getPlaceDetails } from '../../../../utils/supp
 import { baseURL, phoneCode } from '../../../../utils/definations/axios/url';
 import { BackAndButton, SearchComponent } from '../../../ui';
 import TitleDescription from '../../../ui/common/TitleDescription';
-import { DynamicFieldsGenerate } from '../../../ui/common/InputComponent/DynamicFieldsGenerate';
 import { Text } from '../../../ui/common/text';
 import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
 import { addNotification } from '../../../../utils/supportingFns/notifications';
+import { DynamicFieldsGenerate } from '../../../ui/common';
 
 const CreateAccount = () => {
   const history = useHistory();
