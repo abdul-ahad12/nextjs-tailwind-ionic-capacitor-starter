@@ -6,7 +6,7 @@ import { baseURL } from '../../../../utils/definations/axios/url';
 import { IonContent, IonPage } from '@ionic/react';
 import MapComponent from '../../../ui/common/GMaps/Maps';
 import Modal from '../../../ui/common/modals';
-import { AccountComp, SingleNotifications } from '@components/ui/common';
+import { AccountComp, SingleNotifications } from '../../../ui/common';
 
 const MechDetails = () => {
   const [selectedPlace, setSelectedPlace] = useState(null);

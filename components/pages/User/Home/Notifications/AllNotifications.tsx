@@ -6,7 +6,7 @@ import {
   Notification,
   getNotifications,
 } from '../../../../../utils/supportingFns/notifications';
-import { ImageWithText, SingleNotifications } from '@components/ui/common';
+import { ImageWithText, SingleNotifications } from '../../../../ui/common';
 
 const AllNotifications: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
