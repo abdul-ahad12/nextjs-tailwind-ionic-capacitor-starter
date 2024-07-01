@@ -24,6 +24,10 @@ import IconTextButton from './Activity/resuable/IconTextButton';
 import ImageWithText from './Activity/resuable/ImageWithText';
 import SingleNotifications from './Activity/resuable/SingleNotification';
 
+// Input Field Generator
+
+import {DynamicFieldsGenerate} from "../common/InputComponent/DynamicFieldGenerate"
+
 
 export {
   ImageCarousel,
@@ -44,4 +48,5 @@ export {
   ImageWithText,
   Inspection,
   SingleNotifications,
+  DynamicFieldsGenerate
 };
