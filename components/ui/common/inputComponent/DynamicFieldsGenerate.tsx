@@ -20,10 +20,10 @@ interface IDynamicFieldsGenerate {
   errors: any;
 }
 
-export const DynamicFieldsGenerate: React.FC<IDynamicFieldsGenerate> = ({
+export const DynamicFieldsGenerate = ({
   fields,
   errors,
-}) => {
+}: IDynamicFieldsGenerate) => {
   return (
     <div className="flex flex-col gap-10 w-full pb-6">
       <div className="flex flex-col mt-10 gap-5 w-full">
