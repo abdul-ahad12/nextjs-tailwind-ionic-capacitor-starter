@@ -11,6 +11,7 @@ module.exports = {
     ],
     unoptimized: true,
   },
+  // output: 'export',
   swcMinify: true,
   transpilePackages: [
     '@ionic/react',
@@ -18,14 +19,4 @@ module.exports = {
     '@stencil/core',
     'ionicons',
   ],
-  webpack: (config) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@components': path.resolve(__dirname, 'components'),
-      '@components/ui': path.resolve(__dirname, 'components/ui'),
-      '@components/ui/common': path.resolve(__dirname, 'components/ui/common'),
-      '@utils': path.resolve(__dirname, 'utils'),
-    };
-    return config;
-  },
 };
