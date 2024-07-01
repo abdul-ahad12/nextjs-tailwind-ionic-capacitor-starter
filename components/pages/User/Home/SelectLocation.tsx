@@ -208,53 +208,47 @@ const SelectLocation: React.FC = () => {
       name: '$123.6',
     },
   ];
-  
-
-
-  
-
   const customerDataString = localStorage.getItem('customerdata');
   const customerData = customerDataString
     ? JSON.parse(customerDataString)
     : null;
 
-    const customerId = customerData?.customer.id;
+  const customerId = customerData?.customer.id;
 
-    useEffect(() => {
-      if (!customerId) {
-        return; // Do not proceed until customerId is defined
-      }
-  
-      // Create a new socket connection
-      const socket = io(socketURL, {
-        query: { customerId },
+  useEffect(() => {
+    if (!customerId) {
+      return; // Do not proceed until customerId is defined
+    }
+
+    // Create a new socket connection
+    const socket = io(socketURL, {
+      query: { customerId },
+    });
+
+    socket.on('connect', () => {
+      console.log(`Connected to server as customer: ${customerId}`);
+      // Emit a join room event or similar to subscribe to updates for this customer
+      console.log(customerId);
+      socket.emit('joinRoom', { room: `customer-${customerId}` });
+    });
+
+    // Setup event listener for booking updates
+    socket.on('booking-update', message => {
+      console.log(message);
+      CustomerGlobalStore.update(s => {
+        s.bookingDetails = message;
       });
-  
-      socket.on('connect', () => {
-        console.log(`Connected to server as customer: ${customerId}`);
-        // Emit a join room event or similar to subscribe to updates for this customer
-        console.log(customerId);
-        socket.emit('joinRoom', { room: `customer-${customerId}` });
-      });
-  
-      // Setup event listener for booking updates
-      socket.on('booking-update', message => {
-        console.log(message);
-        CustomerGlobalStore.update(s => {
-          s.bookingDetails = message;
-        });
-        setLookForMechStatusModal(false);
-        history.push('/mechdetails');
-        // setResponse(message)
-      });
-  
-      // Cleanup function to run when the component unmounts or customerId changes
-      return () => {
-        socket.off('booking-update');
-        socket.disconnect();
-      };
-    }, [customerId]);
-  
+      setLookForMechStatusModal(false);
+      history.push('/mechdetails');
+      // setResponse(message)
+    });
+
+    // Cleanup function to run when the component unmounts or customerId changes
+    return () => {
+      socket.off('booking-update');
+      socket.disconnect();
+    };
+  }, [customerId]);
 
   const { data } = AllBookingStore.getRawState();
 
@@ -324,41 +318,79 @@ const SelectLocation: React.FC = () => {
           />{' '}
         </div>
       ) : (
-        <div className="flex justify-center w-full absolute bottom-3">
-          <div className="w-[90%] bg-white px-2 pb-2 rounded-primary">
-            <div className="p-[10px] flex flex-col justify-between">
-              <Text typography="modalHeader" className="pb-2">
-                Where is your Vehicle?
-              </Text>
-              <SearchComponent
-                inputValue={inputValue}
-                setInputValue={setInputValue}
-                suggestions={suggestions}
-                handleSelect={handleSelect}
-              />
-            </div>
-            <Button
-              id="open-modal"
-              onClick={() => {
-                setisOpen(true);
-              }}
-            >
-              Next
-            </Button>
-            <FormProvider {...formMethods}>
-              <Modal
-                isOpen={isOpen}
-                title={'Location of Inspection'}
-                btnText={'Confirm And Proceed'}
-                onSubmit={handleSubmit(onSubmit)}
-                disabled={!isModalFormValid()}
-              >
-                <DynamicFieldsGenerate errors={errors} fields={fields} />
-              </Modal>
-            </FormProvider>
-          </div>
-        </div>
+        // <div className="flex justify-center w-full absolute bottom-3">
+        //   <div className="w-[90%] bg-white px-2 pb-2 rounded-primary">
+        //     <div className="p-[10px] flex flex-col justify-between">
+        //       <Text typography="modalHeader" className="pb-2">
+        //         Where is your Vehicle?
+        //       </Text>
+        //       <SearchComponent
+        //         inputValue={inputValue}
+        //         setInputValue={setInputValue}
+        //         suggestions={suggestions}
+        //         handleSelect={handleSelect}
+        //       />
+        //     </div>
+        //     <Button
+        //       id="open-modal"
+        //       onClick={() => {
+        //         setisOpen(true);
+        //       }}
+        //     >
+        //       Next
+        //     </Button>
+        //     <FormProvider {...formMethods}>
+        //       <Modal
+        //         isOpen={isOpen}
+        //         title={'Location of Inspection'}
+        //         btnText={'Confirm And Proceed'}
+        //         onSubmit={handleSubmit(onSubmit)}
+        //         disabled={!isModalFormValid()}
+        //       >
+        //         <DynamicFieldsGenerate errors={errors} fields={fields} />
+        //       </Modal>
+        //     </FormProvider>
+        //   </div>
+        // </div>
+        <></>
       )}
+      <div className="flex justify-center w-[full] bottom-3">
+        <div className="w-[90%] bg-white px-2 pb-2 rounded-primary">
+          <div className="p-[10px] flex flex-col justify-between">
+            <Text typography="modalHeader" className="pb-2">
+              Where is your Vehicle?
+            </Text>
+            <SearchComponent
+              inputValue={inputValue}
+              setInputValue={setInputValue}
+              suggestions={suggestions}
+              handleSelect={handleSelect}
+            />
+          </div>
+          <Button
+            disabled={
+              mechanicBooked.length != 0 || lookingForMechanic.length != 0
+            }
+            id="open-modal"
+            onClick={() => {
+              setisOpen(true);
+            }}
+          >
+            Next
+          </Button>
+          <FormProvider {...formMethods}>
+            <Modal
+              isOpen={isOpen}
+              title={'Location of Inspection'}
+              btnText={'Confirm And Proceed'}
+              onSubmit={handleSubmit(onSubmit)}
+              disabled={!isModalFormValid()}
+            >
+              <DynamicFieldsGenerate errors={errors} fields={fields} />
+            </Modal>
+          </FormProvider>
+        </div>
+      </div>
 
       <Modal
         isOpen={bookingStatusModal}
