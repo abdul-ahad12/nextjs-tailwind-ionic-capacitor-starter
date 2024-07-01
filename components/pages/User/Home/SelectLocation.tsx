@@ -11,10 +11,10 @@ import { LocationStore } from '../Onboarding/store';
 import { BookingStore } from '../BookingFlow/store';
 import { Text } from '../../../ui/common/text';
 import { AllBookingStore } from './store';
-import { AccountComp, SingleNotifications } from '@components/ui/common';
-import { socketURL } from '@utils/definations/axios/url';
 import { CustomerGlobalStore } from '../GlobalStore';
 import { io } from 'socket.io-client';
+import { socketURL } from '../../../../utils/definations/axios/url';
+import { AccountComp, SingleNotifications } from '../../../ui/common';
 
 const SelectLocation: React.FC = () => {
   const [inputValue, setInputValue] = useState('');

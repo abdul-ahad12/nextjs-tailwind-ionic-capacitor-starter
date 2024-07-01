@@ -1,21 +1,17 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import BackAndButton from '@components/ui/common/Layouts/BackAndButton';
-import TitleDescription from '@components/ui/common/TitleDescription';
-import { Text } from '@components/ui/common/text';
 import { useHistory } from 'react-router';
 import { FormProvider, useForm } from 'react-hook-form';
-import { DynamicFieldsGenerate } from '@components/ui/common/InputComponent/DynamicFieldsGenerate';
 import { Geolocation, Position } from '@capacitor/geolocation';
-import { useDynamicRequest } from '@utils/definations/axios/axiosInstance';
-import { baseURL, phoneCode } from '@utils/definations/axios/url';
-import { addNotification } from '@utils/supportingFns/notifications';
-import SearchComponent from '@components/ui/common/GMaps/Search';
-import {
-  extractAddressComponent,
-  getPlaceDetails,
-} from '@utils/supportingFns/searchLocation';
 import { UserStore } from './store';
 import { CustomerGlobalStore } from '../GlobalStore';
+import { extractAddressComponent, getPlaceDetails } from '../../../../utils/supportingFns/searchLocation';
+import { baseURL, phoneCode } from '../../../../utils/definations/axios/url';
+import { BackAndButton, SearchComponent } from '../../../ui';
+import TitleDescription from '../../../ui/common/TitleDescription';
+import { DynamicFieldsGenerate } from '../../../ui/common/InputComponent/DynamicFieldsGenerate';
+import { Text } from '../../../ui/common/text';
+import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
+import { addNotification } from '../../../../utils/supportingFns/notifications';
 
 const CreateAccount = () => {
   const history = useHistory();

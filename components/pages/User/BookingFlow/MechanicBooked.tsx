@@ -9,7 +9,7 @@ import { baseURL, socketURL } from '../../../../utils/definations/axios/url';
 import useDynamicGetRequest from '../../../../utils/supportingFns/getCall';
 import { io } from 'socket.io-client';
 import { CustomerGlobalStore } from '../GlobalStore';
-import { SingleNotifications } from '@components/ui/common';
+import { SingleNotifications } from '../../../ui/common';
 
 const MechanicBooked = () => {
   const [selectedPlace, setSelectedPlace] = useState<any>(null);

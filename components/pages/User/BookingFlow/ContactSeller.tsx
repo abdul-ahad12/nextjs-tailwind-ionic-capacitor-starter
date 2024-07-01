@@ -2,9 +2,9 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import { BookingStore } from './store';
-import { BackAndButton, Tabs } from '@components/ui';
-import TitleDescription from '@components/ui/common/TitleDescription';
-import { DynamicFieldsGenerate } from '@components/ui/common/InputComponent/DynamicFieldsGenerate';
+import { BackAndButton, Tabs } from '../../../ui';
+import TitleDescription from '../../../ui/common/TitleDescription';
+import { DynamicFieldsGenerate } from '../../../ui/common/InputComponent/DynamicFieldsGenerate';
 
 export const ContactSeller = () => {
   const history = useHistory();

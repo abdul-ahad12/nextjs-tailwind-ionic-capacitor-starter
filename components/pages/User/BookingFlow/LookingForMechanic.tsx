@@ -8,7 +8,7 @@ import { CustomerGlobalStore } from '../GlobalStore';
 import { io } from 'socket.io-client';
 import { baseURL, socketURL } from '../../../../utils/definations/axios/url';
 import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
-import { SingleNotifications } from '@components/ui/common';
+import { SingleNotifications } from '../../../ui/common';
 
 const LookingForMechanic = () => {
   const [selectedPlace, setSelectedPlace] = useState(null);

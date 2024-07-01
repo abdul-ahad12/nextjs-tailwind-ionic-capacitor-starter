@@ -1,12 +1,13 @@
-import { BackAndButton } from '@components/ui';
-import { AccountComp, BorderTextNumber, IconTextButton } from '@components/ui/common';
-import { Button } from '@components/ui/common/button';
-import { RightArrowSvg } from '@components/ui/common/svgs';
-import { DocumentSvg } from '@components/ui/common/svgs/DocumentSvg';
-import { baseURL } from '@utils/definations/axios/url';
-import useDynamicGetRequest from '@utils/supportingFns/getCall';
+
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
+import useDynamicGetRequest from '../../../../../utils/supportingFns/getCall';
+import { DocumentSvg } from '../../../../ui/common/svgs/DocumentSvg';
+import { BackAndButton } from '../../../../ui';
+import { AccountComp, BorderTextNumber, IconTextButton } from '../../../../ui/common';
+import { RightArrowSvg } from '../../../../ui/common/svgs';
+import { Button } from '../../../../ui/common/button';
+import { baseURL } from '../../../../../utils/definations/axios/url';
 
 
 const UserProfile = () => {
