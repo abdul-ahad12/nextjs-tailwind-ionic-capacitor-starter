@@ -13,7 +13,7 @@ import {
 } from '@ionic/react';
 import TitleDescription from '../TitleDescription';
 import { Button } from '../button';
-import InputComponent from '../InputComponent';
+import InputComponent from '../FormElements';
 import { Text } from '../text';
 import { useHistory } from 'react-router';
 

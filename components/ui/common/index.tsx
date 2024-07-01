@@ -26,8 +26,8 @@ import SingleNotifications from './Activity/resuable/SingleNotification';
 
 // Input Field Generator
 
-import {DynamicFieldsGenerate} from "../common/InputComponent/DynamicFieldGenerate"
-import InputComponent from "../common/InputComponent"
+import {DynamicFieldsGenerate} from "./FormElements/DynamicFieldGenerate"
+import InputComponent from "./FormElements"
 
 
 export {
