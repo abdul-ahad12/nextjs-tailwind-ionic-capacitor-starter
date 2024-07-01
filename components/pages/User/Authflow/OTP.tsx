@@ -29,11 +29,7 @@ const OTPUser = () => {
         onError: error => {
           console.error('Otp Verification failed:', error);
 
-          if (error.message && error.message.includes('incorrect otp')) {
-            setIsOpen(true);
-          } else {
-            history.goBack();
-          }
+          setIsOpen(true);
         },
         onSettled: () => {
           console.log('Login mutation settled');

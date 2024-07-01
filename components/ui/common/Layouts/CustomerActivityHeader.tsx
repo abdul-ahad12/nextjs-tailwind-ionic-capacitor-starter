@@ -72,7 +72,7 @@ const CustomerActivityHeader: React.FC<ICustomerActivityHeader> = ({
         <IonToolbar>
           <div className="grid grid-cols-12">
             {' '}
-            <IonTitle className="text-center font-[Silka] w-full flex items-center justify-center  font-semibold mt-[2rem] col-start-1 col-end-13 row-span-full">
+            <IonTitle className="text-center font-[Silka] w-full flex mt-[-2rem]  font-semibold  col-start-1 col-end-13 row-span-full">
               Activity
             </IonTitle>
             {refresh && onRefresh && (
