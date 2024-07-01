@@ -4,7 +4,7 @@ import TitleDescription from '@components/ui/common/TitleDescription';
 import { Text } from '@components/ui/common/text';
 import { useHistory } from 'react-router';
 import { FormProvider, useForm } from 'react-hook-form';
-import DynamicFieldsGenerate from '@components/ui/common/InputComponent/DynamicFieldsGenerate';
+import { DynamicFieldsGenerate } from '@components/ui/common/InputComponent/DynamicFieldsGenerate';
 import { Geolocation, Position } from '@capacitor/geolocation';
 import { useDynamicRequest } from '@utils/definations/axios/axiosInstance';
 import { baseURL, phoneCode } from '@utils/definations/axios/url';

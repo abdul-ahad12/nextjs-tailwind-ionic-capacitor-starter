@@ -8,7 +8,7 @@ interface IDynamicFieldsGenerate {
   errors: any;
 }
 
-const DynamicFieldsGenerate: React.FC<IDynamicFieldsGenerate> = ({
+export const DynamicFieldsGenerate: React.FC<IDynamicFieldsGenerate> = ({
   fields,
   errors,
 }) => {
@@ -33,5 +33,3 @@ const DynamicFieldsGenerate: React.FC<IDynamicFieldsGenerate> = ({
     </div>
   );
 };
-
-export default DynamicFieldsGenerate

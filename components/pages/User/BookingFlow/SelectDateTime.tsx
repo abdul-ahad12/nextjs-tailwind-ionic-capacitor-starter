@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import TitleDescription from '../../../ui/common/TitleDescription';
 import { FormProvider, useForm } from 'react-hook-form';
 import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
+import { DynamicFieldsGenerate } from '../../../ui/common/InputComponent/DynamicFieldsGenerate';
 import { useHistory } from 'react-router';
 import { BookingResponseStore, BookingStore } from './store';
 import { useDynamicRequest } from '../../../../utils/definations/axios/axiosInstance';
@@ -9,7 +10,6 @@ import { baseURL } from '../../../../utils/definations/axios/url';
 import Tabs from '../../../ui/common/Layouts/TabsBooking';
 import { Text } from '../../../ui/common/text';
 import RadioBtn from '../../../ui/common/radioBtn';
-import { DynamicFieldsGenerate } from '@components/ui/common/InputComponent/DynamicFieldsGenerate';
 
 const SelectDateTime = () => {
   const history = useHistory();
