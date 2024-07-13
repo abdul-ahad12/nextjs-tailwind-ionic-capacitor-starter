@@ -12,9 +12,9 @@ import { Text } from '../../../ui/common/text';
 import { AllBookingStore } from './store';
 import { CustomerGlobalStore } from '../GlobalStore';
 import { io } from 'socket.io-client';
+import { socketURL } from '../../../../utils/definations/axios/url';
+import { AccountComp, DynamicFieldsGenerate, SingleNotifications } from '../../../ui/common';
 import { RealEstateBookingStore } from '../RealEstateFlow/store';
-import { DynamicFieldsGenerate } from '@components/ui/common/inputComponent/DynamicFieldsGenerate';
-import SwitchTabs from '@components/ui/common/inputComponent/SwitchTabs';
 
 const SelectLocation: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
