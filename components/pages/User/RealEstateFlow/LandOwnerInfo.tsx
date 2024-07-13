@@ -1,12 +1,12 @@
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
-import { BookingStore } from './store';
 import { BackAndButton, Tabs } from '@components/ui';
 import TitleDescription from '@components/ui/common/TitleDescription';
-import { DynamicFieldsGenerate } from '../../../ui/common/inputComponent/DynamicFieldsGenerate';
+import { DynamicFieldsGenerate } from '@components/ui/common/InputComponent/DynamicFieldsGenerate';
+import { RealEstateBookingStore } from './store';
 
-export const ContactSeller = () => {
+export const LandOwnerInfo = () => {
   const history = useHistory();
   const formMethods = useForm();
   const {
@@ -15,7 +15,7 @@ export const ContactSeller = () => {
   } = formMethods;
 
   const onSubmit = (data: any, error: any) => {
-    BookingStore.update(s => {
+    RealEstateBookingStore.update(s => {
       s.seller = {
         ...s.seller,
         name: data.name,
@@ -24,7 +24,7 @@ export const ContactSeller = () => {
         phoneNumber: data.phoneNumber,
       };
     });
-    history.push('/whichseller');
+    history.push('/realestatepackage');
   };
 
   const fields = [
@@ -78,7 +78,7 @@ export const ContactSeller = () => {
           <Tabs activeTab={0} />
           <TitleDescription
             heading="How do we contact the seller?"
-            description="Enter the vehicle owner’s details"
+            description="Enter the land owner’s details"
           />
           <DynamicFieldsGenerate fields={fields} errors={errors} />
         </div>

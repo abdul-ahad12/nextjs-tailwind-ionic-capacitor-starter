@@ -8,6 +8,7 @@ import useDynamicGetRequest from '../../../utils/supportingFns/getCall';
 import ActivityLoading from '../../ui/common/svgs/ActivityLoading';
 import { InspectionsStore } from './GlobalStore';
 import { ImageWithText, Inspection } from '@components/ui/common';
+import SwitchTabs from '@components/ui/common/inputComponent/SwitchTabs';
 
 export enum tabs {
   TODAYSINSPECTION = 'Ongoing Inspections',
@@ -116,7 +117,8 @@ const Activity = () => {
         setrefresh(!refresh);
       }}
     >
-      <div className="gap-3 flex flex-col">
+      <div className="gap-3 flex flex-col relative">
+
         {activeState === tabs.TODAYSINSPECTION &&
           filteredBookings.map((booking: any, index: number) => (
             <Inspection

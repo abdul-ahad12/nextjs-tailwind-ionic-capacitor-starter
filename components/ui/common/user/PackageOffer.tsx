@@ -6,12 +6,14 @@ import { Text } from '../text';
 import { useHistory } from 'react-router';
 
 interface PackageOfferProps {
-  services: string[];
-  price: string;
+  services?: string[];
+  price?: string;
   title: string;
   selectable?: boolean;
   isSelected?: boolean;
-  onSelect: () => void;
+  onSelect?: () => void;
+  realEstate?: boolean;
+  imgUrl?:string
 }
 
 const PackageOffer: React.FC<PackageOfferProps> = ({
@@ -21,29 +23,41 @@ const PackageOffer: React.FC<PackageOfferProps> = ({
   selectable = false,
   isSelected = false,
   onSelect,
+  realEstate,
+  imgUrl
 }) => {
   const history = useHistory();
+
   const handleClick = () => {
-    onSelect();
-    history.push('/packagemoredetails');
+    if (onSelect) {
+      onSelect();
+      history.push('/packagemoredetails');
+    }
   };
 
   return (
     <div
       className={`p-2 flex flex-col items-center gap-4 border rounded-lg w-[156px] ${isSelected ? 'border-blue-500' : 'border-gray-300'}`}
-      onClick={handleClick}
+      onClick={
+        realEstate
+          ? handleClick
+          : () => {
+              console.log('');
+            }
+      }
     >
-      <Image src={CarImg} alt="package" />
-      <Text typography="cardsheader">{title}</Text>
+      <img src={imgUrl?imgUrl:'/user/carimg.png'} alt="package" />
+      <Text typography={'cardsheader'}>{title}</Text>
       <div className="flex flex-col gap-3">
-        {services.map((service, index) => (
-          <div className="flex items-center gap-2" key={index}>
-            <GreenTick />
-            <Text typography="services">{service}</Text>
-          </div>
-        ))}
+        {services &&
+          services.map((service, index) => (
+            <div className="flex items-center gap-2" key={index}>
+              <GreenTick />
+              <Text typography="services">{service}</Text>
+            </div>
+          ))}
       </div>
-      <Text typography="cardsheader">{price}</Text>
+      {!realEstate && <Text typography="cardsheader">{price}</Text>}
     </div>
   );
 };

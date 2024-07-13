@@ -7,7 +7,7 @@ export const text = tv({
   variants: {
     typography: {
       header: 'font-[700] text-header ',
-      cardsheader: 'text-[16px] font-semibold',
+      cardsheader: 'text-[12px] font-semibold',
       body: 'text-[14px] text-[#A3A6AC] leading-[25px]',
       basicService:
         'bg-[#FFE5DD] text-[12px] w-fit px-2 py-1 rounded-md font-semibold',

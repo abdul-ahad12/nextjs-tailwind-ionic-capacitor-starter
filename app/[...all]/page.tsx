@@ -75,6 +75,12 @@ export async function generateStaticParams() {
     { all: ['mechdetails'] },
     { all: ['singleactivity'] },
 
+    // RealEstate
+    { all: ['landownerinfo'] },
+    { all: ['realestatepackage'] },
+    { all: ['realestatedateandtime'] },
+    { all: ['lookingforrealestate'] },
+
     // { all: ['app/todaysinspection'] },
 
     ...lists.map(list => ({ all: ['lists', list.id] })),

@@ -27,6 +27,10 @@ import TabsUser from './pages/User/Home/Tabs';
 import SingleReport from './pages/User/Report';
 import MechDetails from './pages/User/BookingFlow/mechDetails';
 import SingleBookingDetails from './pages/User/Activity/SingleBookingDetails';
+import RealEstatePackage from './pages/User/RealEstateFlow/RealEstatePackage';
+import { LandOwnerInfo } from './pages/User/RealEstateFlow/LandOwnerInfo';
+import RealEstateSelectDateTime from './pages/User/RealEstateFlow/SelectDateTime';
+import LookingForRealEstateAgent from './pages/User/RealEstateFlow/LookingForRealEstate';
 
 setupIonicReact({});
 
@@ -83,6 +87,12 @@ const AppShell = () => {
               path="/singleactivity"
               render={() => <SingleBookingDetails />}
             />
+
+            {/* RealEstate */}
+            <Route path="/landownerinfo" render={() => <LandOwnerInfo />} />
+            <Route path="/realestatepackage" render={() => <RealEstatePackage />} />
+            <Route path="/realestatedateandtime" render={() => <RealEstateSelectDateTime />} />
+            <Route path="/lookingforrealestate" render={() => <LookingForRealEstateAgent />} />
           </IonRouterOutlet>
         </IonReactRouter>
       </QueryClientProvider>

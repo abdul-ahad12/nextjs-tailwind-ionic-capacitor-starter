@@ -1,6 +1,6 @@
 import { ErrorMessage } from '@hookform/error-message';
-import { DynamicControl } from './DynamicFields';
 import { Text } from '../text';
+import { DynamicControl } from './DynamicControl';
 
 
 interface IDynamicFieldsGenerate {

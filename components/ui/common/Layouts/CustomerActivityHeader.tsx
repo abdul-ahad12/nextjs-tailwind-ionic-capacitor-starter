@@ -10,6 +10,7 @@ import React, { useState } from 'react';
 import { Button } from '../button';
 import { Text } from '../text';
 import { useHistory } from 'react-router';
+import SwitchTabs from '../inputComponent/SwitchTabs';
 
 interface ICustomerActivityHeader {
   children: React.ReactNode;
@@ -40,8 +41,7 @@ const CustomerActivityHeader: React.FC<ICustomerActivityHeader> = ({
   onRefresh,
 }) => {
   const [isRotating, setIsRotating] = useState(false);
-
-
+  const [activeTab, setActiveTab] = useState<string>('vehicle');
 
   const topBar = [
     {
@@ -72,7 +72,7 @@ const CustomerActivityHeader: React.FC<ICustomerActivityHeader> = ({
         <IonToolbar>
           <div className="grid grid-cols-12">
             {' '}
-            <IonTitle className="text-center font-[Silka] w-full flex mt-[-2rem]  font-semibold  col-start-1 col-end-13 row-span-full">
+            <IonTitle className="text-center font-[Silka] w-full flex mt-1  font-semibold  col-start-1 col-end-13 row-span-full">
               Activity
             </IonTitle>
             {refresh && onRefresh && (
@@ -121,7 +121,15 @@ const CustomerActivityHeader: React.FC<ICustomerActivityHeader> = ({
           </div>
         </IonToolbar>
       </IonHeader>
-      <IonContent className="ion-padding">{children}</IonContent>
+      <IonContent className="ion-padding">
+        <div className="absolute bottom-5 w-full flex justify-center ml-[-0.5rem]">
+          <SwitchTabs setActiveTab={setActiveTab} activeTab={activeTab} />
+        </div>
+
+        {/* <div> */}
+          {children}
+        {/* </div> */}
+      </IonContent>
 
       {approved && (
         <IonFooter className="ion-padding">
