@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
+import { IonContent, IonHeader, IonPage } from '@ionic/react';
 import SearchComponent from '../../../ui/common/GMaps/Search';
 import { Button } from '../../../ui/common/button';
 import MapComponent from '../../../ui/common/GMaps/Maps';
@@ -12,8 +12,9 @@ import { Text } from '../../../ui/common/text';
 import { AllBookingStore } from './store';
 import { CustomerGlobalStore } from '../GlobalStore';
 import { io } from 'socket.io-client';
-import { socketURL } from '../../../../utils/definations/axios/url';
-import { AccountComp, DynamicFieldsGenerate, SingleNotifications } from '../../../ui/common';
+import { RealEstateBookingStore } from '../RealEstateFlow/store';
+import { DynamicFieldsGenerate } from '@components/ui/common/inputComponent/DynamicFieldsGenerate';
+import SwitchTabs from '@components/ui/common/inputComponent/SwitchTabs';
 
 const SelectLocation: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
@@ -22,10 +23,10 @@ const SelectLocation: React.FC = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState<any | null>(null); // Update type here
   const autocompleteService = useRef<any>(null);
-  const modal = useRef(null);
   const [isOpen, setisOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<string>('vehicle');
+  console.log(activeTab);
   const history = useHistory();
-  const [bookingStatus, setbookingStatus] = useState(true);
 
   useEffect(() => {
     if (!autocompleteService.current && window.google) {
@@ -95,22 +96,39 @@ const SelectLocation: React.FC = () => {
   };
 
   const onSubmit = (data: any, error: any) => {
-    BookingStore.update(s => {
-      s.vehicle.vehicleAddress = {
-        ...s.vehicle.vehicleAddress,
-        lat: selectedPlace.geometry.location.lat(),
-        long: selectedPlace.geometry.location.lng(),
-        city: data.city,
-        landmark: data.landmark,
-        name: data.name,
-        street: data.street,
-        suburb: data.suburb,
-        zipcode: data.zipcode,
-      };
-    });
-
-    setisOpen(false);
-    history.push('/contactseller');
+    if (activeTab === 'vehicle') {
+      BookingStore.update(s => {
+        s.vehicle.vehicleAddress = {
+          ...s.vehicle.vehicleAddress,
+          lat: selectedPlace.geometry.location.lat(),
+          long: selectedPlace.geometry.location.lng(),
+          city: data.city,
+          landmark: data.landmark,
+          name: data.name,
+          street: data.street,
+          suburb: data.suburb,
+          zipcode: data.zipcode,
+        };
+      });
+      setisOpen(false);
+      history.push('/contactseller');
+    } else {
+      RealEstateBookingStore.update(s => {
+        s.location.locationAddress = {
+          ...s.location.locationAddress,
+          lat: selectedPlace.geometry.location.lat(),
+          long: selectedPlace.geometry.location.lng(),
+          city: data.city,
+          landmark: data.landmark,
+          name: data.name,
+          street: data.street,
+          suburb: data.suburb,
+          zipcode: data.zipcode,
+        };
+      });
+      setisOpen(false);
+      history.push('/landownerinfo');
+    }
   };
 
   const fields = [
@@ -355,9 +373,10 @@ const SelectLocation: React.FC = () => {
       )}
       <div className="flex justify-center w-[full] bottom-3">
         <div className="w-[90%] bg-white px-2 pb-2 rounded-primary">
+          <SwitchTabs setActiveTab={setActiveTab} activeTab={activeTab} />
           <div className="p-[10px] flex flex-col justify-between">
             <Text typography="modalHeader" className="pb-2">
-              Where is your Vehicle?
+              Where is the {activeTab === 'vehicle' ? 'Vehicle' : 'Land Location'}
             </Text>
             <SearchComponent
               inputValue={inputValue}
