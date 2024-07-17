@@ -11,7 +11,6 @@ const LandingUser = () => {
       <IonContent className="ion-padding">
         <div className="h-full flex flex-col justify-center items-center">
           <img className='w-[80%]' src="/logo.jpg" />
-
           <ImageCarousel
             slides={[
               {

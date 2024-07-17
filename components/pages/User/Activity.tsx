@@ -30,6 +30,7 @@ interface InspectionDataItem {
 
 const Activity = () => {
   const [activeState, setActiveState] = useState(tabs.TODAYSINSPECTION);
+  const [activeTab, setActiveTab] = useState<string>('vehicle');
   const [refresh, setrefresh] = useState(false);
 
   const history = useHistory();
@@ -79,46 +80,66 @@ const Activity = () => {
   ) {
     return (
       <CustomerActivityHeader
+        setActiveTab={setActiveTab}
+        activeTab={activeTab}
         setActiveState={setActiveState}
         activeState={activeState}
         tabs={tabs}
         refresh
         onRefresh={() => {
-          console.log("in here")
+          console.log('in here');
           setrefresh(!refresh);
         }}
       >
-        <HeightFullLayout>
-          <ImageWithText
-            imageUrl={<ActivityLoading />}
-            text="Nothing for you now! Come Back Later"
-          />
-          <Button
-            className="mt-12"
-            onClick={() => {
-              history.replace('/appuser/selectlocation');
-            }}
-          >
-            Book Now
-          </Button>
-        </HeightFullLayout>
+        {activeTab === 'vehicle' ? (
+          <HeightFullLayout>
+            <ImageWithText
+              imageUrl={<ActivityLoading />}
+              text="Nothing for you now! Come Back Later"
+            />
+            <Button
+              className="mt-12"
+              onClick={() => {
+                history.replace('/appuser/selectlocation');
+              }}
+            >
+              Book Now
+            </Button>
+          </HeightFullLayout>
+        ) : (
+          <div>
+            <Inspection
+              showDetails={true}
+              firstText={'Basic Service'} // Assuming package name is used for firstText
+              name={'Real Estate Agent'} // Assuming owner's phone number is used for name
+              imageUrl={'/mechanic/inspection/inspection.png'} // Assuming mechanic's profile picture is used for imageUrl
+              dateTime={'12th may'}
+              earningText={'$140'}
+              carModalText={'Land'} // Assuming carType is used for carModalText
+              description={'address'} // Assuming street address is used for description
+              orderId={''}
+              realEstate
+            />
+          </div>
+        )}
       </CustomerActivityHeader>
     );
   }
   console.log(filteredBookings1);
   return (
     <CustomerActivityHeader
+      setActiveTab={setActiveTab}
+      activeTab={activeTab}
       setActiveState={setActiveState}
       activeState={activeState}
       tabs={tabs}
       refresh
       onRefresh={() => {
-        console.log("in here")
+        console.log('in here');
         setrefresh(!refresh);
       }}
     >
       <div className="gap-3 flex flex-col relative">
-
         {activeState === tabs.TODAYSINSPECTION &&
           filteredBookings.map((booking: any, index: number) => (
             <Inspection
@@ -135,7 +156,7 @@ const Activity = () => {
             />
           ))}
 
-        {activeState === tabs.SCHEDULEDINSPECTION &&
+        {activeState === tabs.SCHEDULEDINSPECTION && activeTab === 'vehicle' ? (
           filteredBookings1.map((booking, index) => (
             <Inspection
               showDetails={true}
@@ -149,7 +170,10 @@ const Activity = () => {
               description={'address'} // Assuming street address is used for description
               orderId={booking?.id}
             />
-          ))}
+          ))
+        ) : (
+          <div>hello</div>
+        )}
       </div>
     </CustomerActivityHeader>
   );

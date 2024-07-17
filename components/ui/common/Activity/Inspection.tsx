@@ -22,6 +22,7 @@ interface UserActivityProps {
   acceptReport?: boolean;
   onClick?: () => any;
   showDetails?: boolean;
+  realEstate?:boolean
 }
 
 const Inspection: React.FC<UserActivityProps> = ({
@@ -39,6 +40,7 @@ const Inspection: React.FC<UserActivityProps> = ({
   acceptReport,
   onClick,
   showDetails,
+  realEstate
 }) => {
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const history = useHistory();
@@ -110,7 +112,7 @@ const Inspection: React.FC<UserActivityProps> = ({
               <button
                 onClick={()=>{
 
-                  history.push(`/singleactivity?orderId=${orderId}`)
+                  history.push(`/realestatereportview`)
                 }}
                 className="focus:outline-none -rotate-90"
               >

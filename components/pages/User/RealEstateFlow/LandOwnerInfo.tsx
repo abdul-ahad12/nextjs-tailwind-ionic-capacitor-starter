@@ -3,8 +3,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import { BackAndButton, Tabs } from '@components/ui';
 import TitleDescription from '@components/ui/common/TitleDescription';
-import { DynamicFieldsGenerate } from '@components/ui/common/InputComponent/DynamicFieldsGenerate';
 import { RealEstateBookingStore } from './store';
+import { DynamicFieldsGenerate } from '@components/ui/common/inputComponent/DynamicFieldsGenerate';
 
 export const LandOwnerInfo = () => {
   const history = useHistory();

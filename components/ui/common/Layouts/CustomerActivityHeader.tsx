@@ -25,6 +25,8 @@ interface ICustomerActivityHeader {
   tabs?: any;
   refresh?: boolean;
   onRefresh?: () => any;
+  setActiveTab?: (state: any) => void;
+  activeTab?:string
 }
 
 const CustomerActivityHeader: React.FC<ICustomerActivityHeader> = ({
@@ -39,9 +41,11 @@ const CustomerActivityHeader: React.FC<ICustomerActivityHeader> = ({
   tabs,
   refresh,
   onRefresh,
+  setActiveTab,
+  activeTab
+
 }) => {
   const [isRotating, setIsRotating] = useState(false);
-  const [activeTab, setActiveTab] = useState<string>('vehicle');
 
   const topBar = [
     {
