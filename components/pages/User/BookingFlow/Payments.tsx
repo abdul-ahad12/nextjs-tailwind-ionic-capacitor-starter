@@ -4,6 +4,7 @@ import { text } from 'stream/consumers';
 import BookingAccordion from '../../../ui/common/user/BookingAccordian';
 import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
 import { useHistory } from 'react-router';
+import RadioButtonGroup from '@components/ui/common/user/RadioButtonGroup';
 
 const Payments = () => {
   const history = useHistory();
@@ -50,6 +51,21 @@ const Payments = () => {
         },
       ],
     },
+    {
+      title: 'Booking 3',
+      bookingdetails: [
+        {
+          heading: 'Additional Services',
+          details: [{ description: 'Airport Pickup', price: '$50' }],
+        },
+      ],
+    },
+  ];
+
+  const options = [
+    { id: 1, label: 'Master Card', src: '/payments/master.png' },
+    { id: 2, label: 'Visa Card', src: '/payments/visa.png' },
+    { id: 3, label: 'Paypal', src: '/payments/paypal.png' },
   ];
 
   return (
@@ -69,12 +85,16 @@ const Payments = () => {
               key={index}
               title={booking.title}
               bookingdetails={booking.bookingdetails}
+              edit={true}
             />
           ))}
         </div>
+        <RadioButtonGroup options={options} />
       </div>
     </BackAndButton>
   );
 };
 
 export default Payments;
+
+2;

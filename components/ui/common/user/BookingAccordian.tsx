@@ -21,9 +21,9 @@ const BookingAccordion: React.FC<AccordionProps> = ({
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
-    <div className="border border-gray-300 rounded ">
+    <div className="border border-gray-300 rounded-md py-2">
       <div
-        className="flex items-center justify-between cursor-pointer border-b px-2 py-3"
+        className="flex items-center justify-between cursor-pointer border-b px-3 py-3"
         onClick={() => setIsOpen(!isOpen)}
       >
         <Text typography="body" className="text-black font-semibold">
@@ -45,15 +45,15 @@ const BookingAccordion: React.FC<AccordionProps> = ({
           transition={{ duration: 0.1 }}
         >
           {bookingdetails.map((item, index) => (
-            <div key={index} className="border-b border-gray-300 ">
+            <div key={index} className="border-t border-gray-300 ">
               <div className="flex justify-between items-center pt-3">
-                <Text
-                 typography="body" className="text-black font-semibold"
-                >
+                <Text typography="body" className="text-black font-semibold">
                   {item.heading}
                 </Text>
                 {edit && (
-                  <Button className="w-fit bg-white text-blue-600">Edit</Button>
+                  <Button className="w-fit bg-white font-semibold underline text-blue-600">
+                    Edit
+                  </Button>
                 )}
               </div>
               {item.details.map((detail, i) => (

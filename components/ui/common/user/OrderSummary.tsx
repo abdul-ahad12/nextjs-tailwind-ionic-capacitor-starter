@@ -20,7 +20,13 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ items }) => {
         {items.map((item, index) => (
           <div className="flex justify-between" key={index}>
             <Text className="text-black font-medium">{item.text}</Text>
-            <Text>{item.price}</Text>
+            <Text
+              className={
+                item.text === 'Total' ? 'text-blue-600 font-semibold' : ''
+              }
+            >
+              {item.price}
+            </Text>
           </div>
         ))}
       </div>
