@@ -1,313 +1,218 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid'; // Import Heroicons for arrows
 import { BackAndButton } from '@components/ui';
+import TitleDescription from '@components/ui/common/TitleDescription';
 
-const RealEstateReportView = () => {
-    const formData = {
-        askingPriceCompetitive: {
-          value: true,
-          justification:
-            'Comparable properties in the area are priced competitively.',
-        },
-        legalOrZoningIssues: {
-          value: false,
-          justification: '',
-        },
-        condition: 'Good condition, recently renovated.',
-        floodOrDisasterProne: {
-          value: false,
-          specification: '',
-        },
-        repairsOrRenovationsNeeded: {
-          value: true,
-          details: 'Requires roof repairs and kitchen renovation.',
-        },
-        energyEfficient: {
-          value: true,
-          details: 'Installed energy-efficient windows and appliances.',
-        },
-        goodSchoolDistrict: {
-          value: true,
-          specification: 'Located in a highly rated school district.',
-        },
-        crimeRate: 'Low crime rate in the area.',
-        propertyValueAppreciationPotential: {
-          value: true,
-          justification:
-            'Expected increase in property value due to upcoming developments.',
-        },
-        medicalFacilities: ['Hospitals', 'Clinics'],
-        educationalInstitutions: [
-          'Elementary Schools',
-          'Middle Schools',
-          'High Schools',
-        ],
-        recreationalFacilities: ['Parks', 'Playgrounds', 'Sports Complexes'],
-        shoppingAndDining: ['Supermarkets', 'Restaurants', 'Cafes'],
-        transportFacilities: ['Bus Stops', 'Train Stations'],
-        emergencyServices: [
-          'Police Stations',
-          'Fire Stations',
-          'Emergency Medical Services',
-        ],
-        communityServices: ['Libraries', 'Community Centers', 'Post Offices'],
-        otherFacilities: [
-          'Religious Institutions',
-          'Senior Centers',
-          'Daycare Centers',
-        ],
-        neighborhoodVibe:
-          'Family-friendly neighborhood with parks and community events.',
-        proximityToMainRoads:
-          'Close proximity to major highways, convenient for commuting.',
-        futureDevelopmentPlans:
-          'Future development plans include new residential complexes.',
-        parkingAvailability: 'Plenty of parking spaces available on-site.',
-      };
+const DisplayAccordion = ({ title, content }: any) => {
+  const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <BackAndButton title="Report" back>
-      <div className="max-w-lg mx-auto shadow-md rounded-lg px-2 pt-6 pb-8 mb-4">
-        {/* <h2 className="text-xl font-bold mb-6">Real Estate Report</h2> */}
-
-        {/* Question 1 */}
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            1. Is the property's asking price competitive based on market analysis?
-          </label>
-          <div className="flex items-center">
-            <span className="mr-4 text-lg font-semibold">
-              {formData.askingPriceCompetitive.value === true ? 'Yes' : 'No'}
-            </span>
-            {formData.askingPriceCompetitive.justification && (
-              <p className="text-sm text-gray-600">
-                {formData.askingPriceCompetitive.justification}
-              </p>
-            )}
-          </div>
+    <div className="mb-4">
+      <div
+        className="flex items-center cursor-pointer px-3 bg-[#f7f7f7] border rounded-md transition-all duration-300 ease-in-out"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <h3 className="text-lg font-bold flex-1 text-blue-700">{title}</h3>
+        {isOpen ? (
+          <ChevronUpIcon className="h-5 w-5 text-gray-700 transition-transform duration-300 ease-in-out transform rotate-180" />
+        ) : (
+          <ChevronDownIcon className="h-5 w-5 text-gray-700 transition-transform duration-300 ease-in-out" />
+        )}
+      </div>
+      <div
+        className={`overflow-hidden transition-max-height duration-300 ease-in-out ${
+          isOpen ? 'max-h-screen' : 'max-h-0'
+        }`}
+      >
+        <div className="p-3 bg-[#ffffff] border-l border-b border-r rounded-lg border-opacity-10 border-gray-500">
+          <div className="text-gray-700">{content}</div>
         </div>
+      </div>
+    </div>
+  );
+};
 
-        {/* Question 2 */}
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            2. Are there any potential legal or zoning issues with the property?
-          </label>
-          <div className="flex items-center">
-            <span className="mr-4 text-lg font-semibold">
-              {formData.legalOrZoningIssues.value === true ? 'Yes' : 'No'}
-            </span>
-            {formData.legalOrZoningIssues.justification && (
-              <p className="text-sm text-gray-600">
-                {formData.legalOrZoningIssues.justification}
-              </p>
-            )}
-          </div>
-        </div>
+const UserDisplay = () => {
+  const [formData, setFormData] = useState({
+    // Existing form data
+    medicalFacilities: ['Hospital A', 'Clinic B', 'Pharmacy C'],
+    educationalInstitutions: ['School X', 'College Y', 'University Z'],
+    recreationalFacilities: ['Park M', 'Gym N', 'Swimming Pool O'],
+    shoppingAndDining: ['Mall P', 'Restaurant Q', 'Grocery Store R'],
+    transportFacilities: ['Bus Stop S', 'Train Station T', 'Metro Station U'],
+    emergencyServices: [
+      'Police Station V',
+      'Fire Station W',
+      'Emergency Medical Center X',
+    ],
+    communityServices: [
+      'Community Center Y',
+      'Public Library Z',
+      'Post Office A',
+    ],
+    otherFacilities: ['Bank B', 'ATM C'],
+    neighborhoodVibe:
+      'Friendly and welcoming, with a mix of young families and retirees.',
+    proximityToMainRoads:
+      'The property is located 2 blocks away from the main road.',
+    futureDevelopmentPlans:
+      'There are plans for new residential complexes and a shopping center in the area.',
+    parkingAvailability:
+      'Ample parking space available with both street and private parking options.',
+    additionalComments:
+      'The neighborhood is quiet and has a lot of green spaces.',
 
-        {/* Question 3 */}
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            3. Condition of the property:
-          </label>
-          <span className="mr-4 text-lg font-semibold">{formData.condition}</span>
-        </div>
+    // New questions
+    priceCompetitive: 'Yes',
+    priceCompetitiveJustification:
+      'The property is priced 10% lower than similar properties in the area.',
+    legalZoningIssues: 'No',
+    legalZoningJustification:
+      'The property is in a zone with no known restrictions or issues.',
+    propertyCondition: 'Good',
+    propertyConditionDetails:
+      'The property has been well-maintained and recently renovated.',
+    floodDisasterProne: 'No',
+    floodDisasterDetails:
+      'The property is not in a flood-prone area according to local maps.',
+    repairsRenovationsNeeded: 'No',
+    repairsRenovationsDetails:
+      'No immediate repairs or renovations are needed.',
+    energyEfficient: 'Yes',
+    energyEfficientDetails:
+      'The property has energy-efficient windows and insulation.',
+    goodSchoolDistrict: 'Yes',
+    goodSchoolDistrictDetails:
+      'The property is located within a highly-rated school district.',
+    crimeRate: 'Low',
+    crimeRateDetails:
+      'The crime rate in the area is lower than the city average.',
+    valueAppreciation: 'High',
+    valueAppreciationJustification:
+      'The area has seen consistent value increases due to ongoing development and demand.',
+  });
 
-        {/* Question 4 */}
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            4. Is the property in a flood-prone or disaster-prone area?
-          </label>
-          <div className="flex items-center">
-            <span className="mr-4 text-lg font-semibold">
-              {formData.floodOrDisasterProne.value === true ? 'Yes' : 'No'}
-            </span>
-            {formData.floodOrDisasterProne.specification && (
-              <p className="text-sm text-gray-600">
-                {formData.floodOrDisasterProne.specification}
-              </p>
-            )}
-          </div>
-        </div>
-
-        {/* Question 5 */}
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            5. Does the property require any immediate repairs or renovations?
-          </label>
-          <div className="flex items-center">
-            <span className="mr-4 text-lg font-semibold">
-              {formData.repairsOrRenovationsNeeded.value === true ? 'Yes' : 'No'}
-            </span>
-            {formData.repairsOrRenovationsNeeded.details && (
-              <p className="text-sm text-gray-600">
-                {formData.repairsOrRenovationsNeeded.details}
-              </p>
-            )}
-          </div>
-        </div>
-
-        {/* Question 6 */}
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            6. Is the property energy-efficient?
-          </label>
-          <div className="flex items-center">
-            <span className="mr-4 text-lg font-semibold">
-              {formData.energyEfficient.value === true ? 'Yes' : 'No'}
-            </span>
-            {formData.energyEfficient.details && (
-              <p className="text-sm text-gray-600">
-                {formData.energyEfficient.details}
-              </p>
-            )}
-          </div>
-        </div>
-
-        {/* Question 7 */}
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            7. Is the property in a good school district?
-          </label>
-          <div className="flex items-center">
-            <span className="mr-4 text-lg font-semibold">
-              {formData.goodSchoolDistrict.value === true ? 'Yes' : 'No'}
-            </span>
-            {formData.goodSchoolDistrict.specification && (
-              <p className="text-sm text-gray-600">
-                {formData.goodSchoolDistrict.specification}
-              </p>
-            )}
-          </div>
-        </div>
-
-        {/* Question 8 */}
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            8. Crime rate in the area:
-          </label>
-          <span className="mr-4 text-lg font-semibold">{formData.crimeRate}</span>
-        </div>
-
-        {/* Question 9 */}
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            9. Is there potential for property value appreciation in the future?
-          </label>
-          <div className="flex items-center">
-            <span className="mr-4 text-lg font-semibold">
-              {formData.propertyValueAppreciationPotential.value === true ? 'Yes' : 'No'}
-            </span>
-            {formData.propertyValueAppreciationPotential.justification && (
-              <p className="text-sm text-gray-600">
-                {formData.propertyValueAppreciationPotential.justification}
-              </p>
-            )}
-          </div>
-        </div>
-
-        {/* Nearby Facilities */}
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Nearby Facilities:
-          </label>
-          {/* Medical Facilities */}
-          <div>
-            <h3 className="text-gray-700 text-sm font-bold mb-2">Medical Facilities:</h3>
-            <ul className="list-disc ml-6">
-              {formData.medicalFacilities.map((facility, index) => (
-                <li key={index} className="text-sm text-gray-800">{facility}</li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Educational Institutions */}
-          <div className="mt-4">
-            <h3 className="text-gray-700 text-sm font-bold mb-2">Educational Institutions:</h3>
-            <ul className="list-disc ml-6">
-              {formData.educationalInstitutions.map((facility, index) => (
-                <li key={index} className="text-sm text-gray-800">{facility}</li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Recreational Facilities */}
-          <div className="mt-4">
-            <h3 className="text-gray-700 text-sm font-bold mb-2">Recreational Facilities:</h3>
-            <ul className="list-disc ml-6">
-              {formData.recreationalFacilities.map((facility, index) => (
-                <li key={index} className="text-sm text-gray-800">{facility}</li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Shopping and Dining */}
-          <div className="mt-4">
-            <h3 className="text-gray-700 text-sm font-bold mb-2">Shopping and Dining:</h3>
-            <ul className="list-disc ml-6">
-              {formData.shoppingAndDining.map((facility, index) => (
-                <li key={index} className="text-sm text-gray-800">{facility}</li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Transport Facilities */}
-          <div className="mt-4">
-            <h3 className="text-gray-700 text-sm font-bold mb-2">Transport Facilities:</h3>
-            <ul className="list-disc ml-6">
-              {formData.transportFacilities.map((facility, index) => (
-                <li key={index} className="text-sm text-gray-800">{facility}</li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Emergency Services */}
-          <div className="mt-4">
-            <h3 className="text-gray-700 text-sm font-bold mb-2">Emergency Services:</h3>
-            <ul className="list-disc ml-6">
-              {formData.emergencyServices.map((facility, index) => (
-                <li key={index} className="text-sm text-gray-800">{facility}</li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Community Services */}
-          <div className="mt-4">
-            <h3 className="text-gray-700 text-sm font-bold mb-2">Community Services:</h3>
-            <ul className="list-disc ml-6">
-              {formData.communityServices.map((facility, index) => (
-                <li key={index} className="text-sm text-gray-800">{facility}</li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Other Facilities */}
-          <div className="mt-4">
-            <h3 className="text-gray-700 text-sm font-bold mb-2">Other Facilities:</h3>
-            <ul className="list-disc ml-6">
-              {formData.otherFacilities.map((facility, index) => (
-                <li key={index} className="text-sm text-gray-800">{facility}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Additional Information */}
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Additional Information:
-          </label>
-          <div className="text-gray-800 text-lg">{formData.neighborhoodVibe}</div>
-        </div>
-
-        {/* Additional Comments */}
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Additional Comments:
-          </label>
-          <div className="text-gray-800 text-lg">{formData.proximityToMainRoads}</div>
-        </div>
+  return (
+    <BackAndButton back title="Report">
+      <TitleDescription
+        heading="Here is the Report for your Inspection"
+        description="This report provides a comprehensive overview of the inspected property, detailing conditions, findings, and recommendations for necessary repairs or improvements to ensure optimal safety and functionality"
+      />
+      <div className="pb-4">
+        <DisplayAccordion
+          title="Asking Price Competitive?"
+          content={
+            formData.priceCompetitive +
+            (formData.priceCompetitiveJustification
+              ? `: ${formData.priceCompetitiveJustification}`
+              : '')
+          }
+        />
+        <DisplayAccordion
+          title="Legal/Zoning Issues?"
+          content={
+            formData.legalZoningIssues +
+            (formData.legalZoningJustification
+              ? `: ${formData.legalZoningJustification}`
+              : '')
+          }
+        />
+        <DisplayAccordion
+          title="Property Condition"
+          content={
+            formData.propertyCondition +
+            (formData.propertyConditionDetails
+              ? `: ${formData.propertyConditionDetails}`
+              : '')
+          }
+        />
+        <DisplayAccordion
+          title="Flood/Disaster Prone?"
+          content={
+            formData.floodDisasterProne +
+            (formData.floodDisasterDetails
+              ? `: ${formData.floodDisasterDetails}`
+              : '')
+          }
+        />
+        <DisplayAccordion
+          title="Repairs/Renovations Needed?"
+          content={
+            formData.repairsRenovationsNeeded +
+            (formData.repairsRenovationsDetails
+              ? `: ${formData.repairsRenovationsDetails}`
+              : '')
+          }
+        />
+        <DisplayAccordion
+          title="Energy Efficient?"
+          content={
+            formData.energyEfficient +
+            (formData.energyEfficientDetails
+              ? `: ${formData.energyEfficientDetails}`
+              : '')
+          }
+        />
+        <DisplayAccordion
+          title="Good School District?"
+          content={
+            formData.goodSchoolDistrict +
+            (formData.goodSchoolDistrictDetails
+              ? `: ${formData.goodSchoolDistrictDetails}`
+              : '')
+          }
+        />
+        <DisplayAccordion
+          title="Crime Rate"
+          content={
+            formData.crimeRate +
+            (formData.crimeRateDetails ? `: ${formData.crimeRateDetails}` : '')
+          }
+        />
+        <DisplayAccordion
+          title="Value Appreciation Potential"
+          content={
+            formData.valueAppreciation +
+            (formData.valueAppreciationJustification
+              ? `: ${formData.valueAppreciationJustification}`
+              : '')
+          }
+        />
+        <DisplayAccordion
+          title="Medical Facilities"
+          content={formData.medicalFacilities.join(', ')}
+        />
+        <DisplayAccordion
+          title="Educational Institutions"
+          content={formData.educationalInstitutions.join(', ')}
+        />
+        <DisplayAccordion
+          title="Recreational Facilities"
+          content={formData.recreationalFacilities.join(', ')}
+        />
+        <DisplayAccordion
+          title="Shopping and Dining"
+          content={formData.shoppingAndDining.join(', ')}
+        />
+        <DisplayAccordion
+          title="Transport Facilities"
+          content={formData.transportFacilities.join(', ')}
+        />
+        <DisplayAccordion
+          title="Emergency Services"
+          content={formData.emergencyServices.join(', ')}
+        />
+        <DisplayAccordion
+          title="Community Services"
+          content={formData.communityServices.join(', ')}
+        />
+        <DisplayAccordion
+          title="Other Facilities/Comments"
+          content={formData.otherFacilities}
+        />
       </div>
     </BackAndButton>
   );
 };
 
-export default RealEstateReportView;
+export default UserDisplay;
