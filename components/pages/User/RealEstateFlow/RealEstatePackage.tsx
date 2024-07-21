@@ -45,7 +45,7 @@ const RealEstatePackage = () => {
           />
           <div className="grid grid-cols-2 gap-2">
             {packageServics.map((data, index) => {
-              return <PackageOffer title={data.packageName} imgUrl={data.imgUrl} realEstate />;
+              return <div key={index}><PackageOffer title={data.packageName} imgUrl={data.imgUrl} realEstate /></div>
             })}
           </div>
         </div>
