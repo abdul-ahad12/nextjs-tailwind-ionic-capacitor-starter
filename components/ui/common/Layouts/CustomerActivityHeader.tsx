@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import { Button } from '../button';
 import { Text } from '../text';
 import { useHistory } from 'react-router';
-import SwitchTabs from '../inputComponent/SwitchTabs';
+import SwitchTabs from '../FormElements/SwitchTabs';
 
 interface ICustomerActivityHeader {
   children: React.ReactNode;
