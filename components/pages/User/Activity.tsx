@@ -8,7 +8,6 @@ import useDynamicGetRequest from '../../../utils/supportingFns/getCall';
 import ActivityLoading from '../../ui/common/svgs/ActivityLoading';
 import { InspectionsStore } from './GlobalStore';
 import { ImageWithText, Inspection } from '@components/ui/common';
-import SwitchTabs from '@components/ui/common/inputComponent/SwitchTabs';
 
 export enum tabs {
   TODAYSINSPECTION = 'Ongoing Inspections',
