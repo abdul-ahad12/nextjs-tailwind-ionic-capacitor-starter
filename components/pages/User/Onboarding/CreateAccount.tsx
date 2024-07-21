@@ -189,7 +189,7 @@ const CreateAccount = () => {
       {
         fieldName: 'zipcode',
         inputType: 'text',
-        label: 'Pin Code',
+        label: 'PostCode',
         defaultValue: postalCode || '',
         config: {
           required: 'Required',

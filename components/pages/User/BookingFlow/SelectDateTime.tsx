@@ -123,24 +123,22 @@ const SelectDateTime = () => {
             />
           </div>
           <DynamicFieldsGenerate fields={fields} errors={errors} />
-          <Text className="self-start font-semibold text-black">AddOns</Text>
+          {/* <Text className="self-start font-semibold text-black">AddOns</Text>
 
-          <div className="flex flex-col gap-4 w-full my-4">
-            {/* Radio button 1 */}
+   
             <RadioBtn
               label="PPSR - $20"
               checked={selectedOption1}
               onChange={handleOption1Change}
               modal={true}
             />
-            {/* Radio button 2 */}
             <RadioBtn
               label="Negotitate On Your Behalf - $99 "
               checked={selectedOption2}
               onChange={handleOption2Change}
               modal={true}
             />
-          </div>
+          </div> */}
         </div>
       </BackAndButton>
     </FormProvider>

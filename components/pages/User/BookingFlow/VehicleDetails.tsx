@@ -4,6 +4,7 @@ import { BookingStore } from './store';
 import { australianCarData } from '../../../../utils/mockData/carMakes';
 import BackAndButton from '../../../ui/common/Layouts/BackAndButton';
 import TitleDescription from '../../../ui/common/TitleDescription';
+import { Tabs } from '@components/ui';
 
 interface FormValues {
   make: string;
@@ -99,6 +100,7 @@ const VehicleDetails: React.FC = () => {
         disabled={isSubmitting || !isFormValid}
       >
         <div className="w-full">
+          <Tabs activeTab={2} />
           <TitleDescription
             heading="Vehicle Information?"
             description="Enter the vehicle details"

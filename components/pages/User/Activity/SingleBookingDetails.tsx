@@ -78,6 +78,7 @@ const SingleBookingDetails = () => {
         history.push(`/singlereport?orderId=${orderId}`);
       }}
     >
+      
       <Inspection
         firstText={'Basic Service'}
         name={'Mechanic'}

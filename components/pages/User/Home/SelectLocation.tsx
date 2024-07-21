@@ -175,7 +175,7 @@ const SelectLocation: React.FC = () => {
     {
       fieldName: 'zipcode',
       inputType: 'text',
-      label: 'PinCode',
+      label: 'PostCode',
       defaultValue: selectedPlace
         ? selectedPlace.address_components.find((component: any) =>
             component.types.includes('postal_code'),
