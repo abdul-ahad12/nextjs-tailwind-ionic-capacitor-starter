@@ -21,12 +21,12 @@
         "name": "next"
       }
     ],
-    // "paths": {
-    //   "@components/*": ["./components/*"],
-    //   "@components/ui/*": ["./components/ui/*"],
-    //   "@components/ui/common/*": ["./components/ui/common/*"],
-    //   "@utils/*": ["./utils/*"]
-    // }
+    "paths": {
+      "@components/*": ["./components/*"],
+      "@components/ui/*": ["./components/ui/*"],
+      "@components/ui/common/*": ["./components/ui/common/*"],
+      "@utils/*": ["./utils/*"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
