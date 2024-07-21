@@ -31,6 +31,7 @@ import RealEstatePackage from './pages/User/RealEstateFlow/RealEstatePackage';
 import { LandOwnerInfo } from './pages/User/RealEstateFlow/LandOwnerInfo';
 import RealEstateSelectDateTime from './pages/User/RealEstateFlow/SelectDateTime';
 import LookingForRealEstateAgent from './pages/User/RealEstateFlow/LookingForRealEstate';
+import RealEstateReportView from './pages/User/RealEstateFlow/RealestateReport';
 
 setupIonicReact({});
 
@@ -93,6 +94,7 @@ const AppShell = () => {
             <Route path="/realestatepackage" render={() => <RealEstatePackage />} />
             <Route path="/realestatedateandtime" render={() => <RealEstateSelectDateTime />} />
             <Route path="/lookingforrealestate" render={() => <LookingForRealEstateAgent />} />
+            <Route path="/realestatereportview" render={() => <RealEstateReportView />} />
           </IonRouterOutlet>
         </IonReactRouter>
       </QueryClientProvider>

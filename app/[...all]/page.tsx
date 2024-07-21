@@ -80,6 +80,7 @@ export async function generateStaticParams() {
     { all: ['realestatepackage'] },
     { all: ['realestatedateandtime'] },
     { all: ['lookingforrealestate'] },
+    { all: ['realestatereportview'] },
 
     // { all: ['app/todaysinspection'] },
 
