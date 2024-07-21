@@ -40,57 +40,36 @@ const UserDisplay = () => {
     recreationalFacilities: ['Park M', 'Gym N', 'Swimming Pool O'],
     shoppingAndDining: ['Mall P', 'Restaurant Q', 'Grocery Store R'],
     transportFacilities: ['Bus Stop S', 'Train Station T', 'Metro Station U'],
-    emergencyServices: [
-      'Police Station V',
-      'Fire Station W',
-      'Emergency Medical Center X',
-    ],
-    communityServices: [
-      'Community Center Y',
-      'Public Library Z',
-      'Post Office A',
-    ],
+    emergencyServices: ['Police Station V', 'Fire Station W', 'Emergency Medical Center X'],
+    communityServices: ['Community Center Y', 'Public Library Z', 'Post Office A'],
     otherFacilities: ['Bank B', 'ATM C'],
-    neighborhoodVibe:
-      'Friendly and welcoming, with a mix of young families and retirees.',
-    proximityToMainRoads:
-      'The property is located 2 blocks away from the main road.',
-    futureDevelopmentPlans:
-      'There are plans for new residential complexes and a shopping center in the area.',
-    parkingAvailability:
-      'Ample parking space available with both street and private parking options.',
-    additionalComments:
-      'The neighborhood is quiet and has a lot of green spaces.',
-
+    neighborhoodVibe: 'Friendly and welcoming, with a mix of young families and retirees.',
+    proximityToMainRoads: 'The property is located 2 blocks away from the main road.',
+    futureDevelopmentPlans: 'There are plans for new residential complexes and a shopping center in the area.',
+    parkingAvailability: 'Ample parking space available with both street and private parking options.',
+    additionalComments: 'The neighborhood is quiet and has a lot of green spaces.',
+  
     // New questions
     priceCompetitive: 'Yes',
-    priceCompetitiveJustification:
-      'The property is priced 10% lower than similar properties in the area.',
+    priceCompetitiveJustification: 'The property is priced 10% lower than similar properties in the area. This makes it a very attractive option for potential buyers looking for good value in a competitive market.',
     legalZoningIssues: 'No',
-    legalZoningJustification:
-      'The property is in a zone with no known restrictions or issues.',
+    legalZoningJustification: 'The property is in a zone with no known restrictions or issues. This ensures that the new owner will have a smooth experience with no unexpected legal challenges.',
     propertyCondition: 'Good',
-    propertyConditionDetails:
-      'The property has been well-maintained and recently renovated.',
+    propertyConditionDetails: 'The property has been well-maintained and recently renovated. It features modern amenities and a fresh, updated look, making it move-in ready for new owners.',
     floodDisasterProne: 'No',
-    floodDisasterDetails:
-      'The property is not in a flood-prone area according to local maps.',
+    floodDisasterDetails: 'The property is not in a flood-prone area according to local maps. This provides peace of mind to the owner knowing that the risk of flood damage is minimal.',
     repairsRenovationsNeeded: 'No',
-    repairsRenovationsDetails:
-      'No immediate repairs or renovations are needed.',
+    repairsRenovationsDetails: 'No immediate repairs or renovations are needed. The property has been kept in excellent condition, reducing the need for additional investment after purchase.',
     energyEfficient: 'Yes',
-    energyEfficientDetails:
-      'The property has energy-efficient windows and insulation.',
+    energyEfficientDetails: 'The property has energy-efficient windows and insulation. These features help reduce energy costs and contribute to a more environmentally friendly home.',
     goodSchoolDistrict: 'Yes',
-    goodSchoolDistrictDetails:
-      'The property is located within a highly-rated school district.',
+    goodSchoolDistrictDetails: 'The property is located within a highly-rated school district. This makes it an ideal location for families with children, ensuring access to quality education.',
     crimeRate: 'Low',
-    crimeRateDetails:
-      'The crime rate in the area is lower than the city average.',
+    crimeRateDetails: 'The crime rate in the area is lower than the city average. The neighborhood is considered safe, providing a secure environment for residents.',
     valueAppreciation: 'High',
-    valueAppreciationJustification:
-      'The area has seen consistent value increases due to ongoing development and demand.',
+    valueAppreciationJustification: 'The area has seen consistent value increases due to ongoing development and demand. This trend is expected to continue, making it a sound investment for future property value growth.'
   });
+  
 
   return (
     <BackAndButton back title="Report">
