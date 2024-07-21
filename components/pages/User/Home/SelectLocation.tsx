@@ -15,6 +15,7 @@ import { io } from 'socket.io-client';
 import { socketURL } from '../../../../utils/definations/axios/url';
 import { AccountComp, DynamicFieldsGenerate, SingleNotifications } from '../../../ui/common';
 import { RealEstateBookingStore } from '../RealEstateFlow/store';
+import SwitchTabs from '../../../ui/common/FormElements/SwitchTabs';
 
 const SelectLocation: React.FC = () => {
   const [inputValue, setInputValue] = useState('');

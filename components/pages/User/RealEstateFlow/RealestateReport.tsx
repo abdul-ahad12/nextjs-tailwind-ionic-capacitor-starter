@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid'; // Import Heroicons for arrows
-import { BackAndButton } from '@components/ui';
-import TitleDescription from '@components/ui/common/TitleDescription';
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
+import { BackAndButton } from '../../../ui';
+import TitleDescription from '../../../ui/common/TitleDescription';
 
 const DisplayAccordion = ({ title, content }: any) => {
   const [isOpen, setIsOpen] = React.useState(false);
