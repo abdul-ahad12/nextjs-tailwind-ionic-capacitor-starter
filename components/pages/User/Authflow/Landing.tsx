@@ -70,10 +70,10 @@ const LandingUser = () => {
                   img: '/img/auth/imagecarousel1.svg',
                 },
                 {
-                  img: '/img/auth/imagecarousel1.svg',
+                  img: '/img/auth/landing1.svg',
                 },
                 {
-                  img: '/img/auth/imagecarousel1.svg',
+                  img: '/img/auth/landing2.svg',
                 },
               ]}
             />
