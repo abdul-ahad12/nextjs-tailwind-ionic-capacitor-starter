@@ -5,6 +5,7 @@ import BookingAccordion from '../../../ui/common/user/BookingAccordian';
 import { useHistory, useLocation } from 'react-router';
 import { InspectionsStore } from '../GlobalStore';
 import { Inspection } from '../../../ui/common';
+import { Button } from '@components/ui/common/button';
 
 const SingleBookingDetails = () => {
   const history = useHistory();
@@ -78,7 +79,6 @@ const SingleBookingDetails = () => {
         history.push(`/singlereport?orderId=${orderId}`);
       }}
     >
-      
       <Inspection
         firstText={'Basic Service'}
         name={'Mechanic'}
@@ -98,6 +98,11 @@ const SingleBookingDetails = () => {
             bookingdetails={booking.bookingdetails}
           />
         ))}
+      </div>
+      <div onClick={()=>{
+        history.push("/ppsrreport")
+      }} className="mt-8 bg-white border border-black text-black rounded-primary flex justify-center items-center py-3">
+        Get A PPSR Report
       </div>
     </BackAndButton>
   );

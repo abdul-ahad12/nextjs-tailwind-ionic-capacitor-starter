@@ -40,6 +40,8 @@ const Activity = () => {
 
   const { data, error, loading, makeRequest } = useDynamicGetRequest();
 
+  console.log(data);
+
   useEffect(() => {
     makeRequest(`${baseURL}/booking`, 'GET');
   }, [refresh]);
@@ -171,7 +173,21 @@ const Activity = () => {
             />
           ))
         ) : (
-          <div>hello</div>
+          <div>
+            {' '}
+            <Inspection
+              showDetails={true}
+              firstText={'Basic Service'} // Assuming package name is used for firstText
+              name={'Real Estate Agent'} // Assuming owner's phone number is used for name
+              imageUrl={'/realestate/forsale.jpg'} // Assuming mechanic's profile picture is used for imageUrl
+              dateTime={'12th may'}
+              earningText={'$140'}
+              carModalText={'Land'} // Assuming carType is used for carModalText
+              description={'address'} // Assuming street address is used for description
+              orderId={''}
+              realEstate
+            />
+          </div>
         )}
       </div>
     </CustomerActivityHeader>

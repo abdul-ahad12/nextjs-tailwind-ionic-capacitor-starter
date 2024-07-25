@@ -17,6 +17,7 @@ interface IModal {
   placed?: boolean;
   searching?: boolean;
   disabled?: boolean;
+  onDidDismiss?: () => void; // Add onDidDismiss prop
 }
 
 const Modal: React.FC<IModal> = ({
@@ -30,6 +31,7 @@ const Modal: React.FC<IModal> = ({
   searching,
   placed,
   disabled,
+  onDidDismiss, // Add onDidDismiss prop
 }) => {
   return (
     <IonModal
@@ -40,20 +42,18 @@ const Modal: React.FC<IModal> = ({
       breakpoints={searching ? [0.2, 1] : [0, 1]}
       className="rounded-xl"
       backdropDismiss={false}
+      onDidDismiss={onDidDismiss} // Use onDidDismiss prop
     >
       <div className="flex w-full pt-12 pb-5 flex-col justify-between items-center px-[1rem] h-full overflow-scroll">
         <div className="flex flex-col justify-center items-center gap-2 w-full">
           <div className="flex gap-3 items-center justify-center w-full">
-            {' '}
             {placed && <GreenTick />}
             <Text typography="modalHeader">{title}</Text>
           </div>
-
           {children}
         </div>
         {btnText && (
           <IonFooter>
-            {' '}
             <Button disabled={disabled} onClick={onSubmit}>
               {btnText}
             </Button>

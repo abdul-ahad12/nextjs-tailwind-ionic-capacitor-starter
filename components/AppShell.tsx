@@ -32,6 +32,7 @@ import { LandOwnerInfo } from './pages/User/RealEstateFlow/LandOwnerInfo';
 import RealEstateSelectDateTime from './pages/User/RealEstateFlow/SelectDateTime';
 import LookingForRealEstateAgent from './pages/User/RealEstateFlow/LookingForRealEstate';
 import RealEstateReportView from './pages/User/RealEstateFlow/RealestateReport';
+import PPSRReport from './pages/User/BookingFlow/PPSRReport';
 
 setupIonicReact({});
 
@@ -87,6 +88,10 @@ const AppShell = () => {
             <Route
               path="/singleactivity"
               render={() => <SingleBookingDetails />}
+            />
+            <Route
+              path="/ppsrreport"
+              render={() => <PPSRReport />}
             />
 
             {/* RealEstate */}
