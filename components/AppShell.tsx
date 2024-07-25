@@ -32,7 +32,9 @@ import { LandOwnerInfo } from './pages/User/RealEstateFlow/LandOwnerInfo';
 import RealEstateSelectDateTime from './pages/User/RealEstateFlow/SelectDateTime';
 import LookingForRealEstateAgent from './pages/User/RealEstateFlow/LookingForRealEstate';
 import RealEstateReportView from './pages/User/RealEstateFlow/RealestateReport';
-import PPSRReport from './pages/User/BookingFlow/PPSRReport';
+import PPSRReport from './pages/User/BookingFlow/NegotiateOnYourBehalf';
+import NegotiateOnYourBehalf from './pages/User/BookingFlow/NegotiateOnYourBehalf';
+import PPSRAddons from './pages/User/BookingFlow/PpsrAddons';
 
 setupIonicReact({});
 
@@ -63,6 +65,7 @@ const AppShell = () => {
             <Route path="/enablelocation" render={() => <EnableLocation />} />
             {/* <Route path="/selectlocation" render={() => <SelectLocation />} /> */}
             <Route path="/package" render={() => <Package />} />
+            <Route path="/ppsraddon" render={() => <PPSRAddons />} />
             <Route
               path="/packagemoredetails"
               render={() => <PackageMoreDetails />}
@@ -90,8 +93,8 @@ const AppShell = () => {
               render={() => <SingleBookingDetails />}
             />
             <Route
-              path="/ppsrreport"
-              render={() => <PPSRReport />}
+              path="/negotiateonyourbehalf"
+              render={() => <NegotiateOnYourBehalf />}
             />
 
             {/* RealEstate */}

@@ -100,9 +100,9 @@ const SingleBookingDetails = () => {
         ))}
       </div>
       <div onClick={()=>{
-        history.push("/ppsrreport")
+        history.push("/negotiateonyourbehalf")
       }} className="mt-8 bg-white border border-black text-black rounded-primary flex justify-center items-center py-3">
-        Get A PPSR Report
+        Negotiate On Your Behalf
       </div>
     </BackAndButton>
   );

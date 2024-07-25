@@ -113,7 +113,7 @@ const Activity = () => {
               showDetails={true}
               firstText={'Basic Service'} // Assuming package name is used for firstText
               name={'Real Estate Agent'} // Assuming owner's phone number is used for name
-              imageUrl={'/mechanic/inspection/inspection.png'} // Assuming mechanic's profile picture is used for imageUrl
+              imageUrl={'/realestate/forsale.jpg'} // Assuming mechanic's profile picture is used for imageUrl
               dateTime={'12th may'}
               earningText={'$140'}
               carModalText={'Land'} // Assuming carType is used for carModalText

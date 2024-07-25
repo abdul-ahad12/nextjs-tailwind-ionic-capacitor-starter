@@ -36,9 +36,10 @@ const Package = () => {
   return (
     <BackAndButton
       back
+      title='Package'
       BtnText="Next"
       onSubmit={() => {
-        history.push('/selectdatetime');
+        history.push('/ppsraddon');
       }}
     >
       <div className="w-full">
