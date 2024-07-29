@@ -21,7 +21,7 @@ const makeRequest = async ({
   };
 
   const response: AxiosResponse = await axiosInstance(config);
-  return response.data;
+  return { data: response.data, headers: response.headers };
 };
 
 export default makeRequest;

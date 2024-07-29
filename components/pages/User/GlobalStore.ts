@@ -18,4 +18,8 @@ const InspectionsStore = new Store<BookingsState>({
   bookings: [],
 });
 
-export { CustomerGlobalStore, InspectionsStore };
+const xTokenStore = new Store({
+  xToken: '',
+});
+
+export { CustomerGlobalStore, InspectionsStore, xTokenStore };

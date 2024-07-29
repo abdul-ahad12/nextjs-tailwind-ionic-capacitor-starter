@@ -16,7 +16,7 @@ import useDynamicGetRequest from '../../../../utils/supportingFns/getCall';
 import { useEffect } from 'react';
 import { baseURL } from '../../../../utils/definations/axios/url';
 import { useStoreState } from 'pullstate';
-import { AllBookingStore } from './store';
+import { AllBookingStore, REResponseBookingStore } from './store';
 import { tabs } from '../../../../utils/tabs';
 
 const TabsUser = () => {
@@ -25,13 +25,20 @@ const TabsUser = () => {
 
 
   const { data: apiData, error, makeRequest } = useDynamicGetRequest();
+  const { data:reData, error:reError,makeRequest:reMakeRequest } = useDynamicGetRequest();
   const storeData = useStoreState(AllBookingStore, s => s.data);
+  const restoreData = useStoreState(REResponseBookingStore, s => s.data);
+console.log(reData)
+
 
   useEffect(() => {
     if (storeData.data.length === 0) {
       makeRequest(`${baseURL}/booking`, 'GET');
     }
-  }, [storeData]);
+    if (restoreData.data.length === 0) {
+      reMakeRequest(`${baseURL}/re-booking`, 'GET');
+    }
+  }, [storeData,restoreData]);
 
   useEffect(() => {
     if (apiData && !error) {
@@ -39,7 +46,15 @@ const TabsUser = () => {
         s.data = apiData;
       });
     }
-  }, [apiData, error]);
+    if (reData) {
+      console.log("here in")
+      REResponseBookingStore.update(s => {        
+        s.data = reData;
+      });
+    }
+  }, [apiData, error,reData,reError]);
+
+  console.log(REResponseBookingStore.getRawState())
 
   return (
     <IonTabs>

@@ -17,6 +17,7 @@ const UserStore = new Store({
     street: '',
     suburb: '',
     city: '',
+    state:""
   },
   role: 'CUSTOMER',
 });

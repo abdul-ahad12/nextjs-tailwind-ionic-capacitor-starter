@@ -5,7 +5,11 @@ import Modal from '../../../ui/common/modals';
 import { useHistory } from 'react-router';
 import { SingleNotifications } from '@components/ui/common';
 import { RealEstateBookingStore } from './store';
-import { LocationStore } from '../BookingFlow/store';
+import { BookingResponseStore, LocationStore } from '../BookingFlow/store';
+import { useDynamicRequest } from '@utils/definations/axios/axiosInstance';
+import { baseURL, socketURL } from '@utils/definations/axios/url';
+import { io } from 'socket.io-client';
+import { CustomerGlobalStore } from '../GlobalStore';
 
 const LookingForRealEstateAgent = () => {
   const [selectedPlace, setSelectedPlace] = useState(null);
@@ -13,93 +17,93 @@ const LookingForRealEstateAgent = () => {
   const history = useHistory();
   const customerDataString = localStorage.getItem('customerdata');
   const customerData = customerDataString
-    ? JSON.parse(customerDataString)
-    : null;
+  ? JSON.parse(customerDataString)
+  : null;
   const bookingDetails = RealEstateBookingStore.getRawState();
-
-//   const { mutate, isPending, isError, error, isSuccess, data } =
-//     useDynamicRequest(
-//       {},
-//       {
-//         onSuccess: (data: any) => {
-//           console.log('Found Mechanics', data);
-//           BookingResponseStore.update(s => {
-//             s.mechanics = data;
-//           });
-//           window.location.href = '/appuser';
-
-//         },
-//         onError: (error: any) => {
-//           console.error('Login failed:', error);
-//         },
-//         onSettled: () => {
-//           console.log('Login mutation settled');
-//           // Handle any cleanup or final actions
-//         },
-//       },
-//     );
-
   const customerId = customerData?.customer.id;
+console.log(customerId)
+  console.log(bookingDetails)
 
-  // Ensure the global store has customerId. !IMPORTANT
+  const { mutate, isPending, isError, error, isSuccess, data } =
+    useDynamicRequest(
+      {},
+      {
+        onSuccess: (data: any) => {
+          console.log('Found Mechanics', data);
+          BookingResponseStore.update(s => {
+            s.mechanics = data.data;
+          });
+          window.location.href = '/appuser';
 
-//   useEffect(() => {
-//     if (!customerId) {
-//       return; // Do not proceed until customerId is defined
-//     }
+        },
+        onError: (error: any) => {
+          console.error('Login failed:', error);
+        },
+        onSettled: () => {
+          console.log('Login mutation settled');
+          // Handle any cleanup or final actions
+        },
+      },
+    );
 
-//     // Create a new socket connection
-//     const socket = io(socketURL, {
-//       query: { customerId },
-//     });
 
-//     socket.on('connect', () => {
-//       console.log(`Connected to server as customer: ${customerId}`);
-//       // Emit a join room event or similar to subscribe to updates for this customer
-//       console.log(customerId);
-//       socket.emit('joinRoom', { room: `customer-${customerId}` });
-//     });
 
-//     // Setup event listener for booking updates
-//     socket.on('booking-update', message => {
-//       console.log(message);
-//       CustomerGlobalStore.update(s => {
-//         s.bookingDetails = message;
-//       });
-//       // history.push('/mechanicbooked')
-//       // setResponse(message)
-//     });
+  useEffect(() => {
+    if (!customerId) {
+      return; // Do not proceed until customerId is defined
+    }
 
-//     // Cleanup function to run when the component unmounts or customerId changes
-//     return () => {
-//       socket.off('booking-update');
-//       socket.disconnect();
-//     };
-//   }, [customerId, data]);
+    // Create a new socket connection
+    const socket = io(socketURL, {
+      query: { customerId },
+    });
 
-//   const findMechs = () => {
-//     // const payload = {
-//     //   latitude: bookingDetails.vehicle.vehicleAddress.lat,
-//     //   longitude: bookingDetails.vehicle.vehicleAddress.long,
-//     //   bookingId: bookingResponse.id
-//     // }
-//     // 17.393116,78.444869
-//     const payload = {
-//       latitude: bookingDetails.vehicle.vehicleAddress.lat,
-//       longitude: bookingDetails.vehicle.vehicleAddress.long,
-//       bookingId: bookingResponse.id,
-//     };
-//     console.log('payload', payload);
-//     const requestConfig = {
-//       method: 'post',
-//       url: `${baseURL}/booking/find-mechanics`,
-//       data: payload,
-//     };
+    socket.on('connect', () => {
+      console.log(`Connected to server as customer: ${customerId}`);
+      // Emit a join room event or similar to subscribe to updates for this customer
+      console.log(customerId);
+      socket.emit('joinRoom', { room: `customer-${customerId}` });
+    });
 
-//     mutate(requestConfig);
-//   };
+    // Setup event listener for booking updates
+    socket.on('booking-update', message => {
+      console.log(message);
+      CustomerGlobalStore.update(s => {
+        s.bookingDetails = message;
+      });
+      // history.push('/mechanicbooked')
+      // setResponse(message)
+    });
 
-  // Ensure that BookingStore and LocationStore are correctly implemented and imported.
+    // Cleanup function to run when the component unmounts or customerId changes
+    return () => {
+      socket.off('booking-update');
+      socket.disconnect();
+    };
+  }, [customerId, data]);
+
+  const findMechs = () => {
+    // const payload = {
+    //   latitude: bookingDetails.vehicle.vehicleAddress.lat,
+    //   longitude: bookingDetails.vehicle.vehicleAddress.long,
+    //   bookingId: bookingResponse.id
+    // }
+    // 17.393116,78.444869
+    const payload = {
+      latitude: 17,
+      longitude: 70,
+      bookingId:RealEstateBookingStore.getRawState().id ,
+    };
+    const requestConfig = {
+      method: 'post',
+      url: `${baseURL}/re-booking/find-agents`,
+      data: payload,
+    };
+
+    mutate(requestConfig);
+  };
+
+  
 
   const notificationData = [
     {
@@ -120,7 +124,7 @@ const LookingForRealEstateAgent = () => {
     {
       imageUrl: '/user/wallet.svg',
       text: 'Total',
-      name: '$123.6',
+      name: '$20',
     },
   ];
 
@@ -141,8 +145,8 @@ const LookingForRealEstateAgent = () => {
           title="Booking has been Created"
           searching
           onSubmit={() => {
-            history.push("/appuser")
-            // findMechs();
+            // history.push("/appuser")
+            findMechs();
             setIsOpen(false);
           }}
         >

@@ -10,6 +10,7 @@ import OTPInput from '../../../ui/common/Authentication/OtpInputs';
 import PhoneStore from './store';
 import { baseURL, phoneCode } from '../../../../utils/definations/axios/url';
 import { ErrorResponse } from './Login';
+import { xTokenStore } from '../GlobalStore';
 
 const OTPUser = () => {
   const history = useHistory();
@@ -23,7 +24,10 @@ const OTPUser = () => {
       {},
       {
         onSuccess: data => {
-          console.log('Otp Verified successful', data);
+          console.log(data.data)
+          xTokenStore.update(s=>{
+            s.xToken=data.headers['x-onboarding-token']
+          })
           history.push('/onboardinguser');
         },
         onError: error => {

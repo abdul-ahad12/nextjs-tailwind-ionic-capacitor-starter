@@ -1,6 +1,7 @@
 import { Store } from 'pullstate';
 
 export const RealEstateBookingStore = new Store({
+  id:"",
   customerId: '',
   packageName: 'Basic Service',
   amount: 100,

@@ -9,7 +9,7 @@ import { useHistory } from 'react-router';
 import { LocationStore } from '../Onboarding/store';
 import { BookingStore } from '../BookingFlow/store';
 import { Text } from '../../../ui/common/text';
-import { AllBookingStore } from './store';
+import { AllBookingStore, REResponseBookingStore } from './store';
 import { CustomerGlobalStore } from '../GlobalStore';
 import { io } from 'socket.io-client';
 import { socketURL } from '../../../../utils/definations/axios/url';
@@ -269,15 +269,28 @@ const SelectLocation: React.FC = () => {
   }, [customerId]);
 
   const { data } = AllBookingStore.getRawState();
+  const {data:data1} = REResponseBookingStore.getRawState();
+
+  console.log(REResponseBookingStore.getRawState())
 
   let mechanicBooked: any[] = [];
 
-  if (data && data.success && data.data) {
+  console.log(mechanicBooked)
+
+  if (data && data.success && data.data ) {
     mechanicBooked = data.data.filter(
       (booking: any) =>
         booking.mechanicId &&
-        !booking.Order[0].isFullfilled &&
-        booking.ownerId === customerData?.customer.id,
+        !booking?.Order[0]?.isFullfilled &&
+        booking?.ownerId === customerData?.customer.id,
+    );
+  }
+  if (data1 && data1.success && data1.data ) {
+    mechanicBooked = data1.data.filter(
+      (booking: any) =>
+        booking.mechanicId &&
+        !booking?.Order[0]?.isFullfilled &&
+        booking?.ownerId === customerData?.customer.id,
     );
   }
 
@@ -285,12 +298,18 @@ const SelectLocation: React.FC = () => {
   if (data && data.success && data.data) {
     lookingForMechanic = data.data.filter(
       (booking: any) =>
-        !booking.Order[0].isFullfilled &&
+        !booking?.Order[0]?.isFullfilled &&
+        booking?.ownerId === customerData?.customer.id,
+    );
+  }
+  if (data1 && data1.success && data1.data && data1.data.length!=0) {
+    lookingForMechanic = data1.data.filter(
+      (booking: any) =>
+        !booking?.Order[0]?.isFullfilled &&
         booking.ownerId === customerData?.customer.id,
     );
   }
 
-  console.log(lookingForMechanic);
 
   return (
     <IonPage>

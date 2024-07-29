@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Geolocation, Position } from '@capacitor/geolocation';
 import { UserStore } from './store';
-import { CustomerGlobalStore } from '../GlobalStore';
+import { CustomerGlobalStore, xTokenStore } from '../GlobalStore';
 import { extractAddressComponent, getPlaceDetails } from '../../../../utils/supportingFns/searchLocation';
 import { baseURL, phoneCode } from '../../../../utils/definations/axios/url';
 import { BackAndButton, SearchComponent } from '../../../ui';
@@ -29,7 +29,7 @@ const CreateAccount = () => {
       {
         onSuccess: (data: any) => {
           console.log('Customer Created:', data);
-          localStorage.setItem('customerdata', JSON.stringify(data.data));
+          localStorage.setItem('customerdata', JSON.stringify(data.data.data));
           addNotification('You Created Your Account');
 
           console.log(CustomerGlobalStore.getRawState());
@@ -220,6 +220,7 @@ const CreateAccount = () => {
         street: data.street,
         suburb: data.suburb,
         city: data.city,
+        state:"Victoria"
       };
     });
 
@@ -227,6 +228,9 @@ const CreateAccount = () => {
     console.log('payload', payload);
     const requestConfig = {
       method: 'post',
+      headers:{
+        "x-onboarding-token":xTokenStore.getRawState().xToken
+      },
       url: `${baseURL}/auth/signup/customer`,
       data: payload,
     };

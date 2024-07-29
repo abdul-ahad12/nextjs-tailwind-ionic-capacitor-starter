@@ -18,6 +18,7 @@ const RealEstateSelectDateTime = () => {
   const customerData = customerDataString
     ? JSON.parse(customerDataString)
     : null;
+  console.log(customerData);
 
   const {
     handleSubmit,
@@ -30,11 +31,11 @@ const RealEstateSelectDateTime = () => {
       {
         onSuccess: data => {
           console.log('Booking Created:', data);
-        //   RealEstateBookingStore.update(s => {
-        //     s.id = data.data.bookingId;
-        //   });
-        //   console.log(BookingResponseStore.getRawState());
-          history.push('/lookingformechanic');
+            RealEstateBookingStore.update(s => {
+              s.id = data.data.data.bookingId;
+            });
+            console.log(RealEstateBookingStore.getRawState());
+          history.push('/lookingforrealestate');
         },
         onError: error => {
           console.error('Booking failed:', error);
@@ -49,7 +50,6 @@ const RealEstateSelectDateTime = () => {
 
   console.log(customerData);
   const onSubmit = (data: any, error: any) => {
-    history.push('/lookingforrealestate')
     // if (customerData) {
     //     RealEstateBookingStore.update(s => {
     //     // this should be set when the customer is logged in or created
@@ -61,13 +61,46 @@ const RealEstateSelectDateTime = () => {
 
     // console.log(RealEstateBookingStore.getRawState());
 
-    // const requestConfig = {
-    //   method: 'post',
-    //   url: `${baseURL}/booking`,
-    //   data: RealEstateBookingStore.getRawState(),
-    // };
+    const requestConfig = {
+      method: 'post',
+      url: `${baseURL}/re-booking`,
+      data: {
+        customerId: customerData.customer.id,
+        packageName: 'Basic Service',
+        amount: 12300,
+        service: 'PRE_PURCHASE_INSPECTION',
+        property: {
+          propertyAddress: {
+            lat: 17.391249,
+            long: 78.44934,
+            zipcode: '2980',
+            name: 'Ghar ka Naame',
+            landmark: 'Owaisi hospital',
+            street: 'Talab Katta',
+            suburb: 'Musheerabad',
+            city: 'Hyderabad',
+            state: 'Telangana',
+          },
+          dealType: 'LEASE',
+          isFrequentTraveller: true,
+          isResidential: true,
+          isNew: false,
+          occupierType: 'BACHELOR', 
+          propertyType: 'APARTMENT',
+          purchaseReason: 'INVESTMENT',
+          totalArea: '1420sqft',
+          numberOfRooms: 4,
+        },
+        propSeller: {
+          name: 'Mustafa',
+          lastname: 'Gunda',
+          email: 'sy3dmu5tafa@gmail.com',
+          phoneNumber: '+917995590234',
+        },
+      },
+    };
 
-    // mutate(requestConfig);
+    mutate(requestConfig);
   };
 
   const fields = [
@@ -124,7 +157,6 @@ const RealEstateSelectDateTime = () => {
             />
           </div>
           <DynamicFieldsGenerate fields={fields} errors={errors} />
-
         </div>
       </BackAndButton>
     </FormProvider>

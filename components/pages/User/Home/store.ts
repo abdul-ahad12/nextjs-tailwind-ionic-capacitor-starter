@@ -7,3 +7,11 @@ export const AllBookingStore = new Store({
     message: '',
   },
 });
+
+export const REResponseBookingStore = new Store({
+  data: {
+    data: [],
+    success: false,
+    message: '',
+  },
+});
