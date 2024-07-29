@@ -20,6 +20,7 @@ const LookingForMechanic = () => {
     : null;
   const bookingDetails = BookingStore.getRawState();
   const bookingResponse = BookingResponseStore.getRawState();
+  const ppsr=BookingResponseStore.getRawState().ppsrLink
 
   console.log(bookingDetails);
 
@@ -152,6 +153,13 @@ const LookingForMechanic = () => {
           }}
         >
           <div>
+          {ppsr && (
+            <div className="mt-4">
+              <a href={ppsr} target="_blank" rel="noopener noreferrer">
+                Download PPSR Report
+              </a>
+            </div>
+          )}
             {/* Map through notificationData to render SingleNotifications */}
             {notificationData.map((notification, index) => (
               <div key={index} className="border-t py-1">

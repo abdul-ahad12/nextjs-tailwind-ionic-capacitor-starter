@@ -6,7 +6,8 @@ const LocationStore = new Store({
 
 const BookingResponseStore = new Store({
   id: '',
-  mechanics: {}
+  mechanics: {},
+  ppsrLink:""
 })
 
 const BookedMechs = new Store({
